@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- créditos no email do formulário -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login/Register UI</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="script.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="tabs">
+      <button id="loginTab" class="active">Login</button>
+      <button id="registerTab">Register</button>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm" class="form active">
+      <input type="email" placeholder="Email" required value="annaschawdhary157@gmail.com"/>
+      <input type="password" placeholder="Password" required />
+      <button type="submit" class="btn"><i class="fa fa-sign-in-alt"></i> Login</button>
+      <p class="or">Or continue with</p>
+      <div class="socials">
+        <button class="social">G</button>
+        <button class="social">f</button>
+        <button class="social">t</button>
+      </div>
+    </form>
+
+    <!-- Register Form -->
+    <form id="registerForm" class="form">
+      <input type="text" placeholder="Full Name" required />
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+      <input type="password" placeholder="Confirm Password" required />
+      <button type="submit" class="btn"><i class="fa fa-user-plus"></i> Register</button>
+      <p class="or">Or sign up with</p>
+      <div class="socials">
+        <button class="social">G</button>
+        <button class="social">f</button>
+        <button class="social">t</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
