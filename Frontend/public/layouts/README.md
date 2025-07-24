@@ -1,6 +1,6 @@
 # Exemplos de Layout
 
-> [!NOTA]
+> [!NOTE]
 > Esse diretório contém diversos exemplos de layout.
 
 Layouts disponiveis:
