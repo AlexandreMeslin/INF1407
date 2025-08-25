@@ -1,0 +1,2 @@
+django
+channels    # para implementar push http

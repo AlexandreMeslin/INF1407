@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Notificações SSE</title>
+</head>
+<body>
+    <h1>Push HTTP (SSE) com Django Channels</h1>
+    <div id="mensagens"></div>
+
+    <script>
+        const eventSource = new EventSource("/notificacoes/");
+        eventSource.onmessage = function(event) {
+            const div = document.getElementById("mensagens");
+            div.innerHTML += "<p>" + event.data + "</p>";
+        };
+        eventSource.onerror = function() {
+            console.log("Erro na conexão SSE");
+        };
+    </script>
+</body>
+</html>
