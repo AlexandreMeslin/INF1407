@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title></title>
+
+<script type="text/javascript">
+vx = 2;
+vy = 1;
+atraso = 20;
+
+function acende(objeto) {
+	objeto.firstChild.style.backgroundColor = '#FFFFFF';
+}
+
+function apaga(objeto) {
+	objeto.firstChild.style.backgroundColor = '#000000';
+}
+
+function joga() {
+	var objeto;
+	var retanguloBola, retanguloCorpo;
+
+    objeto = document.getElementById('idBola');
+	retanguloBola = objeto.getBoundingClientRect();
+	retanguloCorpo = document.getElementById('idCorpo').getBoundingClientRect();
+
+ 	// verifica se bateu na raquete, se bateu, ganha ponto
+    if (retanguloBola.left < retanguloCorpo.left + 10) {
+		raquetes = document.getElementsByName('raquete');
+		for (i = 0; i < raquetes.length; i++) {
+			if (raquetes[i].style.backgroundColor.indexOf('255') > -1) {
+				retanguloRaquete = raquetes[i].getBoundingClientRect();
+				if (retanguloBola.top >= retanguloRaquete.top && retanguloBola.bottom <= retanguloRaquete.bottom) {
+		            document.getElementById('idPontoPro').innerHTML = parseInt(document.getElementById('idPontoPro').innerHTML)+1;
+					vx = Math.abs(vx);
+					if(atraso > 1)
+						atraso--;
+					else
+					{
+						vx *=1.01;
+						vy *=1.01;
+					}
+				}
+			}
+		}
+	}
+
+    // verifica se bateu na parece das costas, se bateu, perde ponto
+	if (retanguloBola.left < retanguloCorpo.left) {
+		vx = Math.abs(vx);
+        document.getElementById('idPontoContra').innerHTML = parseInt(document.getElementById('idPontoContra').innerHTML)+1;
+    }
+
+    // verifica se bateu na parede oposta ou na lateral de baixo ou de cima, se bateu, apenas volta
+    if (retanguloBola.right  > retanguloCorpo.right)  vx = -Math.abs(vx);
+    if (retanguloBola.bottom > retanguloCorpo.bottom) vy = -Math.abs(vy)
+    if (retanguloBola.top    < retanguloCorpo.top )   vy =  Math.abs(vy);
+
+    // atualiza a posição
+    objeto.style.left = (parseInt(retanguloBola.left) + vx) + 'px';
+    objeto.style.top = (parseInt(retanguloBola.top) + vy) + 'px';
+
+    setTimeout(joga, atraso);
+
+}
+</script>
+
+<style type="text/css">
+#idBola {
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	left: 100px;
+	top: 100px;
+	background-color: #FFFFFF;
+}
+</style>
+</head>
+
+<body style='background-color: #FFFFFF' onload='joga()'>
+<div id='idCorpo' style='height: 600px; background-color: #000000;'>
+	<div onmouseover='acende(this)' onmouseout='apaga(this)' style='height: 60px;'><div style='width: 10px; height: 100%;' name='raquete'></div></div>
+	<div onmouseover='acende(this)' onmouseout='apaga(this)' style='height: 60px;'><div style='width: 10px; height: 100%;' name='raquete'></div></div>
+	<div onmouseover='acende(this)' onmouseout='apaga(this)' style='height: 60px;'><div style='width: 10px; height: 100%;' name='raquete'></div></div>
+	<div onmouseover='acende(this)' onmouseout='apaga(this)' style='height: 60px;'><div style='width: 10px; height: 100%;' name='raquete'></div></div>
+	<div onmouseover='acende(this)' onmouseout='apaga(this)' style='height: 60px;'><div style='width: 10px; height: 100%;' name='raquete'></div></div>
+	<div onmouseover='acende(this)' onmouseout='apaga(this)' style='height: 60px;'><div style='width: 10px; height: 100%;' name='raquete'></div></div>
+	<div onmouseover='acende(this)' onmouseout='apaga(this)' style='height: 60px;'><div style='width: 10px; height: 100%;' name='raquete'></div></div>
+	<div onmouseover='acende(this)' onmouseout='apaga(this)' style='height: 60px;'><div style='width: 10px; height: 100%;' name='raquete'></div></div>
+	<div onmouseover='acende(this)' onmouseout='apaga(this)' style='height: 60px;'><div style='width: 10px; height: 100%;' name='raquete'></div></div>
+	<div onmouseover='acende(this)' onmouseout='apaga(this)' style='height: 60px;'><div style='width: 10px; height: 100%;' name='raquete'></div></div>
+</div>
+
+<div id='idBola'></div>
+<p>
+	Pontos ganhos:
+	<span id='idPontoPro'>0</span><br/>
+	Pontos perdidos:
+	<span id='idPontoContra'>0</span>
+</p>
+</body>
+</html>

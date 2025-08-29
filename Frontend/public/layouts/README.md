@@ -4,4 +4,5 @@
 > Esse diretório contém diversos exemplos de layout.
 
 Layouts disponiveis:
-- layout de formulário com 2 abas: [form1](./form1)
+- Layout de formulário com 2 abas: [form1](./form1/)
+- Ping-pong vintage (não sei de onde veio): [Ping-Pong](./PingPong/)
