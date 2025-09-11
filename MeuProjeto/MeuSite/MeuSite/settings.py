@@ -25,7 +25,14 @@ SECRET_KEY = 'django-insecure-9my(0to)i%t=+r%zw-!yq7$2q%5=%)#2$pb3xb*e_kdxnxf)*1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Para onde podem ir as requisições
+ALLOWED_HOSTS = ['*']
+
+# Lista de domínios confiáveis
+CSRF_TRUSTED_ORIGINS = [
+    'https://localhost:8000', 
+    'http://localhost:8000',
+]
 
 
 # Application definition
@@ -39,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'MeuSite',
     'assincrono',
+    'contatos',
 ]
 
 MIDDLEWARE = [

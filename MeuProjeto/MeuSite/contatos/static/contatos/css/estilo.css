@@ -1,0 +1,14 @@
+.helptext {
+    font-size: 0.8em;
+    color: #666;
+}
+
+.errorlist {
+    color: red;
+    list-style-type: none;
+}
+
+.formulario th {
+    text-align: right;
+    vertical-align: top;
+}

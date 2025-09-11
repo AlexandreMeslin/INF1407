@@ -25,4 +25,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('async/', include('assincrono.urls')),
     path('', views.home),
+    path('contatos/', include('contatos.urls')),
 ]
