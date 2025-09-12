@@ -11,17 +11,16 @@
 <body>
     {% include 'contatos/links.html' %}
 
-    <h1>Cadastro de Contato</h1>
-    
+    <h1>Confirmação de Exclusão</h1>
+
+    <p>Tem certeza que deseja excluir o contato "{{ pessoa.nome }}"?</p>
+
     <form action="" method="post">
         {% csrf_token %}
         <table class="formulario">
             {{ form.as_table }}
         </table>
-        {% if mensagem %}
-            <p>{{ mensagem }}</p>
-        {% endif %}
-        <button type="submit" class="btn btn-primary">Salvar</button>
+        <button type="submit" class="btn btn-danger">Excluir</button>
     </form>
 </body>
 </html>

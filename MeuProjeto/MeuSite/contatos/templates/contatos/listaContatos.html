@@ -25,7 +25,15 @@
         <tbody>
             {% for pessoa in pessoas %}
             <tr>
-                <td scope="col">{{ pessoa.nome }}</td>
+                <td scope="col">
+                    {{ pessoa.nome }}<br>
+                    {% for endereco in pessoa.enderecos.all %}
+                        {{ endereco.logradouro }},
+                        {{ endereco.numero }}/{{ endereco.complemento }}
+                        - {{ endereco.bairro}}
+                        - {{ endereco.cidade}} - {{ endereco.estado}} - {{ endereco.cep }}<br>
+                    {% endfor %}
+                </td>
                 <td>{{ pessoa.idade }}</td>
                 <td>{{ pessoa.salario }}</td>
                 <td>{{ pessoa.email }}</td>

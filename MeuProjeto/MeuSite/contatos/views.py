@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from contatos.models import Pessoa
+from contatos.models import Endereco
 from django.views.generic import View
 from contatos.forms import ContatoModel2Form
 from django.shortcuts import redirect
@@ -19,7 +20,11 @@ class ContatoListView(View):
         Retorna a lista de contatos
         '''
         pessoas = self.model.objects.all().order_by('nome')
-        return render(request, self.template_name, {self.context_object_name: pessoas})
+        for pessoa in pessoas:
+            print(f'Endereco {pessoa.enderecos.all()}')
+        enderecos = Endereco.objects.all()
+        context = {'pessoas': pessoas, 'enderecos': enderecos}
+        return render(request, self.template_name, context)
 
 class ContatoCreateView(View):
     '''
