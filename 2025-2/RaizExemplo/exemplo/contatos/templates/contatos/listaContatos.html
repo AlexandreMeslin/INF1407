@@ -30,7 +30,10 @@
                     <a 
                         href="{% url 'contatos:atualiza-contato' pk=pessoa.id %}" 
                         class="btn btn-success">Editar</a>
-                    / Excluir</td>
+                    <a 
+                        href="{% url 'contatos:apaga-contato' pk=pessoa.id %}"
+                        class="btn btn-danger">Excluir</a>
+                </td>
             </tr>
             {% empty %}
             <tr>

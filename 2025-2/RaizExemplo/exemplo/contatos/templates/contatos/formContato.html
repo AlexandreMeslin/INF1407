@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Contato</title>
+    <title>{{ titulo_janela }}</title>
     {% include 'contatos/header.html' %}
     <link rel="stylesheet" href="{% static 'contatos/css/estilo.css' %}">
 </head>
 <body>
     {% include 'contatos/links.html' %}
 
-    <h1>Atualiza Contato</h1>
+    <h1>{{ titulo_pagina }}</h1>
 
     <form action="" method="post">
         {% csrf_token %}
@@ -21,7 +21,7 @@
         {% if mensagem %}
             <p>{{ mensagem }}</p>
         {% endif %}
-        <button type="submit" class="btn btn-primary">Salvar</button>
+        <button type="submit" class="btn btn-primary">{{ botao }}</button>
     </form>
 </body>
 </html>

@@ -22,7 +22,13 @@ class Endereco(models.Model):
     Modelo que representa um endereço associado a uma pessoa
     '''
     id = models.AutoField(primary_key=True)
-    pessoa = models.ForeignKey(Pessoa, on_delete=models.CASCADE, related_name='enderecos')
+
+    pessoa = models.ForeignKey(
+        Pessoa, 
+        on_delete=models.CASCADE, 
+        related_name='enderecos'
+    )
+    
     logradouro = models.CharField(max_length=200, help_text="Logradouro")
     numero = models.CharField(max_length=10, help_text="Número")
     complemento = models.CharField(max_length=50, blank=True, help_text="Complemento")

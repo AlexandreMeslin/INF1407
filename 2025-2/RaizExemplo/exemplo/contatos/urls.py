@@ -9,4 +9,7 @@ urlpatterns = [
     path('atualiza/<int:pk>/', 
          views.ContatoUpdateView.as_view(), 
          name='atualiza-contato'),
+    path('apaga/<int:pk>/', 
+         views.ContatoDeleteView.as_view(), 
+         name='apaga-contato'),
 ]

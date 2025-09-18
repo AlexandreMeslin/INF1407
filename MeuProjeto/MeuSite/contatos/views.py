@@ -9,7 +9,11 @@ from django.shortcuts import redirect
 
 class ContatoListView(View):
     '''
-    Exibe a lista de contatos cadastrados
+    Classe ContatoListView
+    <p>
+    Exibe a lista de contatos cadastrados.<br>
+    Um contato por linha.
+    </p>
     '''
     model = Pessoa
     template_name = 'contatos/listaContatos.html'
