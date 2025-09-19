@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de site 2025/2</title>
+</head>
+<body>
+    <h1>Home Page do meu site</h1>
+    <p>Bem-vindo ao meu site de exemplo!</p>
+    <p>Este é um exemplo simples de uma página inicial.</p>
+    <h2>Links para nossas aplicações</h2>
+    <ul>
+        <li><a href="{% url 'admin:index' %}">Admin</a></li>
+        <li><a href="{% url 'contatos:lista-contatos' %}">Contatos</a></li>
+        <li><a href="{% url 'sec-home' %}">Segurança</a></li>
+    </ul>  
+</body>
+</html>

@@ -1,0 +1,14 @@
+{% extends 'seguranca/base.html' %}
+
+{% block titulo %}Registro de Usuário{% endblock %}
+
+{% block conteudo %}
+    <h2>Registro de Novo Usuário</h2>
+    <form method="post">
+        {% csrf_token %}
+        <table class="formulario">
+            {{ form.as_table }}
+        </table>
+        <button type="submit">Registrar</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,15 @@
+.errorlist {
+    color: red;
+    list-style-type: none;
+    padding: 0;
+}
+
+.helptext {
+    font-size: 10px;
+}
+
+.formulario th {
+    text-align: right;
+    padding-right: 10px;
+    vertical-align: top;
+}
