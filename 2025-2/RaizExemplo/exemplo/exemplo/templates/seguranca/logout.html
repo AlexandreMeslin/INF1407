@@ -1,0 +1,13 @@
+{% extends "seguranca/base.html" %}
+
+{% block titulo %}Logout{% endblock %}
+
+{% block conteudo %}
+<h2>Você tem certeza que deseja sair?</h2>
+
+<form method="post" action="{% url 'sec-logout' %}">
+    {% csrf_token %}
+    <button type="submit">Sim, sair</button>
+</form>
+<a href="{% url 'sec-home' %}">Cancelar</a>
+{% endblock %}

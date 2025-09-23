@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     '''
@@ -28,3 +29,18 @@ def registro(request):
         formulario = UserCreationForm()
     contexto = {'form': formulario, }
     return render(request, 'seguranca/registro.html', contexto)
+
+@login_required
+def paginaSecreta(request):
+    '''
+    Renderiza uma página secreta que requer autenticação.
+    O decorador @login_required garante que apenas usuários autenticados 
+    possam acessar esta página.
+    '''
+    return render(request, 'privado/paginaSecreta.html')
+
+def logout(request):
+    '''
+    Apresenta uma página para o usuário confirmar se realmente deseja sair.
+    '''
+    return render(request, 'seguranca/logout.html')

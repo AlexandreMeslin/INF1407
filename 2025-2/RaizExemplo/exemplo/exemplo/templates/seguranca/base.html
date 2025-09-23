@@ -14,10 +14,12 @@
         <a href="/">Home</a>
         | <a href="{% url 'sec-home' %}">Segurança</a>
         {% if user.is_authenticated %}
-            | Logout
+            | <a href="{% url 'sec-meulogout' %}">Logout</a>
+            | <a href="{% url 'sec-paginaSecreta' %}">Página Secreta</a>
+            | <a href="{% url 'sec-password-change' %}">Trocar Senha</a>
         {% else %}
             | <a href="{% url 'sec-registro' %}">Registro</a>
-            | Login
+            | <a href="{% url 'sec-login' %}?next={% url 'sec-paginaSecreta' %}">Login</a>
         {% endif %}
         | Você é {% firstof user.username "visitante" %}.
     </div>
