@@ -110,6 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 TIME_ZONE = 'America/Sao_Paulo' 
 LANGUAGE_CODE = 'pt-BR'
+DATE_INPUT_FORMATS = ['%d/%m/%Y']  # Formatos aceitos para entrada de datas
 
 USE_I18N = True
 

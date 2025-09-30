@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Forms</title>
+    <link rel="stylesheet" href="{% static 'exemplo/css/estilo.css' %}">
+</head>
+<body>
+    <h1>Formulário de Exemplo</h1>
+    <form method="post">
+        {% csrf_token %}
+        <!-- border="1" apenas para visualização (é muito feio!!!) -->
+        <table class="formulario" border="1">
+            {{ form.as_table }}
+        </table>
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>

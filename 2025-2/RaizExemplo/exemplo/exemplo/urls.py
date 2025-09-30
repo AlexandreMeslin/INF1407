@@ -35,6 +35,7 @@ urlpatterns = [
     path("admin/", admin.site.urls, name='admin'),
     path("contatos/", include('contatos.urls')),
     path("", views.home, name='home'),
+    path("formulario/", views.exemplo_form, name='formulario'),
     # links para segurança
     path("seguranca/", views.homeSec, name='sec-home'),
     path("seguranca/registro/", views.registro, name='sec-registro'),

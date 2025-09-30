@@ -2,12 +2,25 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from exemplo.forms import ExemploForm
 
 def home(request):
     '''
     Renderiza a página inicial.
     '''
     return render(request, 'exemplo/home.html')
+
+def exemplo_form(request):
+    '''
+    Renderiza um formulário de exemplo.
+    '''
+    if request.method == 'POST':
+        # Aqui você pode adicionar a lógica para processar o formulário
+        pass
+    else:
+        formulario = ExemploForm()
+    contexto = {'form': formulario, }
+    return render(request, 'exemplo/exemplo_form.html', contexto)
 
 def homeSec(request):
     '''
