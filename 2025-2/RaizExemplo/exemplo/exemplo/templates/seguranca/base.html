@@ -17,6 +17,7 @@
             | <a href="{% url 'sec-meulogout' %}">Logout</a>
             | <a href="{% url 'sec-paginaSecreta' %}">Página Secreta</a>
             | <a href="{% url 'sec-password-change' %}">Trocar Senha</a>
+            | <a href="{% url 'sec-editar-perfil' pk=user.id %}">Editar Perfil</a>
         {% else %}
             | <a href="{% url 'sec-registro' %}">Registro</a>
             | <a href="{% url 'sec-login' %}?next={% url 'sec-paginaSecreta' %}">Login</a>

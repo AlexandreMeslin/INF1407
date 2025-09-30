@@ -23,6 +23,12 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.views import PasswordChangeDoneView
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.auth.views import PasswordResetDoneView
+from django.contrib.auth.views import PasswordResetConfirmView
+from django.contrib.auth.views import PasswordResetCompleteView
+from django.contrib.auth.models import User
+from django.views.generic.edit import UpdateView
 from django.urls.base import reverse_lazy
 
 urlpatterns = [
@@ -59,5 +65,43 @@ urlpatterns = [
              template_name='seguranca/password_change_done.html'
          ), 
          name='sec-password-change-done'
+    ),
+    path('seguranca/editarPerfil/<int:pk>', 
+        UpdateView.as_view(
+            template_name='seguranca/user_form.html',
+            model=User,
+            fields=['first_name', 'last_name', 'email'],
+            success_url=reverse_lazy('sec-home')
+        ), 
+        name='sec-editar-perfil',
+    ),
+    # links para resetar senha
+    path('seguranca/password_reset/', 
+        PasswordResetView.as_view(
+            template_name='seguranca/password_reset_form.html',
+            email_template_name='seguranca/password_reset_email.html',
+            subject_template_name='seguranca/password_reset_subject.html',
+            success_url=reverse_lazy('sec-password-reset-done'),
+        ),
+        name='sec-password-reset'
+    ),
+    path('seguranca/password_reset_done/',
+         PasswordResetDoneView.as_view(
+            template_name='seguranca/password_reset_done.html'
+         ),
+            name='sec-password-reset-done'
+    ),
+    path('seguranca/reset/<uidb64>/<token>/',
+         PasswordResetConfirmView.as_view(
+            template_name='seguranca/password_reset_confirm.html',
+            success_url=reverse_lazy('sec-password-reset-complete'),
+         ),
+         name='sec-password-reset-confirm'
+    ),
+    path('seguranca/password_reset_complete/',
+         PasswordResetCompleteView.as_view(
+            template_name='seguranca/password_reset_complete.html'
+         ),
+         name='sec-password-reset-complete'
     ),
 ]
