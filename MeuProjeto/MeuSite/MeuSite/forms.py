@@ -325,6 +325,7 @@ class ExemploForm(forms.Form):
         disabled=False,
         max_length=100,
         widget=forms.ClearableFileInput(attrs={
+            'class': 'classeArquivo',
             'multiple': False,
         }),
     )
@@ -395,6 +396,7 @@ class ExemploForm(forms.Form):
         disabled=False,
         max_length=100,
         widget=forms.ClearableFileInput(attrs={
+            'class': 'classeImagem',
             'multiple': False,
         }),
     )
