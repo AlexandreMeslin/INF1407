@@ -40,6 +40,7 @@ class ExemploForm(forms.Form):
         max_length=100,
         widget=forms.TextInput(attrs={
             'class': 'classeTexto',
+            'placeholder': 'Digite algo aqui',
         }),
     )
 
@@ -56,6 +57,7 @@ class ExemploForm(forms.Form):
         max_length=100,
         widget=forms.TextInput(attrs={
             'class': 'classeBusca',
+            'placeholder': 'Digite algo aqui',
             'type': 'search',
         }),
     )
@@ -73,8 +75,9 @@ class ExemploForm(forms.Form):
         max_length=100,
         widget=forms.TextInput(attrs={
             'class': 'classeTelefone',
+            'placeholder': '(XXX) XXXX-XXXX ou (XXX) XXXXX-XXXX',
             'type': 'tel',
-            'pattern': "[0-9]{3}-[0-9]{3}-[0-9]{4}",
+            'pattern': "\([0-9]{3}\) [0-9]{4,5}-[0-9]{4}",
         }),
     )
 
@@ -91,6 +94,7 @@ class ExemploForm(forms.Form):
         max_length=100,
         widget=forms.PasswordInput(attrs={
             'class': 'classeSenha',
+            'placehorder': 'Senha'
         })
     )
 
@@ -109,7 +113,8 @@ class ExemploForm(forms.Form):
         max_length=100,
         widget=forms.Textarea(attrs={
             'class': 'classeArea',
-            'cols': 40, 'rows': 10,
+            'cols': 40, 
+            'rows': 10,
         }),
     )
 
@@ -125,7 +130,8 @@ class ExemploForm(forms.Form):
         },
         widget=forms.TextInput(attrs={
             'class': 'classeCor', 
-        'type': 'color'}),
+            'type': 'color',
+        }),
   	)
 
     campoRadio = forms.ChoiceField( 
@@ -139,8 +145,10 @@ class ExemploForm(forms.Form):
             'invalid': "Campo rádio inválido",
         },
         choices=[
-            ('opcao1','opcao 1'),('opcao2','opcao 2'),
-            ('opcao3','opcao 3'),('opcao4','opcao 4'),
+            ('opcao1','opcao 1'),
+            ('opcao2','opcao 2'),
+            ('opcao3','opcao 3'),
+            ('opcao4','opcao 4'),
         ],
         widget=forms.RadioSelect(attrs={
             'class': 'classeRadio',
@@ -158,8 +166,10 @@ class ExemploForm(forms.Form):
             'invalid': "Campo select inválido",
         },
         choices=[
-            ('opcao1','opcao 1'),('opcao2','opcao 2'),
-            ('opcao3','opcao 3'),('opcao4','opcao 4'),
+            ('opcao1','opcao 1'),
+            ('opcao2','opcao 2'),
+            ('opcao3','opcao 3'),
+            ('opcao4','opcao 4'),
         ],
         widget=forms.Select(attrs={
             'class': 'classeSelect'
@@ -177,8 +187,10 @@ class ExemploForm(forms.Form):
             'invalid': "Campo inválido",
         },
         choices=[
-            ('opcao1','opcao 1'),('opcao2','opcao 2'),
-            ('opcao3','opcao 3'),('opcao4','opcao 4'),
+            ('opcao1','opcao 1'),
+            ('opcao2','opcao 2'),
+            ('opcao3','opcao 3'),
+            ('opcao4','opcao 4'),
         ],
         widget=forms.Select(attrs={
             'class': 'classeSelect',

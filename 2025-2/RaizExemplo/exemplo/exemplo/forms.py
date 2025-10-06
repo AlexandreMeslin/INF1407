@@ -2,7 +2,7 @@ from django import forms
 
 class ExemploForm(forms.Form):
     campoBooleanField = forms.BooleanField(
-        required=True,
+        required=False,
         label_suffix='*:',
         label='Campo BooleanField', 
         help_text='Marque esta caixa se você concorda.',
@@ -15,7 +15,7 @@ class ExemploForm(forms.Form):
     )
 
     campoCharField = forms.CharField(
-        required=True,
+        required=False,
         label_suffix='*:',
         label='Campo CharField', 
         max_length=100,
@@ -24,7 +24,7 @@ class ExemploForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 'class': 'classe-charfield', 
-                'placeholder': 'Digite algo aqui'
+                'placeholder': 'Digite algo aqui',
             }
         )
     )
