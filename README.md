@@ -10,6 +10,7 @@ Disciplina de Programação para a Web na PUC-Rio
 ![Python](https://img.shields.io/badge/language-Python-yellow.svg)
 ![HTML](https://img.shields.io/badge/language-HTML-brown.svg)
 ![JavaScript](https://img.shields.io/badge/language-JavaScript-green.svg)
+![TypeScript](https://img.shields.io/badge/language-TypeScript-darkgreen.svg)
 ![CSS](https://img.shields.io/badge/language-css-blue.svg)
 ![Top Language](https://img.shields.io/github/languages/top/AlexandreMeslin/INF1407)
 ![Languages Count](https://img.shields.io/github/languages/count/AlexandreMeslin/INF1407)
