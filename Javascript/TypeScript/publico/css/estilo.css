@@ -1,0 +1,10 @@
+.buraco {
+	padding: 25px 50px 25px 50px; 
+}
+
+.mesa {
+	width: 536px;
+	background-color: #2E8B57;
+	text-align: center;
+	cursor: url(../imagens/hammer.png), default;
+}
