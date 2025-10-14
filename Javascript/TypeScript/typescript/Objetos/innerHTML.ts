@@ -3,7 +3,7 @@
     (document.getElementById('idAppendChild') as HTMLButtonElement).addEventListener('click', acrescentaFilho); 
 }
 
-var qtd = 256;
+var qtd = 2560;
 
 function htmlDeDentro() {
     var inicio = new Date().getTime();

@@ -3,7 +3,7 @@ onload = () => {
     document.getElementById('idInnerHTML').addEventListener('click', htmlDeDentro);
     document.getElementById('idAppendChild').addEventListener('click', acrescentaFilho);
 };
-var qtd = 256;
+var qtd = 2560;
 function htmlDeDentro() {
     var inicio = new Date().getTime();
     var idDiv;
