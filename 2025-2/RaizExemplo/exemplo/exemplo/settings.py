@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'exemplo',
     'exemplos', # apenas um exemplo de backend
     'rest_framework',
-#    'corsheaders',
+    'corsheaders',
+    'carros',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-#    "corsheaders.middleware.CorsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "exemplo.urls"
@@ -86,8 +87,19 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-    }
+    },
+    "DBMTCars": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "mtcars.sqlite3",
+    },
 }
+
+DATABASE_ROUTERS = [
+    # carros: nome da aplicação (diretório)
+    # db_routers: nome do módulo (arquivo .py)
+    # MTCarsRouter: nome da classe de roteamento
+    'carros.db_routers.DBRouter',
+]
 
 
 # Password validation
@@ -142,3 +154,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'webmaster@localhost'
 #EMAIL_SUBJECT_PREFIX = '[Exemplo] '
 #SERVER_EMAIL = 'server@example.com'
+
+# Configurações do CORS
+# Para permitir CORS
+CORS_ORIGIN_WHITELIST = [
+    'http://0.0.0.0:8080',
+    'http://127.0.0.1:8080',
+    'http://localhost:8080',
+    # Adicione outras origens permitidas, se necessário
+]
