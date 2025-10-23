@@ -12,3 +12,91 @@
     text-align: right;
     vertical-align: top;
 }
+
+/* Estilo geral */
+body {
+    font-family: "Segoe UI", Roboto, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    margin: 0;
+    padding: 40px;
+}
+
+/* Container principal */
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+}
+
+/* Formulário */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Cada campo */
+form > div {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Rótulos */
+label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #34495e;
+}
+
+/* Texto de ajuda */
+.helptext {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    margin-bottom: 6px;
+}
+
+/* Campos de entrada */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="date"] {
+    padding: 10px 12px;
+    border: 1.8px solid #d0d7de;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: all 0.2s ease-in-out;
+    outline: none;
+}
+
+/* Foco nos campos */
+input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* Campos inválidos */
+input:invalid {
+    border-color: #e74c3c;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+}

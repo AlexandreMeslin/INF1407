@@ -1,0 +1,45 @@
+MeuProjeto
+├── Desktop
+│   └── testa_models.py
+├── MeuSite
+│   ├── MeuSite
+│   │   ├── forms.py
+│   │   ├── settings.py
+│   │   ├── static
+│   │   │   └── MeuSite
+│   │   │       └── css
+│   │   │           └── estilo.css
+│   │   ├── templates
+│   │   │   └── MeuSite
+│   │   │       ├── forms.html
+│   │   │       └── home.html
+│   │   ├── urls.py
+│   │   ├── views.py
+│   ├── assincrono
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── models.py
+│   │   ├── templates
+│   │   │   └── assincrono
+│   │   │       └── index.html
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── contatos
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── forms.py
+│   │   ├── models.py
+│   │   ├── static
+│   │   │   └── contatos
+│   │   │       └── css
+│   │   │           └── estilo.css
+│   │   ├── templates
+│   │   │   └── contatos
+│   │   │       ├── criaContato.html
+│   │   │       ├── links.html
+│   │   │       └── listaContatos.html
+│   │   ├── urls.py
+│   │   └── views.py
+│   └── manage.py
+├── requirements.txt
+└── venv

@@ -1,5 +1,14 @@
+#!/usr/bin/env python
+
 import os
 import django
+import sys
+
+# Adiciona o diretório 'MeuSite' (pai do settings.py) ao sys.path
+# MeuProjeto/MeuSite é o diretório que contém o módulo MeuSite
+project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # MeuProjeto
+meusite_dir = os.path.join(project_dir, 'MeuSite')
+sys.path.append(meusite_dir)
 
 # Configurações do Django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "MeuSite.settings")

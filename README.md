@@ -6,6 +6,7 @@ Disciplina de Programação para a Web na PUC-Rio
 ![Open Issues](https://img.shields.io/github/issues/AlexandreMeslin/INF1304)
 ![Open PRs](https://img.shields.io/github/issues-pr/AlexandreMeslin/INF1304)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
+![GitHub Created At](https://img.shields.io/github/created-at/AlexandreMeslin/INF1407)
 
 ![Python](https://img.shields.io/badge/language-Python-yellow.svg)
 ![HTML](https://img.shields.io/badge/language-HTML-brown.svg)
@@ -21,6 +22,9 @@ Disciplina de Programação para a Web na PUC-Rio
 
 ![GitHub stars](https://img.shields.io/github/stars/AlexandreMeslin/INF1407?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/AlexandreMeslin/INF1407?style=social)
+![GitHub followers](https://img.shields.io/github/followers/AlexandreMeslin)
+![GitHub User's stars](https://img.shields.io/github/stars/AlexandreMeslin)
+![GitHub watchers](https://img.shields.io/github/watchers/AlexandreMeslin/INF1407)
 
 ## Comandos importantes
 
@@ -29,10 +33,35 @@ $ python -m venv venv
 $ source venv/bin/activate
 $ pip install -r requirements.txt
 $ django-admin startproject MeuSite
+$ python manage.py createsuperuser
 $ python manage.py startapp contatos
 $ python manage.py runserver
 $ python manage.py makemigrations
 $ python manage.py migrate
+```
+
+## Outros comandos
+```bash
+$ python manage.py dumpdata        
+$ python manage.py optimizemigration  
+$ python manage.py sqlsequencereset
+$ python manage.py flush           
+$ python manage.py squashmigrations
+$ python manage.py check             
+$ python manage.py inspectdb       
+$ python manage.py sendtestemail      
+$ python manage.py compilemessages   
+$ python manage.py loaddata        
+$ python manage.py shell              
+$ python manage.py createcachetable  
+$ python manage.py makemessages    
+$ python manage.py showmigrations     
+$ python manage.py test
+$ python manage.py dbshell           
+$ python manage.py sqlflush           
+$ python manage.py testserver
+$ python manage.py diffsettings      
+$ python manage.py sqlmigrate
 ```
 
 ## Templates básicos
