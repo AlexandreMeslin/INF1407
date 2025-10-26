@@ -114,3 +114,26 @@ Obs.: Substitua `<app>`, `<nome>` e `<arquivo>` pelos valores desejados.
 </body>
 </html>
 ``` 
+
+## Configurações interessantes
+
+### Para habilitar o auto-complete para o `Django CLI^
+
+1. Baixar o script diretamente do repositório oficial do Django:
+    ```bash
+    wget https://raw.githubusercontent.com/django/django/main/extras/django_bash_completion -O ~/.django_bash_completion
+    ```
+
+1. Tornar o script executável:
+    ```bash
+    chmod +x ~/.django_bash_completion
+    ```
+
+1. Incluir o texto no final do arquivo `~/.bashrc`
+    ```bash
+    # Django bash completion
+    if [ -f ~/.django_bash_completion ]; then
+        . ~/.django_bash_completion
+    fi
+    ```
+    > Precisa abrir novamente o terminal para funcionar

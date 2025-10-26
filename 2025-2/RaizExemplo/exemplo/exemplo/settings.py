@@ -157,7 +157,10 @@ DEFAULT_FROM_EMAIL = 'webmaster@localhost'
 
 # Configurações do CORS
 # Para permitir CORS
-CORS_ORIGIN_WHITELIST = [
+'''
+CORS_ALLOWED_ORIGINS = [
     # Adicione outras origens permitidas, se necessário
     'https://potential-waffle-qvgvg5vwjqg24rg-8080.app.github.dev',
 ]
+'''
+CORS_ALLOW_ALL_ORIGINS = True
