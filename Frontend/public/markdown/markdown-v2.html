@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Entrada Markdown</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin: 40px;
+        }
+        textarea {
+            width: 90%;
+            height: 150px;
+            font-family: monospace;
+            padding: 10px;
+        }
+        #preview {
+            width: 90%;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 6px;
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <h1>Editor Markdown</h1>
+
+    <textarea id="markdown-input" placeholder="Digite Markdown aqui...">
+# Título
+- Item 1
+- Item 2
+**Negrito**
+[Link](https://exemplo.com)
+    </textarea>
+
+    <h3>Prévia:</h3>
+    <div id="preview"></div>
+
+    <script>
+        const input = document.getElementById('markdown-input');
+        const preview = document.getElementById('preview');
+
+        input.addEventListener('input', () => {
+            const markdownText = input.value;
+            preview.innerHTML = marked.parse(markdownText);
+        });
+    </script>
+</body>
+</html>
