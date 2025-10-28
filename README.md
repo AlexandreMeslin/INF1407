@@ -1,4 +1,4 @@
-# INF1407
+# INF1407 - updated
 Disciplina de Programação para a Web na PUC-Rio
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
