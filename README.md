@@ -1,5 +1,5 @@
 # INF1407
-Disciplina de Programação para a Web na PUC-Rio
+Disciplina de Programação para a Web na PUC-Rio.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 ![Contributors](https://img.shields.io/github/contributors/AlexandreMeslin/INF1304)
