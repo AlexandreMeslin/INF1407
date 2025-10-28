@@ -117,7 +117,7 @@ Obs.: Substitua `<app>`, `<nome>` e `<arquivo>` pelos valores desejados.
 
 ## Configurações interessantes
 
-### Para habilitar o auto-complete para o `Django CLI^
+### Para habilitar o auto-complete para o `Django CLI
 
 1. Baixar o script diretamente do repositório oficial do Django:
     ```bash
