@@ -76,6 +76,8 @@ app_name = '<app>'
 
 urlpatterns = [
     path("<path>/", views.<função>, name="<nome>"),
+    path("<path>/", include('<app>.urls')),
+    path('<path>/', views.ClasseView.as_view(), name='<nome>'),
 ] 
 ```
 
