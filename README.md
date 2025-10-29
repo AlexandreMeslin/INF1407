@@ -70,6 +70,7 @@ $ python manage.py sqlmigrate
 Obs.: Substitua `<app>`, `<path>`, `<função>` e `<nome>` pelos valores desejados.
 ```python
 from django.urls import path
+from django.urls.conf import include
 from <app> import views
 
 app_name = '<app>'
