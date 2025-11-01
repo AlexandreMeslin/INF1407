@@ -19,6 +19,7 @@ Disciplina de Programação para a Web na PUC-Rio.
 ![Last Commit](https://img.shields.io/github/last-commit/AlexandreMeslin/INF1407)
 ![Repo Size](https://img.shields.io/github/repo-size/AlexandreMeslin/INF1407)
 ![Code Size](https://img.shields.io/github/languages/code-size/AlexandreMeslin/INF1407)
+![GitHub commits since tagged version](https://img.shields.io/github/commits-since/AlexandreMeslin/INF1407/v2025.2)
 
 ![GitHub stars](https://img.shields.io/github/stars/AlexandreMeslin/INF1407?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/AlexandreMeslin/INF1407?style=social)
