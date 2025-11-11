@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Entrada de Markdown</title>
+    <style>
+        .editor-container {
+            display: flex;
+            gap: 20px;
+            max-width: 900px;
+            margin: 50px auto;
+        }
+        textarea, .preview {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: 400px;
+        }
+        .preview {
+            background-color: #f9f9f9;
+            overflow-y: auto;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="editor-container">
+    <div style="width: 50%;">
+        <h3>Editor Markdown</h3>
+        <textarea id="markdown-input" placeholder="Digite seu texto aqui usando Markdown..."></textarea>
+    </div>
+    
+    <div style="width: 50%;">
+        <h3>Pré-visualização HTML</h3>
+        <div id="markdown-preview" class="preview"></div>
+    </div>
+</div>
+
+<form id="submission-form" style="text-align: center; margin-top: 20px;">
+    <input type="hidden" name="html_content" id="html-output">
+    <button type="submit" class="btn btn-primary">Enviar Conteúdo</button>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+
+<script>
+    // 1. Inicializa o conversor
+    const converter = new showdown.Converter();
+    
+    const markdownInput = document.getElementById('markdown-input');
+    const markdownPreview = document.getElementById('markdown-preview');
+    const htmlOutput = document.getElementById('html-output');
+
+    // 2. Função de atualização
+    function updatePreview() {
+        const markdownText = markdownInput.value;
+        
+        // Converte o Markdown para HTML
+        const html = converter.makeHtml(markdownText);
+        
+        // Atualiza a pré-visualização na tela
+        markdownPreview.innerHTML = html;
+        
+        // Atualiza o campo hidden com o HTML a ser enviado
+        htmlOutput.value = html;
+    }
+
+    // 3. Ouve as mudanças no campo de texto em tempo real
+    markdownInput.addEventListener('input', updatePreview);
+
+    // Inicializa a pré-visualização ao carregar a página (se houver texto inicial)
+    updatePreview(); 
+</script>
+
+</body>
+</html>

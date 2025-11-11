@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renderizador Markdown com Sintaxe Colorida</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        /* Área de entrada */
+        textarea {
+            width: 100%;
+            height: 250px;
+            padding: 12px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+
+        /* Área de saída */
+        #output {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            min-height: 200px;
+            overflow-y: auto;
+        }
+
+        /* Estilo básico para código (antes do Highlight.js) */
+        #output pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        #output code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* Estilo para links e cabeçalhos */
+        #output h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        #output a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+
+        #output a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            textarea {
+                height: 150px;
+            }
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Editor Markdown com Sintaxe Colorida</h1>
+        <textarea id="markdown-input" placeholder="Digite seu Markdown aqui..."></textarea>
+        <div id="output"></div>
+    </div>
+
+    <!-- Inclui Marked.js e Highlight.js via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js" defer></script>
+    <!-- Inclui o tema 'github' para imitar o estilo do GitHub -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css">
+
+    <script>
+        // Configurações do Marked.js para GFM e integração com Highlight.js
+        marked.setOptions({
+            gfm: true, // Ativa GitHub Flavored Markdown
+            breaks: true, // Quebra de linha com enter simples
+            //sanitize: false, // Sanitiza HTML para segurança
+            highlight: function (code, lang) {
+                // Usa Highlight.js para colorir o código
+                console.log("***** Linguagem: " + lang);
+                if (lang) {
+                    return hljs.highlight(code, { language: lang }).value;
+                }
+                return hljs.highlightAuto(code).value; // Fallback para detecção automática
+            }
+        });
+
+        // Função para renderizar o Markdown
+        function renderMarkdown() {
+            const input = document.getElementById('markdown-input').value;
+            const output = document.getElementById('output');
+            output.innerHTML = marked.parse(input); // Renderiza o Markdown
+            hljs.highlightAll(); // Aplica o highlighting após renderizar
+        }
+
+        // Executa ao carregar a página e ao alterar o textarea
+        document.addEventListener('DOMContentLoaded', renderMarkdown);
+        document.getElementById('markdown-input').addEventListener('input', renderMarkdown);
+    </script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 # INF1407
-Disciplina de Programação para a Web na PUC-Rio
+Disciplina de Programação para a Web na PUC-Rio.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 ![Contributors](https://img.shields.io/github/contributors/AlexandreMeslin/INF1304)
@@ -19,6 +19,7 @@ Disciplina de Programação para a Web na PUC-Rio
 ![Last Commit](https://img.shields.io/github/last-commit/AlexandreMeslin/INF1407)
 ![Repo Size](https://img.shields.io/github/repo-size/AlexandreMeslin/INF1407)
 ![Code Size](https://img.shields.io/github/languages/code-size/AlexandreMeslin/INF1407)
+![GitHub commits since tagged version](https://img.shields.io/github/commits-since/AlexandreMeslin/INF1407/v2025.2)
 
 ![GitHub stars](https://img.shields.io/github/stars/AlexandreMeslin/INF1407?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/AlexandreMeslin/INF1407?style=social)
@@ -70,12 +71,15 @@ $ python manage.py sqlmigrate
 Obs.: Substitua `<app>`, `<path>`, `<função>` e `<nome>` pelos valores desejados.
 ```python
 from django.urls import path
+from django.urls.conf import include
 from <app> import views
 
 app_name = '<app>'
 
 urlpatterns = [
     path("<path>/", views.<função>, name="<nome>"),
+    path("<path>/", include('<app>.urls')),
+    path('<path>/', views.ClasseView.as_view(), name='<nome>'),
 ] 
 ```
 
@@ -117,7 +121,7 @@ Obs.: Substitua `<app>`, `<nome>` e `<arquivo>` pelos valores desejados.
 
 ## Configurações interessantes
 
-### Para habilitar o auto-complete para o `Django CLI^
+### Para habilitar o auto-complete para o `Django CLI`
 
 1. Baixar o script diretamente do repositório oficial do Django:
     ```bash
