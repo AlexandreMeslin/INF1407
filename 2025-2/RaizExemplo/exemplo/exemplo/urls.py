@@ -31,6 +31,27 @@ from django.contrib.auth.models import User
 from django.views.generic.edit import UpdateView
 from django.urls.base import reverse_lazy
 
+# imports para o Swagger
+from rest_framework import permissions
+from rest_framework import routers
+from rest_framework.documentation import include_docs_urls
+from rest_framework.schemas import get_schema_view
+from drf_yasg.views import get_schema_view as yasg_schema_view
+from drf_yasg import openapi
+
+schema_view = yasg_schema_view(
+    openapi.Info(
+        title="Exemplo API",
+        default_version='v1',
+        description="API para o projeto Exemplo",
+        contact=openapi.Contact(email="meslin@puc-rio.br"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+    url = 'https://potential-waffle-qvgvg5vwjqg24rg-8000.app.github.dev/',
+)
+
 urlpatterns = [
     path("admin/", admin.site.urls, name='admin'),
     path("contatos/", include('contatos.urls')),
@@ -106,5 +127,23 @@ urlpatterns = [
             template_name='seguranca/password_reset_complete.html'
          ),
          name='sec-password-reset-complete'
+    ),
+    # URLs para o Swagger
+    path('docs/', include_docs_urls(title='Documentação da API Carros')),
+    path('swagger/', 
+        schema_view.with_ui(
+            'swagger', 
+            cache_timeout=0
+        ), 
+        name='schema-swagger-ui'
+    ),
+    path('api/v1/', include(routers.DefaultRouter().urls)),
+    path('openapi/', 
+        get_schema_view(
+            title="API para carros",
+            description="API para obter dados dos carros",
+            version="1.0.0"
+        ),
+        name='openapi-schema'
     ),
 ]
