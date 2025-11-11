@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'carros',
+    'coreapi',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -164,3 +166,8 @@ CORS_ALLOWED_ORIGINS = [
 ]
 '''
 CORS_ALLOW_ALL_ORIGINS = True
+
+# Configurações para o Swagger
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+}

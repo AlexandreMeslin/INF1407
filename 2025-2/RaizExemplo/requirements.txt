@@ -2,3 +2,5 @@ django
 djangorestframework
 django-cors-headers
 setuptools
+coreapi
+drf-yasg
