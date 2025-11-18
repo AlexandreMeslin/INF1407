@@ -1,5 +1,7 @@
 "use strict";
 onload = function () {
+    document.getElementById("insere").
+        addEventListener("click", evento => { this.location.href = "insereCarro.html"; });
     exibeListaDeCarros();
 };
 function exibeListaDeCarros() {

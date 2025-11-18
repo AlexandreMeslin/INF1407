@@ -1,4 +1,6 @@
 onload = function() {
+    (document.getElementById("insere") as HTMLInputElement).
+        addEventListener("click", evento => { this.location.href = "insereCarro.html"; });
     exibeListaDeCarros();
 };
 

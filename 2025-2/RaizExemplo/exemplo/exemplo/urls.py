@@ -49,7 +49,7 @@ schema_view = yasg_schema_view(
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
-    url = 'https://potential-waffle-qvgvg5vwjqg24rg-8000.app.github.dev/',
+    url = 'https://sturdy-waddle-6v7v7xvjx6wfrq7q-8000.app.github.dev/',
 )
 
 urlpatterns = [
