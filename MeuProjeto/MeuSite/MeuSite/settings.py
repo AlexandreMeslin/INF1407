@@ -47,6 +47,11 @@ INSTALLED_APPS = [
     'MeuSite',
     'assincrono',
     'contatos',
+    'carros',
+    'rest_framework',
+    'corsheaders',
+    'drf_yasg',
+    'coreapi',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'MeuSite.urls'
@@ -86,8 +92,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+    'DBMTCars': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'mtcars.sqlite3',
+    },
 }
+
+DATABASE_ROUTERS = ["MeuSite.db_router.DBRouter"]
 
 
 # Password validation
@@ -133,3 +145,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Para implementar push em http
 ASGI_APPLICATION = "meuprojeto.asgi.application"
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 
+        'rest_framework.schemas.coreapi.AutoSchema' 
+}
+

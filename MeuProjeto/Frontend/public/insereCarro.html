@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="javascript/insereCarro.js"></script>
+    <script src="javascript/constantes.js"></script>
+</head>
+<body>
+    <iframe src="cabecalho.html" frameborder="0" width="100%" height="50"></iframe>
+    <h1>Insere Carro</h1>
+    <form id="meuFormulario">
+        <table>
+            <tbody>
+                <tr><td align="right">Nome:</td><td><input type="text" name="name" id="nome"></td></tr>
+                <tr><td align="right">Milhas por galão:</td><td><input type="text" name="mpg" id="mpg"></td></tr>
+                <tr><td align="right">Número de cilindros:</td><td><input type="text" name="cyl" id="cyl"></td></tr>
+                <tr><td align="right">Volume:</td><td><input type="text" name="disp" id="disp"></td></tr>
+                <tr><td align="right">Potência:</td><td><input type="text" name="hp" id="hp"></td></tr>
+                <tr><td align="right">Peso:</td><td><input type="text" name="wt" id="wt"></td></tr>
+                <tr><td align="right">Aceleração 1/4 milha:</td><td><input type="text" name="qsec" id="qsec"></td></tr>
+                <tr><td align="right">Motor em V (ou em linha):</td><td><input type="text" name="vs" id="vs"></td></tr>
+                <tr><td align="right">Transmissão manual:</td><td><input type="text" name="am" id="am"></td></tr>
+                <tr><td align="right">Número de marchas:</td><td><input type="text" name="gear" id="gear"></td></tr>
+            </tbody>
+        </table>
+        <button id="insere" name="insere" value="Insere">Insere</button>
+    </form>
+    <div id="mensagem"></div>
+</body>
+</html>
