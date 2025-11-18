@@ -24,7 +24,10 @@ function exibeListaDeCarros() {
             for (let i = 0; i < campos.length; i++) {
                 let td = document.createElement('td') as HTMLTableCellElement;
                 let texto = document.createTextNode(carro[campos[i]]) as Text;
-                td.appendChild(texto);
+                let a = document.createElement('a') as HTMLAnchorElement;
+                a.setAttribute('href', 'update.html?id=' + carro['id']);
+                a.appendChild(texto);
+                td.appendChild(a);
                 tr.appendChild(td);
             }
             tbody.appendChild(tr);

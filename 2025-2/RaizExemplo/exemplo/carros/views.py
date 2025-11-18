@@ -94,6 +94,118 @@ class CarView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+    @swagger_auto_schema(
+        operation_summary='Dados de um carro',
+        operation_description="Obter informações sobre um carro específico",
+        responses={
+            200: MTCarsSerializer(),
+            400: 'Mensagem de erro',
+        },
+        manual_parameters=[
+            openapi.Parameter('id_arg',openapi.IN_PATH,
+                default=5,
+                type=openapi.TYPE_INTEGER,
+                required=True,
+                description='id do carro na URL',
+            ),
+        ],
+    )
+    def get(self, request, id_arg):
+        '''
+        Retorna um carro específico pelo ID.
+        Se o carro não existir, retorna erro 404.
+        Lembrar que o id_arg vem da URL e tem que ter o mesmo nome.
+        '''
+        carro = self.singleCar(id_arg)
+        if carro:
+            serializer = MTCarsSerializer(carro)
+            return Response(
+                serializer.data, 
+                status=status.HTTP_200_OK
+            )
+        else:
+            # o id na msg de erro dever ser apenas para depuração
+            return Response(
+                {'msg': f'Carro com id {id_arg} não encontrado.'}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+    @swagger_auto_schema(
+        operation_summary='Atualiza carro', operation_description="Atualizar um carro existente",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'name': openapi.Schema(default='Honda HRV 2021', description='Modelo do carro', type=openapi.TYPE_STRING,),
+                'mpg': openapi.Schema(default=24.85, description='Milhas por galão', type=openapi.TYPE_NUMBER,),
+                'cyl': openapi.Schema(default=4, description='Quantidade de cilindros', type=openapi.TYPE_INTEGER),
+                'disp': openapi.Schema(default=1.8, description='Volume do motor', type=openapi.TYPE_NUMBER),
+                'hp': openapi.Schema(default=140, description='Potência em HP', type=openapi.TYPE_INTEGER),
+                'wt': openapi.Schema(default=2.87686, description='Peso em 1000 libras', type=openapi.TYPE_NUMBER),
+                'qsec': openapi.Schema(
+                    default=11.88, 
+                    description='Tempo para percorrer 1/4 milha', 
+                    type=openapi.TYPE_NUMBER
+                ),
+                'vs': openapi.Schema(default=0, description='Motor em V ou em linha (straight) (0=v, 1=s)', type=openapi.TYPE_INTEGER),
+                'am': openapi.Schema(default=0, description='Transmissão (0=automática, 1=manual)', type=openapi.TYPE_INTEGER),
+                'gear': openapi.Schema(default=7, description='Número de marchas para frente', type=openapi.TYPE_INTEGER),
+            },
+        ),
+        responses={200: MTCarsSerializer(), 400: MTCarsSerializer(), },
+        manual_parameters=[
+            openapi.Parameter(
+                'id_arg',
+                openapi.IN_PATH, 
+                default=41, 
+                type=openapi.TYPE_INTEGER,
+                required=True, 
+                description='id do carro na URL',
+            ),
+        ],
+    )
+    def put(self, request, id_arg):
+        '''
+        Atualiza um carro específico pelo ID.
+        Se o carro não existir, retorna erro 400.
+        Lembrar que o id_arg vem da URL e tem que ter o mesmo nome.
+        '''
+        # preciso obter o carro a ser atualizado para ter o seu id
+        carro = self.singleCar(id_arg)
+        if carro:
+            # insere as informações do carro a ser atualizado
+            serializer = MTCarsSerializer(
+                carro, 
+                data=request.data
+            )
+            if serializer.is_valid():
+                serializer.save()
+                return Response(
+                    serializer.data, 
+                    status=status.HTTP_200_OK
+                )
+            else:
+                return Response(
+                    serializer.errors, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+        else:
+            # o id na msg de erro dever ser apenas para depuração
+            return Response(
+                {'msg': f'Carro com id {id_arg} não encontrado.'}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+    def singleCar(self, id_arg):
+        '''
+        Retorna um carro específico pelo ID.
+        Se o carro não existir, retorna None.
+        '''
+        try:
+            queryset = MTCars.objects.get(id=id_arg)
+            return queryset
+        except MTCars.DoesNotExist:
+            return None
+
 class CarsView(APIView):
     @swagger_auto_schema(
         operation_summary="Lista todos os carros",
