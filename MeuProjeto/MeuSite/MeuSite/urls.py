@@ -54,4 +54,5 @@ urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('api/v1/', include(routers.DefaultRouter().urls)),
     path('openapi', get_schema_view(title="API para Carros", description="API para obter dados dos carros",), name='openapi-schema'),
+    path('accounts/', include('accounts.urls')),
 ]
