@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carro selecionado</title>
+    <script src="script/constantes.js"></script>
+    <script src="script/update.js"></script>
+</head>
+<body>
+    <iframe src="cabecalho.html" width="100%" height="50" frameborder="0"></iframe>
+    <h1>Atualiza um carro</h1>
+    <form id="meuFormulario">
+        <input type="hidden" name="id" id="id"/>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Nome:</td>
+                    <td><input type="text" name="name" id="name"/></td>
+                </tr>
+                <tr>
+                    <td>Milhas/galão:</td>
+                    <td><input type="number" name="mpg" id="mpg" step="0.1"/></td>
+                </tr>
+                <tr>
+                    <td>Cilindros:</td>
+                    <td><input type="number" name="cyl" id="cyl"/></td>
+                </tr>
+                <tr>
+                    <td>Cilindrada:</td>
+                    <td><input type="number" name="disp" id="disp" step="0.1"/></td>
+                </tr>
+                <tr>
+                    <td>Potência:</td>
+                    <td><input type="number" name="hp" id="hp"/></td>
+                </tr>
+                <tr>
+                    <td>Peso:</td>
+                    <td><input type="number" name="wt" id="wt" step="0.1"/></td>
+                </tr>
+                <tr>
+                    <td>Aceleração 1/4 milha:</td>
+                    <td><input type="number" name="qsec" id="qsec" step="0.1"/></td>
+                </tr>
+                <tr>
+                    <td>Motor em V:</td>
+                    <td><input type="text" name="vs" id="vs"/></td>
+                </tr>
+                <tr>
+                    <td>Transmissão automática:</td>
+                    <td><input type="text" name="am" id="am"/></td>
+                </tr>
+                <tr>
+                    <td>Número de marchas:</td>
+                    <td><input type="number" name="gear" id="gear"/></td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="atualiza" name="atualiza" value="Atualizar">Atualiza</button>
+    </form>
+    <div id="mensagem"></div>    
+</body>
+</html>

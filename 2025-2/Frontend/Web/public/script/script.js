@@ -1,5 +1,7 @@
 "use strict";
 onload = function () {
+    document.getElementById("insere").
+        addEventListener("click", evento => { this.location.href = "insereCarro.html"; });
     exibeListaDeCarros();
 };
 function exibeListaDeCarros() {
@@ -22,7 +24,10 @@ function exibeListaDeCarros() {
             for (let i = 0; i < campos.length; i++) {
                 let td = document.createElement('td');
                 let texto = document.createTextNode(carro[campos[i]]);
-                td.appendChild(texto);
+                let a = document.createElement('a');
+                a.setAttribute('href', 'update.html?id=' + carro['id']);
+                a.appendChild(texto);
+                td.appendChild(a);
                 tr.appendChild(td);
             }
             tbody.appendChild(tr);
