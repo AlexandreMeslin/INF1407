@@ -7,7 +7,12 @@ onload = function () {
     exibeListaDeCarros(); // exibe lista de carros ao carregar a página
 };
 function exibeListaDeCarros() {
-    fetch(backendAddress + "carros/lista/")
+    fetch(backendAddress + "carros/lista/", {
+        method: 'GET',
+        headers: {
+            'Authorization': tokenKeyword + localStorage.getItem('token')
+        }
+    })
         .then(response => response.json())
         .then(carros => {
         let campos = ['name', 'mpg', 'cyl', 'disp', 'hp', 'wt', 'qsec', 'vs', 'am', 'gear'];
@@ -47,7 +52,10 @@ let apagaCarros = (evento) => {
     fetch(backendAddress + "carros/lista/", {
         method: 'DELETE',
         body: JSON.stringify(checkedValues),
-        headers: { 'Content-Type': 'application/json', }
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': tokenKeyword + localStorage.getItem('token')
+        }
     })
         .then(response => {
         if (response.ok) {

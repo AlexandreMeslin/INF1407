@@ -4,6 +4,10 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
+from rest_framework.decorators import authentication_classes
 
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
@@ -16,7 +20,7 @@ class CarsView(APIView):
         operation_summary='Lista todos os carros',
         operation_description="Obter informações sobre todos os carros",
         request_body=None,  # opcional
-        responses={200: MTCarsSerializer()}
+        responses={200: MTCarsSerializer(many=True)},  # importante informar many=True
     ) 
     def get(self, request):
         '''
@@ -26,14 +30,19 @@ class CarsView(APIView):
         # importante informar que o queryset terá mais 
         # de 1 resultado usando many=True
         serializer = MTCarsSerializer(queryset, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @swagger_auto_schema(
+        operation_summary='Deleta carro(s)',
         operation_description='Remove um carro',
-        request_body=MTCarsSerializer,
+        request_body=openapi.Schema(
+            type=openapi.TYPE_ARRAY,
+            items=openapi.Items(type=openapi.TYPE_INTEGER, example=5),
+            description='Lista de IDs dos carros a serem deletados',
+        ),
         responses={ 
-            204: MTCarsSerializer(), 
-            404: None,
+            204: 'Item(ns) apagado(s) com sucesso', 
+            404: 'Item # não encontrado',
         },
     )
     def delete(self, request):
@@ -44,20 +53,37 @@ class CarsView(APIView):
         id_erro = ""
         erro = False
         for id in request.data:
-            carro = MTCars.objects.get(id=id)
-            if carro:
+            try:
+                carro = MTCars.objects.get(id=id)
                 carro.delete()
-            else:
+            except MTCars.DoesNotExist:
                 id_erro += str(id)
                 erro = True
         if erro:
-            return Response({'error': f'item [{id_erro}] não encontrado'},status.HTTP_404_NOT_FOUND)
+            return Response(
+                {'error': f'item [{id_erro}] não encontrado'},
+                status=status.HTTP_404_NOT_FOUND
+            )
         else:
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(
+                {'msg': 'Item(ns) apagado(s) com sucesso'}, 
+                status=status.HTTP_204_NO_CONTENT
+            )
 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 class CarView(APIView):
     @swagger_auto_schema(
 		operation_summary='Criar carro', operation_description="Criar um novo carro",
+        manual_parameters=[
+            openapi.Parameter(
+                'Authorization', 
+                openapi.IN_HEADER, 
+                description="Token de autenticação do usuário no formato 'Token \<<i>token</i>\>'", 
+                type=openapi.TYPE_STRING,
+                default='token ',
+            ),
+        ],
 		request_body=openapi.Schema(
 			type=openapi.TYPE_OBJECT,
 			properties={
@@ -92,7 +118,6 @@ class CarView(APIView):
 		operation_description="Obter informações sobre um carro específico",
 		responses={
 			  200: MTCarsSerializer(),
-			  400: 'Mensagem de erro',
               404: 'Carro não encontrado',
 	  	},
 		 manual_parameters=[
@@ -120,7 +145,7 @@ class CarView(APIView):
             # response for IDs that is not an existing car
             return Response(
                 { 'msg': f'Carro com id #{id_arg} não existe' }, 
-                status.HTTP_400_BAD_REQUEST,
+                status=status.HTTP_404_NOT_FOUND,
             )
 
     def singleCar(self, id_arg):
@@ -169,6 +194,11 @@ class CarView(APIView):
         id_arg é o mesmo nome que colocamos em urls.py
         '''
         carro = self.singleCar(id_arg)
+        if not carro:
+            return Response(
+                { 'msg': f'Carro com id #{id_arg} não existe' }, 
+                status=status.HTTP_404_NOT_FOUND,
+            )
         serializer = MTCarsSerializer(carro, data=request.data)
         if serializer.is_valid():
             serializer.save()

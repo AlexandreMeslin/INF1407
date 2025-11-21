@@ -48,12 +48,13 @@ INSTALLED_APPS = [
     'assincrono',
     'contatos',
     'carros',
-    'rest_framework',
-    'corsheaders',
-    'drf_yasg',
+    'rest_framework',               # REST
+    'corsheaders',                  # CORS
+    'drf_yasg',                     # swagger
     'coreapi',
-    'accounts',
-    'rest_framework.authtoken',
+    'accounts',                     # nosso app de AAA
+    'rest_framework.authtoken',     # token de autenticação
+    'django_rest_passwordreset',    # para recuperar a senha
 ]
 
 MIDDLEWARE = [
@@ -159,3 +160,4 @@ REST_FRAMEWORK = {
     ]
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

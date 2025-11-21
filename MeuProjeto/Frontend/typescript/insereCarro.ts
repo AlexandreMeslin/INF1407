@@ -9,7 +9,10 @@ onload = () => {
         }
         fetch(backendAddress + "carros/umcarro/", {
             method: 'POST', body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': tokenKeyword + localStorage.getItem('token')
+            }
         })
             .then(response => {
                 if (response.ok) {

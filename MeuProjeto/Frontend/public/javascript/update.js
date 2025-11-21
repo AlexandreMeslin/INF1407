@@ -8,7 +8,12 @@ onload = () => {
     if (id) {
         console.log('id = ', id);
         idPlace.innerHTML = id;
-        fetch(backendAddress + 'carros/umcarro/' + id + '/')
+        fetch(backendAddress + 'carros/umcarro/' + id + '/', {
+            method: 'GET',
+            headers: {
+                'Authorization': tokenKeyword + localStorage.getItem('token')
+            }
+        })
             .then(response => response.json())
             .then(carro => {
             let campos = ['id', 'name', 'mpg', 'cyl', 'disp', 'hp', 'wt', 'qsec', 'vs', 'am', 'gear'];
@@ -35,7 +40,10 @@ onload = () => {
         fetch(backendAddress + "carros/umcarro/" + id + '/', {
             method: 'PUT',
             body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + localStorage.getItem('token')
+            },
         })
             .then(response => {
             if (response.ok) {

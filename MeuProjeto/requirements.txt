@@ -6,3 +6,4 @@ setuptools
 django-cors-headers
 drf-yasg
 coreapi
+django-rest-passwordreset

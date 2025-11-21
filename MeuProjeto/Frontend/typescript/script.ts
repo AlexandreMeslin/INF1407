@@ -10,7 +10,12 @@ onload = function () {
 }
 
 function exibeListaDeCarros() {
-    fetch(backendAddress + "carros/lista/")
+    fetch(backendAddress + "carros/lista/", {
+        method: 'GET',
+        headers: {
+            'Authorization': tokenKeyword + localStorage.getItem('token')
+        }
+    })
     .then(response => response.json())
     .then(carros => {
         let campos = ['name', 'mpg', 'cyl', 'disp', 'hp', 'wt', 'qsec', 'vs', 'am', 'gear'];
@@ -44,15 +49,18 @@ function exibeListaDeCarros() {
 }
 
 let apagaCarros = (evento: Event) => {
-		evento.preventDefault();	const checkboxes = document.querySelectorAll<HTMLInputElement>(
-			'input[type="checkbox"]:checked');
+	evento.preventDefault();
+    const checkboxes = document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]:checked');
 	const checkedValues: string[] = [];
 	checkboxes.forEach(checkbox => {  checkedValues.push(checkbox.value); });
 
     fetch(backendAddress + "carros/lista/", {
 			method: 'DELETE',
 			body: JSON.stringify(checkedValues),
-			headers: { 'Content-Type': 'application/json', }
+			headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': tokenKeyword + localStorage.getItem('token')
+            }
 	})
 	.then(response => {
 			if(response.ok) {
