@@ -3,9 +3,9 @@
 ## Disciplina de Programação para a Web na PUC-Rio.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
-![Contributors](https://img.shields.io/github/contributors/AlexandreMeslin/INF1304)
-![Open Issues](https://img.shields.io/github/issues/AlexandreMeslin/INF1304)
-![Open PRs](https://img.shields.io/github/issues-pr/AlexandreMeslin/INF1304)
+![Contributors](https://img.shields.io/github/contributors/AlexandreMeslin/INF1407)
+![Open Issues](https://img.shields.io/github/issues/AlexandreMeslin/INF1407)
+![Open PRs](https://img.shields.io/github/issues-pr/AlexandreMeslin/INF1407)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 ![GitHub Created At](https://img.shields.io/github/created-at/AlexandreMeslin/INF1407)
 

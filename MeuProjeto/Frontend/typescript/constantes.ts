@@ -1,4 +1,4 @@
-const backendAddress = 'http://127.0.0.1:8000/';
+const backendAddress = 'https://shiny-guacamole-gxwxwvxgvw43w5vg-8000.app.github.dev/';
 
 /** token de autenticação */
 const tokenKeyword = 'Token ';
