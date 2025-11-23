@@ -28,7 +28,8 @@
 ![GitHub User's stars](https://img.shields.io/github/stars/AlexandreMeslin)
 ![GitHub watchers](https://img.shields.io/github/watchers/AlexandreMeslin/INF1407)
 
-**Frameworks & Tools:**  
+**Frameworks & Tools:**
+
 ![Django](https://img.shields.io/badge/Django-000000?style=flat-square&logo=django&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-2D3748?style=flat-square&logo=sqlite&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-FF9900?style=flat-square&logo=amazonaws&logoColor=white)
