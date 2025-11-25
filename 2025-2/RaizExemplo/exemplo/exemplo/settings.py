@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'carros',
     'coreapi',
     'drf_yasg',
+    'accounts',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -170,4 +172,9 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Configurações para o Swagger
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+#        'rest_framework.authentication.SessionAuthentication',
+#        'rest_framework.authentication.BasicAuthentication',
+    ],
 }

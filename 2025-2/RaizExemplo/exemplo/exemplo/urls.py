@@ -49,7 +49,8 @@ schema_view = yasg_schema_view(
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
-    url = 'https://sturdy-waddle-6v7v7xvjx6wfrq7q-8000.app.github.dev/',
+    url = 'https://shiny-guacamole-gxwxwvxgvw43w5vg-8000.app.github.dev/',
+    
 )
 
 urlpatterns = [
@@ -146,4 +147,5 @@ urlpatterns = [
         ),
         name='openapi-schema'
     ),
+    path('accounts/', include('accounts.urls')),
 ]
