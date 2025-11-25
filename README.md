@@ -165,8 +165,8 @@ Para criar um **token**, no seu repositório, clique na sua foto, selecione `Set
 Expanda `Personal access tokens` e clique em `Tokens (classic)`.Clique em `Generate new token` e escolha `Generate new token (classic)`.
 No campo `Note`, informe um nome para o seu **token** e marque as opões:
 
-[x] write:packages
-[x] delete:packages
+- [x] write:packages
+- [x] delete:packages
 
 Clique em `Generate token`.
 Copie o **token** gerado e crie uma variável chamada `GITHUB_TOKEN` com esse valor para substituir o **token** original do *Codespace*.
