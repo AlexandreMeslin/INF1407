@@ -172,7 +172,7 @@ Clique em `Generate token`.
 Copie o **token** gerado e crie uma variável chamada `GITHUB_TOKEN` com esse valor para substituir o **token** original do *Codespace*.
 
 ```bash
-GITHUB_TOKEN="banananaotemcaroco"
+GITHUB_TOKEN="sakinevasseaviasky?"
 ```
 
 Faça o login:
