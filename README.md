@@ -154,3 +154,105 @@ Obs.: Substitua `<app>`, `<nome>` e `<arquivo>` pelos valores desejados.
     fi
     ```
     > Precisa abrir novamente o terminal para funcionar
+
+# Acessando o Container registry
+
+## Autenticação
+
+> Não use o **token** gerado pelo *Codespace* porque o usuário do token é `codespace` e não o seu usuário.
+
+Para criar um **token**, no seu repositório, clique na sua foto, selecione `Settings`, `<> Developer settings`. 
+Expanda `Personal access tokens` e clique em `Tokens (classic)`.Clique em `Generate new token` e escolha `Generate new token (classic)`.
+No campo `Note`, informe um nome para o seu **token** e marque as opões:
+
+[x] write:packages
+[x] delete:packages
+
+Clique em `Generate token`.
+Copie o **token** gerado e crie uma variável chamada `GITHUB_TOKEN` com esse valor para substituir o **token** original do *Codespace*.
+
+```bash
+GITHUB_TOKEN="banananaotemcaroco"
+```
+
+Faça o login:
+
+```bash
+echo $GITHUB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
+```
+
+Saída esperada
+
+```bash
+$ echo $GITHUB_TOKEN | docker login ghcr.io -u USER
+NAME --password-stdin
+
+WARNING! Your credentials are stored unencrypted in '/home/codespace/.docker/config.json'.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/go/credential-store/
+
+Login Succeeded
+```
+## Construíndo a imagem
+
+```bash
+docker build -t ghcr.io/alexandremeslin/prog_web .
+```
+
+Saída esperada
+
+```bash
+$ docker build -t ghcr.io/alexandremeslin/prog_web .
+[+] Building 5.8s (8/8) FINISHED                                                                                             docker:default
+ => [internal] load build definition from Dockerfile                                                                                   0.1s
+ => => transferring dockerfile: 110B                                                                                                   0.0s
+ => [internal] load metadata for docker.io/library/httpd:latest                                                                        0.3s
+ => [auth] library/httpd:pull token for registry-1.docker.io                                                                           0.0s
+ => [internal] load .dockerignore                                                                                                      0.0s
+ => => transferring context: 2B                                                                                                        0.0s
+ => [internal] load build context                                                                                                      0.0s
+ => => transferring context: 318B                                                                                                      0.0s
+ => [1/2] FROM docker.io/library/httpd:latest@sha256:f9b88f3f093d925525ec272bbe28e72967ffe1a40da813fe84df9fcb2fad3f30                  4.7s
+ => => resolve docker.io/library/httpd:latest@sha256:f9b88f3f093d925525ec272bbe28e72967ffe1a40da813fe84df9fcb2fad3f30                  0.0s
+ => => sha256:4742a9e996d171d036e208e8261ee1a7278c9513f806a96dabcd6cfe66302739 145B / 145B                                             0.1s
+ => => sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 32B / 32B                                               0.1s
+ => => sha256:87a14f0839679cdf72421f2a7c5631a7e8a113354285298ce7e318c9ed8134fc 2.00MB / 2.00MB                                         0.2s
+ => => sha256:f9b88f3f093d925525ec272bbe28e72967ffe1a40da813fe84df9fcb2fad3f30 10.14kB / 10.14kB                                       0.0s
+ => => sha256:1962df175a86aff6eefa4208caff11e4af980523213fdbcb81a93c19c629f5e7 2.09kB / 2.09kB                                         0.0s
+ => => sha256:c00bfb4edfeb0206fa0e988e51b588a442deca46cb4ea69b3cd7e08f93b429ae 7.99kB / 7.99kB                                         0.0s
+ => => sha256:0e4bc2bd6656e6e004e3c749af70e5650bac2258243eb0949dea51cb8b7863db 29.78MB / 29.78MB                                       1.0s
+ => => sha256:9cd0271fa7514efc0ced1e0bcdef82af8591b9006e3468633965deb4fd2085f9 13.43MB / 13.43MB                                       5.4s
+ => => sha256:5b4d5959fc7583ac425d94096a05b143ec3547d698d6d202e07f37ee1366db72 291B / 291B                                             0.3s
+ => => extracting sha256:0e4bc2bd6656e6e004e3c749af70e5650bac2258243eb0949dea51cb8b7863db                                              1.2s
+ => => extracting sha256:4742a9e996d171d036e208e8261ee1a7278c9513f806a96dabcd6cfe66302739                                              0.0s
+ => => extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1                                              0.0s
+ => => extracting sha256:87a14f0839679cdf72421f2a7c5631a7e8a113354285298ce7e318c9ed8134fc                                              0.2s
+ => => extracting sha256:9cd0271fa7514efc0ced1e0bcdef82af8591b9006e3468633965deb4fd2085f9                                              0.4s
+ => => extracting sha256:5b4d5959fc7583ac425d94096a05b143ec3547d698d6d202e07f37ee1366db72                                              0.0s
+ => [2/2] COPY index.html /usr/local/apache2/htdocs/                                                                                   0.0s
+ => exporting to image                                                                                                                 0.6s
+ => => exporting layers                                                                                                                0.5s
+ => => writing image sha256:ca9ad63fad124a9eb58d2653bb26a0ce82b2ec9659cef302c5b6cb264bcc5761                                           0.0s
+ => => naming to ghcr.io/alexandremeslin/prog_web                                                                                      0.0s
+```
+
+## Subindo a imagem
+
+```bash
+docker push ghcr.io/alexandremeslin/prog_web:latest
+```
+
+Saída esperada:
+
+```bash
+$ docker push ghcr.io/alexandremeslin/prog_web:latest
+The push refers to repository [ghcr.io/alexandremeslin/prog_web]
+18f559fb8e35: Pushed 
+3ecb2dcd5414: Pushed 
+1b73832a4868: Pushed 
+5dc0365682c6: Pushed 
+5f70bf18a086: Pushed 
+de88e4999fda: Pushed 
+70a290c5e58b: Pushed 
+latest: digest: sha256:79eb996ea9f28ed5f649436e1663ed595c25564ba3532b33fdd858a1eade67de size: 1779
+```
