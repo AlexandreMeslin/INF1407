@@ -27,9 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
-        'https://localhost:8000', 
-        'http://localhost:8000',
-    ]
+    'https://localhost:8000', 
+    'http://localhost:8000',
+]
 
 
 # Application definition
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'accounts',
     'rest_framework.authtoken',
+    'django_rest_passwordreset',
 ]
 
 MIDDLEWARE = [

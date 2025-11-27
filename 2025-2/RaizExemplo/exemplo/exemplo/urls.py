@@ -49,7 +49,7 @@ schema_view = yasg_schema_view(
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
-    url = 'https://shiny-guacamole-gxwxwvxgvw43w5vg-8000.app.github.dev/',
+    url = 'https://glowing-memory-x9pxw6jjv53vjgw-8000.app.github.dev/',
     
 )
 

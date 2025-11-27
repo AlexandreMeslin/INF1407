@@ -6,4 +6,5 @@ app_name = "accounts"
 
 urlpatterns = [
     path('token-auth/', views.CustomAuthToken.as_view(), name='token-auth'),
+    path('password-reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
 ]

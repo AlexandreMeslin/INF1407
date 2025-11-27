@@ -1,2 +1,3 @@
 "use strict";
-const backendAddress = "https://sturdy-waddle-6v7v7xvjx6wfrq7q-8000.app.github.dev/";
+const backendAddress = "https://glowing-memory-x9pxw6jjv53vjgw-8000.app.github.dev/";
+const tokenKeyword = "Token ";
