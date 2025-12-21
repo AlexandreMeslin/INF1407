@@ -1,0 +1,75 @@
+body {
+    background: #0F0F14;
+    color: #DDDDDD;
+}
+
+/* =========================
+   EXEMPLO 1 – CHECKBOX COM LABEL
+========================= */
+
+/* Label padrão */
+#chk1 + label {
+    color: #BBBBBB;
+    transition: color 0.3s;
+    font-weight: bold;
+}
+
+/* Quando o checkbox estiver marcado */
+#chk1:checked + label {
+    color: #00FF00;          /* verde */
+    font-weight: bold;
+}
+
+/* =========================
+   EXEMPLO 2 – TOGGLE SWITCH
+========================= */
+.toggle {
+    display: none;
+}
+
+.switch {
+    position: relative;
+    width: 50px;
+    height: 26px;
+    background: #555;
+    border-radius: 26px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    transition: background 0.3s;
+}
+
+/* Botão interno */
+.switch::after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: #fff;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+}
+
+/* Toggle marcado */
+.toggle:checked + .switch {
+    background: #4ade80;
+}
+
+/* Move o botão */
+.toggle:checked + .switch::after {
+    transform: translateX(24px);
+}
+
+.switch-container {
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toggle:checked + .switch + .switch-label {
+    color: #4ade80;
+    font-weight: bold;
+}
