@@ -35,7 +35,7 @@
 ![AWS](https://img.shields.io/badge/AWS-FF9900?style=flat-square&logo=amazonaws&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-4169E1?style=flat-square&logo=Javascript&logoColor=white)
 ![Typescript](https://img.shields.io/badge/TypeScript-4169E1?style=flat-square&logo=Typescript&logoColor=white)
-![HTML](https://img.shields.io/badge/HTML-4169E1?style=flat-square&logo=html&logoColor=white)
+![HTML](https://img.shields.io/badge/HTML5-4169E1?style=flat-square&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-4169E1?style=flat-square&logo=css&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-F05033?style=flat-square&logo=git&logoColor=white)
