@@ -1,0 +1,92 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background: #1a73e8;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Layout principal */
+.layout {
+    display: flex;
+    height: calc(100vh - 100px);
+}
+
+aside {
+    width: 250px;
+    background: #f1f3f4;
+    border-right: 1px solid #ddd;
+    padding: 15px;
+    display: flex;          /* para permitir que o nav ocupe o espaço restante */
+    flex-direction: column; /* para organizar o conteúdo verticalmente */
+}
+
+aside nav {
+    overflow-y: auto;   /* permite rolar se a lista for longa */
+    flex: 1;            /* ocupando o espaço restante */
+}
+
+aside h2 {
+    position: sticky;
+    top: 0;
+    background: #f1f3f4;
+    margin-bottom: 10px;
+}
+
+aside ul {
+    list-style: none;
+}
+
+aside li {
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+aside li:hover {
+    background: #e8f0fe;
+}
+
+aside .ativo {
+    background: #d2e3fc;
+    font-weight: bold;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    background: white;
+    display: flex;              /* para permitir que o artigo ocupe o espaço restante */
+    align-items: flex-start;    /* para alinhar o artigo ao topo */
+}
+
+/* Card do contato */
+article {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 400px;
+    max-height: 100%;   /* para limitar a altura do artigo */
+    overflow-y: auto;   /* para permitir rolar se o conteúdo for longo */
+}
+
+article h2 {
+    margin-bottom: 10px;
+}
+
+footer {
+    background: #f1f3f4;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+}
