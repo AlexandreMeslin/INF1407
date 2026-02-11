@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+body {
+    background: #f0f0f0 url(../../MeuApp/img/puc-rio.png) no-repeat center center fixed;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 50px;
+}

@@ -1,9 +1,1 @@
 django
-channels    # para implementar push http
-djangorestframework
-pillow
-setuptools
-django-cors-headers
-drf-yasg
-coreapi
-django-rest-passwordreset
