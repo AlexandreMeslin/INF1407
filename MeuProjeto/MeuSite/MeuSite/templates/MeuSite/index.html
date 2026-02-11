@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page do Projeto</title>
+</head>
+<body>
+    <h1>Bem-vindo ao Meu Projeto</h1>
+    <p>Este é o site do meu projeto de INF1407.</p>
+    <p>Use os links abaixo para navegar:</p>
+    <ul>
+        <li><a href="{% url 'MeuApp:homepage' %}">Homepage do MeuApp</a></li>
+        <li><a href="{% url 'contatos:lista-contatos' %}">Lista de Contatos</a></li>
+        <li><a href="{% url 'sec-home' %}">Página de Segurança</a></li>
+    </ul>
+</body>
+</html>

@@ -4,12 +4,15 @@ em uma página HTML use:
 { % include 'contatos/links.html' % }
 -->
 <a href="/">
-  Home-Page
+    Home-Page
 </a> |
 <a href="{% url 'contatos:home-contatos' %}">
-  Página inicial
+    Página inicial
 </a> |
 <a href="{% url 'contatos:lista-contatos' %}">
-  Listar contatos
+    Listar contatos
 </a> |
+<a href="{% url 'contatos:cria-contato' %}">
+    Cadastrar contato
+</a>
 <hr>

@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'MeuSite/css/estilo.css' %}">
+</head>
+<body>
+    <h1>Site Seguro</h1>
+    <div>
+        <a href="/">Homepage</a> |
+        <a href="{% url 'sec-home' %}">Página inicial de segurança</a>
+        | <a href="{% url 'sec-paginaSecreta' %}">Página Secreta</a>
+        {% if user.is_authenticated %}
+            | <a href="{% url 'sec-meulogout' %}">Logout</a>
+            | <a href="{% url 'sec-password_change' %}">Trocar senha</a>
+            | <a href="{% url 'sec-atualiza_usuario' pk=user.id %}">Atualizar Dados</a>
+        {% else %}
+            | <a href="{% url 'sec-registro' %}">Registrar</a>
+            | <a href="{% url 'sec-login' %}?next={% url 'sec-paginaSecreta' %}">Login</a>
+        {% endif %}
+        | Você é {% firstof user.username "visitante" %}
+    </div>
+    <hr>
+    {% block conteudo %}{% endblock %}
+</body>
+</html>

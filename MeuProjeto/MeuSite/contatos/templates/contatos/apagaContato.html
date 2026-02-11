@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apaga Contato</title>
+</head>
+
+<body>
+    {% include 'contatos/links.html' %}
+    <h1>Remoção de contatos</h1>
+    <form method="POST">
+        {% csrf_token %}
+        Confirma a remoção de {{ pessoa }}?<br>
+        <button>
+            <a href="{% url 'contatos:lista-contatos' %}" style="text-decoration: none; color: black;">Cancela</a>
+        </button>
+        <input type="submit" value="Remove">
+    </form>
+</body>
+
+</html>

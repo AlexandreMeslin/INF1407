@@ -155,6 +155,29 @@ Obs.: Substitua `<app>`, `<nome>` e `<arquivo>` pelos valores desejados.
     ```
     > Precisa abrir novamente o terminal para funcionar
 
+---
+
+### Configurando a extensão Python da Microsoft
+
+#### Sintoma
+
+Ao instalar a extensão Python da Microsoft, alguns problemas aparecem:
+- Imports ficam sublinhados em amarelo/vermelho
+- IntelliSense para de funcionar
+- "Module not found" no editor
+
+Mas `python manage.py runserver` continua funcionando.
+
+#### Solução
+
+Trocar o interpretador Python do Codespace.
+1. No Codespace, digite `Ctrl + Shift + P` e entre com `Python: Select Interpreter`.
+1. Escolha entrar com a path manualmente
+1. Navegue até `./venv/bin/python`
+1. Seja feliz!
+
+---
+
 # Acessando o Container registry
 
 ## Autenticação

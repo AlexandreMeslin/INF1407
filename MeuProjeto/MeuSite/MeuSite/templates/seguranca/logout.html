@@ -1,0 +1,12 @@
+{% extends 'seguranca/base.html' %}
+
+{% block titulo %}Logout{% endblock %}
+
+{% block conteudo %}
+  <h2>Página de Logout</h2>
+  <form method="post" action="{% url 'sec-logout' %}">
+    {% csrf_token %}
+    <input type="submit" value="Logout">
+  </form>
+{% endblock %}
+

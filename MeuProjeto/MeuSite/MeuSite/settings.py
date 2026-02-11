@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'MeuApp',
     'contatos',
+    'MeuSite',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +122,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
+
+LOGIN_URL = 'sec-login'
+LOGOUT_URL = 'home'
