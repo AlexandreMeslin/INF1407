@@ -25,7 +25,11 @@ SECRET_KEY = "django-insecure-5i^f_ajf)sbz*etc*tt5d$0!3he37$26n*9xuc394j9vgt@7-5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = [
+    'https://localhost:8000', 
+    'http://localhost:8000'
+]
 
 
 # Application definition
@@ -38,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'MeuApp',
+    'contatos',
 ]
 
 MIDDLEWARE = [

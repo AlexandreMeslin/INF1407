@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Contatos</title>
+    <link rel="stylesheet" href="{% static 'contatos/css/estilo.css' %}">
+</head>
+<body>
+    {% include 'contatos/links.html' %}
+    <h1>Lista de Contatos</h1>
+    <table>
+        <tr><th>Nome</th><th>Idade</th><th>Salário</th><th>Ações disponíveis</th></tr>
+        {% for pessoa in pessoas %}
+            <tr>
+                <td>{{ pessoa.nome }}</td><td>{{pessoa.idade }}</td><td>{{ pessoa.salario }}</td>
+                <td></td>
+           </tr>
+        {% empty %}
+            <tr><th colspan="5">Ainda não tem contatos cadastrados</th></tr>
+        {% endfor %}
+    </table>    
+</body>
+</html>
