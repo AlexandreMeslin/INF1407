@@ -27,6 +27,10 @@ from django.contrib.auth.views import PasswordChangeDoneView
 #from django.views.generic.edit import UpdateView
 from django.contrib.auth.models import User
 from MeuSite.views import MeuUpdateView
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.auth.views import PasswordResetDoneView
+from django.contrib.auth.views import PasswordResetConfirmView
+from django.contrib.auth.views import PasswordResetCompleteView
 
 app_name = 'MeuSite'
 
@@ -63,4 +67,26 @@ urlpatterns = [
             template_name='seguranca/user_form.html',
             success_url=reverse_lazy('sec-home')
         ), name='sec-atualiza_usuario'),
+    path('seguranca/password_reset/',
+        PasswordResetView.as_view(
+            template_name='seguranca/password_reset_form.html',
+            email_template_name='seguranca/password_reset_email.html',
+            success_url=reverse_lazy('sec-password_reset_done'),
+            html_email_template_name='seguranca/password_reset_email.html',
+            subject_template_name='seguranca/password_reset_subject.txt',
+            from_email='webmaster@meslin.com.br',
+        ), name='sec-password_reset'),
+    path('seguranca/password_reset_done/',
+        PasswordResetDoneView.as_view(
+            template_name='seguranca/password_reset_done.html'),
+        name='sec-password_reset_done'),
+    path('seguranca/password_reset_confirm/<uidb64>/<token>/',
+        PasswordResetConfirmView.as_view(
+            template_name='seguranca/password_reset_confirm.html',
+            success_url=reverse_lazy('sec-password_reset_complete'),
+        ), name='sec-password_reset_confirm'),
+    path('seguranca/password_reset_complete/',
+        PasswordResetCompleteView.as_view(
+            template_name='seguranca/password_reset_complete.html'),
+        name='sec-password_reset_complete'),
 ]
