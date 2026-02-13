@@ -4,5 +4,7 @@ from carros import views
 app_name = 'carros'
 
 urlpatterns = [
-    path('lista/', views.CarsView.as_view(), name='lista-carros'),
+    path('varioscarros/', views.CarsView.as_view(), name='varios-carros'),
+    path('criar/', views.CarCreateView.as_view(), name='criar-carro'),
+    path('umcarro/<int:pk>/', views.CarView.as_view(), name='um-carro'),
 ]

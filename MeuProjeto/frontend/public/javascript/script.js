@@ -1,5 +1,9 @@
 "use strict";
 onload = function () {
+    document.getElementById('insere').addEventListener('click', evento => {
+        this.location.href = 'insereCarro.html';
+    });
+    document.getElementById('remove').addEventListener('click', apagaCarros);
     exibeListaDeCarros(); // Exibe a lista de carros ao carregar a página
 };
 /**
@@ -15,7 +19,7 @@ onload = function () {
  */
 async function exibeListaDeCarros() {
     try {
-        const response = await fetch(backendAddress + 'carros/lista/');
+        const response = await fetch(backendAddress + 'carros/varioscarros/');
         if (!response.ok) {
             // Nota: Em um ambiente de produção, você deve lidar com erros de forma mais robusta,
             // talvez exibindo uma mensagem de erro para o usuário em vez de apenas logar no console.
@@ -29,9 +33,20 @@ async function exibeListaDeCarros() {
             let tr = document.createElement('tr');
             campos.forEach(campo => {
                 let td = document.createElement('td');
-                td.textContent = carro[campo];
+                let href = document.createElement('a');
+                href.href = 'update.html?id=' + carro['id'];
+                href.textContent = carro[campo];
+                td.appendChild(href);
                 tr.appendChild(td);
             });
+            let checkbox = document.createElement('input');
+            checkbox.setAttribute('type', 'checkbox');
+            checkbox.setAttribute('name', 'id');
+            checkbox.setAttribute('id', 'id');
+            checkbox.setAttribute('value', carro['id']);
+            let td = document.createElement('td');
+            td.appendChild(checkbox);
+            tr.appendChild(td);
             tbody.appendChild(tr);
         });
     }
@@ -39,3 +54,48 @@ async function exibeListaDeCarros() {
         console.error('Erro ao buscar a lista de carros:', error);
     }
 }
+/**
+ * Função para apagar carros selecionados.
+ * Esta função é assíncrona porque envolve uma chamada de rede (fetch).
+ * Ela coleta os IDs dos carros selecionados usando checkboxes,
+ * envia uma requisição DELETE para o backend e atualiza a lista de carros após a exclusão.
+ * Se a resposta da API não for ok, ela lança um erro que é capturado no bloco catch.
+ * Em caso de erro, ele é logado no console.
+ * Se a resposta for bem-sucedida, ela exibe uma mensagem de sucesso e atualiza a lista de carros.
+ * Nota: Em um ambiente de produção, você deve lidar com erros de forma mais robusta,
+ * talvez exibindo uma mensagem de erro para o usuário em vez de apenas logar no console.
+ *
+ * @param evento
+ */
+let apagaCarros = async (evento) => {
+    evento.preventDefault();
+    const checkboxes = document.querySelectorAll('input[name="id"]:checked');
+    const checkedValues = [];
+    checkboxes.forEach(checkbox => {
+        checkedValues.push(checkbox.value);
+    });
+    try {
+        const response = await fetch(backendAddress + 'carros/varioscarros/', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(checkedValues)
+        });
+        if (response.ok) {
+            alert('Carros excluídos com sucesso!');
+            console.log('Carros excluídos com sucesso!');
+        }
+        else {
+            alert('Erro ao excluir carros!');
+            console.error('Erro ao excluir carros:', response.status);
+        }
+    }
+    catch (error) {
+        // Nota: Em um ambiente de produção, você deve lidar com erros de forma mais robusta
+        console.error('Erro ao enviar dados para o backend:', error);
+    }
+    finally {
+        exibeListaDeCarros(); // Atualiza a lista de carros após a exclusão
+    }
+};
