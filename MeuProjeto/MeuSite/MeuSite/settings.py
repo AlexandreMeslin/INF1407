@@ -30,6 +30,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://localhost:8000', 
     'http://localhost:8000'
 ]
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
@@ -44,6 +45,9 @@ INSTALLED_APPS = [
     'MeuApp',
     'contatos',
     'MeuSite',
+    'carros',
+    'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +58,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = "MeuSite.urls"
@@ -83,8 +88,14 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-    }
+    },
+    'DBMTCars': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'mtcars.sqlite3',
+    },
 }
+
+DATABASE_ROUTERS = ['MeuSite.db_router.DBRouter']
 
 
 # Password validation
