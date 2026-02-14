@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'carros',
     'rest_framework',
     'corsheaders',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,21 @@ LOGIN_URL = 'sec-login'
 LOGOUT_URL = 'home'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#REST_FRAMEWORK = {
+#    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.openapi.AutoSchema'
+#}
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'MeuSite API',
+    'DESCRIPTION': 'API do sistema MeuSite',
+    'VERSION': '1.0.0',
+
+    # Muito útil no Codespace
+    'SERVERS': [
+        {'url': 'https://supreme-space-guacamole-5vpvp7vw5q627p6-8000.app.github.dev'},
+        {'url': 'http://localhost:8000'},
+    ],
+}

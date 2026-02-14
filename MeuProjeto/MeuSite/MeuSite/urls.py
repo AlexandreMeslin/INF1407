@@ -31,8 +31,18 @@ from django.contrib.auth.views import PasswordResetView
 from django.contrib.auth.views import PasswordResetDoneView
 from django.contrib.auth.views import PasswordResetConfirmView
 from django.contrib.auth.views import PasswordResetCompleteView
+from drf_spectacular.views import SpectacularAPIView
+from drf_spectacular.views import SpectacularSwaggerView
+from drf_spectacular.views import SpectacularRedocView
 
 app_name = 'MeuSite'
+
+#schema_view = get_schema_view(
+#    title="API de Carros",
+#    description="Documentação OpenAPI da API de carros",
+#    version="1.0.0",
+#    url="https://supreme-space-guacamole-5vpvp7vw5q627p6-8000.app.github.dev/",
+#)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -90,4 +100,11 @@ urlpatterns = [
             template_name='seguranca/password_reset_complete.html'),
         name='sec-password_reset_complete'),
     path("carros/", include("carros.urls")),
+
+    # Schema OpenAPI JSON
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    # Swagger UI
+    path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='schema-swagger-ui'),
+    # ReDoc UI
+    path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='schema-redoc'),
 ]
