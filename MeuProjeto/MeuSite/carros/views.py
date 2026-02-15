@@ -11,6 +11,9 @@ from drf_spectacular.utils import extend_schema
 from drf_spectacular.utils import OpenApiExample
 from drf_spectacular.utils import OpenApiParameter
 from drf_spectacular.utils import OpenApiTypes
+from rest_framework.decorators import api_view
+from rest_framework.decorators import renderer_classes
+from rest_framework.renderers import JSONRenderer
 
 class CarsView(APIView):
     @extend_schema(
@@ -230,3 +233,70 @@ class CarCreateView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)  # 201 Created
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  # 400 Bad Request
+
+@extend_schema(
+    operation_id="exemplo_com_parametros",      # Identificador único para esta operação
+    summary="Exemplo de view com parâmetros",   # Resumo curto para a documentação
+    description="""
+      Esta view demonstra:
+      - parâmetro de PATH (pk)
+      - parâmetro de QUERY (extra_param)
+      - parâmetro no corpo JSON
+    """,                                        # Descrição detalhada para a documentação
+    tags=["Exemplo", "Teste", "Documentação"],  # Tags para organizar a documentação
+    parameters=[                            # Lista de parâmetros para a documentação
+        OpenApiParameter(                   # Parâmetro de PATH
+            name="pk",                      # Nome do parâmetro
+            type=OpenApiTypes.INT,          # Tipo do parâmetro (inteiro)
+            location=OpenApiParameter.PATH, # Localização do parâmetro (na URL)
+            required=True,                  # Indica que este parâmetro é obrigatório
+            description="ID do recurso",    # Descrição do parâmetro para a documentação
+            examples=[5],                   # Exemplo de valor para este parâmetro
+        ),
+        OpenApiParameter(                                   # Parâmetro de QUERY
+            name="extra_param",                             # Nome do parâmetro
+            type=OpenApiTypes.STR,                          # Tipo do parâmetro (string)
+            location=OpenApiParameter.QUERY,                # Localização do parâmetro (na query string)
+            required=False,                                 # Indica que este parâmetro é opcional
+            description="Parâmetro extra na query string",  # Descrição do parâmetro para a documentação
+            examples=["valor_extra"],                       # Exemplo de valor para este parâmetro
+        ),
+    ],
+    request={                                                               # Esquema do corpo da requisição para a documentação
+        "application/json": {                                               # Tipo de conteúdo esperado (JSON)
+            "type": "object",                                               # Tipo do corpo da requisição (objeto JSON)
+            "properties": {                                                 # Propriedades esperadas no corpo da requisição
+                "body_param": {                                             # Definição do parâmetro esperado no corpo da requisição
+                    "type": "string",                                       # Tipo do parâmetro (string)
+                    "description": "Parâmetro enviado no corpo do request", # Descrição do parâmetro para a documentação
+                    "example": "valor_do_body",                             # Exemplo de valor para este parâmetro
+                }
+            },
+            "required": ["body_param"],                                     # Lista de parâmetros obrigatórios no corpo da requisição
+        }
+    },
+    responses={                                     # Esquema das respostas para a documentação
+        200: {                                      # Código de status HTTP para resposta bem-sucedida
+            "type": "object",                       # Tipo do corpo da resposta (objeto JSON)
+            "properties": {                         # Propriedades esperadas no corpo da resposta
+                "pk": {"type": "integer"},          # Propriedade "pk" do corpo da resposta, do tipo inteiro
+                "extra_param": {"type": "string"},  # Propriedade "extra_param" do corpo da resposta, do tipo string
+                "body_param": {"type": "string"},   # Propriedade "body_param" do corpo da resposta, do tipo string
+            },
+        }
+    },
+)
+@api_view(["POST"])
+@renderer_classes([JSONRenderer])
+def exemplo(request, pk):
+    body_param = request.data.get("body_param")
+    extra_param = request.query_params.get("extra_param")
+
+    return Response(
+        {
+            "pk": pk,
+            "extra_param": extra_param,
+            "body_param": body_param,
+        },
+        status=status.HTTP_200_OK,
+    )
