@@ -14,6 +14,7 @@ from drf_spectacular.utils import OpenApiTypes
 from rest_framework.decorators import api_view
 from rest_framework.decorators import renderer_classes
 from rest_framework.renderers import JSONRenderer
+from django.contrib.auth.decorators import login_required
 
 class CarsView(APIView):
     @extend_schema(
@@ -300,3 +301,21 @@ def exemplo(request, pk):
         },
         status=status.HTTP_200_OK,
     )
+
+@extend_schema(
+    summary="Exemplo de view protegida",
+    responses={
+        200: OpenApiExample(
+            'Resposta de sucesso',
+            value={"message": "Esta é uma view protegida. Você está autenticado!"},
+        ),
+        401: OpenApiExample(
+            'Não autorizado',
+            value={"detail": "Authentication credentials were not provided."},
+        ),
+    },
+)
+@api_view(["GET"])
+@login_required
+def exemplo_protegido(request):
+    return Response({"message": "Esta é uma view protegida. Você está autenticado!"}, status=status.HTTP_200_OK)
