@@ -82,5 +82,8 @@ const authFetch = async (url, options = {}) => {
             'Authorization': 'Bearer ' + accessToken
         };
     }
+    // DEBUG
+    console.log('Making authenticated request to: ', url);
+    console.log('Request options: ', options);
     return fetch(url, options);
 };

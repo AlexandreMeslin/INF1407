@@ -90,5 +90,8 @@ const authFetch = async (url: string, options: RequestInit = {}): Promise<Respon
         };
     }
 
+    // DEBUG
+    console.log('Making authenticated request to: ', url);
+    console.log('Request options: ', options);
     return fetch(url, options);
 }

@@ -140,11 +140,17 @@ STATIC_URL = "static/"
 LOGIN_URL = 'sec-login'
 LOGOUT_URL = 'home'
 
+# Configurações de email para redefinição de senha
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-#REST_FRAMEWORK = {
-#    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.openapi.AutoSchema'
-#}
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST = 'smtp.seuprovedor.com'
+#EMAIL_PORT = 587
+#EMAIL_USE_TLS = True
+#EMAIL_HOST_USER = 'your-email@example.com'
+#EMAIL_HOST_PASSWORD = 'your-email-password'
+DEFAULT_FROM_EMAIL = 'webmaster@localhost'
+#EMAIL_SUBJECT_PREFIX = '[Exemplo] '
+#SERVER_EMAIL = 'server@example.com'
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',

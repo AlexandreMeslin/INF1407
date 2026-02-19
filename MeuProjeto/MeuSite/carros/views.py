@@ -233,8 +233,8 @@ class CarCreateView(APIView):
                     "gear": 7,
                 },
                 request_only=True,  # Este exemplo é apenas para a requisição
-            )
-        ]
+            ),
+        ],
     )
     def post(self, request):
         '''
