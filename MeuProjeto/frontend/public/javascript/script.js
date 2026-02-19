@@ -19,7 +19,7 @@ onload = function () {
  */
 async function exibeListaDeCarros() {
     try {
-        const response = await fetch(backendAddress + 'carros/varioscarros/');
+        const response = await authFetch(backendAddress + 'carros/varioscarros/');
         if (!response.ok) {
             // Nota: Em um ambiente de produção, você deve lidar com erros de forma mais robusta,
             // talvez exibindo uma mensagem de erro para o usuário em vez de apenas logar no console.
@@ -75,7 +75,7 @@ let apagaCarros = async (evento) => {
         checkedValues.push(checkbox.value);
     });
     try {
-        const response = await fetch(backendAddress + 'carros/varioscarros/', {
+        const response = await authFetch(backendAddress + 'carros/varioscarros/', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -84,11 +84,9 @@ let apagaCarros = async (evento) => {
         });
         if (response.ok) {
             alert('Carros excluídos com sucesso!');
-            console.log('Carros excluídos com sucesso!');
         }
         else {
             alert('Erro ao excluir carros!');
-            console.error('Erro ao excluir carros:', response.status);
         }
     }
     catch (error) {

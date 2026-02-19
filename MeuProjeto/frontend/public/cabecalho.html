@@ -1,3 +1,27 @@
-<a href="/" target="_top">Home</a>
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-<hr>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="javascript/constantes.js"></script>
+    <script src="javascript/common.js"></script>
+    <script src="javascript/cabecalho.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+<body>
+    <a href="/" target="_top" class="btn btn-primary">Home</a>
+    <div id="unlogged" class="visivel">
+        <a href="login.html" target="_top" class="btn btn-success">Login</a>
+    </div>
+    <div id="logged" class="invisivel">
+        <a href="passwordChange.html" target="_top" class="btn btn-warning">Troca senha</a>
+        <a href="logout.html" target="_top" class="btn btn-danger" id="logout">Logout</a>
+    </div>
+    | Você é <div id="identificacao" class="mesmaLinha">visitante</div>
+    <hr>
+</body>
+
+</html>

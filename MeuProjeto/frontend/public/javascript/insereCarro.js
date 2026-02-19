@@ -1,7 +1,6 @@
 "use strict";
 onload = () => {
     document.getElementById('insere').addEventListener('click', async (evento) => {
-        console.log('Enviando dados do formulário para o backend...');
         evento.preventDefault();
         const elements = document.getElementById('meuFormulario').elements;
         let data = {};
@@ -13,7 +12,7 @@ onload = () => {
             }
         }
         try {
-            const response = await fetch(backendAddress + 'carros/criar/', {
+            const response = await authFetch(backendAddress + 'carros/criar/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

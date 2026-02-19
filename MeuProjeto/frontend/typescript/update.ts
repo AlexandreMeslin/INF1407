@@ -8,7 +8,7 @@ onload = async () => {
     if (id) {
         idPlace.value = id;
         try {
-            const response = await fetch(backendAddress + 'carros/umcarro/' + id + '/');
+            const response = await authFetch(backendAddress + 'carros/umcarro/' + id + '/');
             if (response.ok) {
                 const carro = await response.json();
                 let campos = ['id', 'name', 'mpg', 'cyl', 'disp', 'hp', 'wt', 'qsec', 'vs', 'am', 'gear'];
@@ -41,7 +41,7 @@ onload = async () => {
         }
 
         try {
-            const response = await fetch(backendAddress + 'carros/umcarro/' + id + '/', {
+            const response = await authFetch(backendAddress + 'carros/umcarro/' + id + '/', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

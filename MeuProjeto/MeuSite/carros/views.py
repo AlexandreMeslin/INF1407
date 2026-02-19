@@ -15,6 +15,8 @@ from rest_framework.decorators import api_view
 from rest_framework.decorators import renderer_classes
 from rest_framework.renderers import JSONRenderer
 from django.contrib.auth.decorators import login_required
+from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 
 class CarsView(APIView):
     @extend_schema(
@@ -87,6 +89,18 @@ class CarsView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)  # 204 No Content
 
 class CarView(APIView):
+    #permission_classes = [IsAuthenticated]
+
+    def get_permissions(self):
+        '''
+        Define as permissões para esta view com base no método HTTP da requisição.
+            - Para requisições GET, requer autenticação (IsAuthenticated).
+            - Para outros métodos (PUT, DELETE, etc.), permite acesso sem autenticação (AllowAny).
+        '''
+        if self.request.method == 'GET':
+            return [IsAuthenticated]  # Requer autenticação apenas para métodos GET
+        return [AllowAny()]  # Permite acesso sem autenticação para outros métodos (PUT, DELETE, etc.)
+
     @extend_schema(
         summary="Obtém dados de um carro específico",
         description="Retorna os dados de um carro específico em formato JSON, com base no ID fornecido na URL.",
