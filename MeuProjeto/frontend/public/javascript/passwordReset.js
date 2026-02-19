@@ -15,6 +15,10 @@ addEventListener("DOMContentLoaded", (evento) => {
             });
             if (response.ok) {
                 messageDiv.textContent = "Instruções para resetar a senha foram enviadas para o seu e-mail.";
+                messageDiv.style.color = "green";
+                setTimeout(() => {
+                    location.href = 'passwordResetDone.html';
+                }, 3000);
             }
             else {
                 const errorData = await response.json();

@@ -1,3 +1,25 @@
+document.addEventListener("DOMContentLoaded", () => {
+    // Para cada campo password, adiciona um ícone de olho para mostrar/ocultar a senha
+    // cria um vetor de containers, cada um contendo um campo de senha e seu respectivo ícone de olho
+    const containers = document.querySelectorAll<HTMLDivElement>(".password-container");
+    // para cada container, adiciona um event listener ao ícone de olho para alternar entre mostrar e ocultar a senha
+    containers.forEach(container => {
+        const input = container.querySelector<HTMLInputElement>('input[type="password"]');
+        const toggle = container.querySelector<HTMLImageElement>(".toggle-password");
+        // verifica se o container está bem formado, ou seja, se contém um campo de senha e um ícone de olho
+        if (!input || !toggle) return; // container mal formado
+        // adiciona o event listener ao ícone de olho para alternar entre mostrar e ocultar a senha
+        toggle.addEventListener("click", () => {
+            if (input.type === "password") {
+                input.type = "text";
+                toggle.src = "img/eye.svg";
+            } else {
+                input.type = "password";
+                toggle.src = "img/eye-off.svg";
+            }
+        });
+    });
+});
 
 /**
  * Função para decodificar um token JWT e extrair seu payload.
@@ -90,8 +112,5 @@ const authFetch = async (url: string, options: RequestInit = {}): Promise<Respon
         };
     }
 
-    // DEBUG
-    console.log('Making authenticated request to: ', url);
-    console.log('Request options: ', options);
     return fetch(url, options);
 }

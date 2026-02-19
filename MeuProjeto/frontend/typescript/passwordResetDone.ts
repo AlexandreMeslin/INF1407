@@ -13,14 +13,14 @@ addEventListener("load", function() {
             return;
         }
 
-        let response = await fetch(backendAddress + 'password-reset/', {
+        let response = await fetch(backendAddress + 'accounts/password-reset/', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 token: token,
-                password: senha
+                new_password: senha
             })
         });
 

@@ -126,7 +126,11 @@ class PasswordResetView(APIView):
             return Response({'error': 'Nenhum usuário encontrado com este e-mail'}, status=status.HTTP_404_NOT_FOUND)
         
         token = AccessToken.for_user(user)
-         # send an e-mail to the user
+
+        # DEBUG
+        print(f'Token gerado para o usuário {user.username} ({user.email}): "{token}"')
+
+        # send an e-mail to the user
         context = {
             'current_user': user.first_name + ' ' + user.last_name if user.last_name else user.first_name,
             'username': user.username,
@@ -159,9 +163,17 @@ class PasswordResetView(APIView):
         token = request.data.get('token')
         new_password = request.data.get('new_password')
 
+        print(f'Token recebido: {token}')
+        print(f'Nova senha recebida: {new_password}')
+
         if not token or not new_password:
+
+            print(f'Campos obrigatórios ausentes: token={token}, new_password={new_password}')
+
             return Response({'error': 'Os campos de token e nova senha são obrigatórios'}, status=status.HTTP_400_BAD_REQUEST)
         
+        print(f'Validando token: {token}')
+
         try:
             access_token = AccessToken(token)
             user_id = access_token['user_id']
@@ -170,5 +182,8 @@ class PasswordResetView(APIView):
             user.save()
             return Response({'message': 'Senha redefinida com sucesso'}, status=status.HTTP_200_OK)
         except Exception as e:
+
+            print(f'Erro ao redefinir senha: {e}')
+
             return Response({'error': 'Token inválido ou expirado'}, status=status.HTTP_400_BAD_REQUEST)
         
