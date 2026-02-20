@@ -17,7 +17,7 @@ addEventListener("load", function () {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                token: token,
+                code: token,
                 new_password: senha
             })
         });
