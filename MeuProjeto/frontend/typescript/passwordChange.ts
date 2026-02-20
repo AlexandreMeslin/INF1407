@@ -10,6 +10,13 @@ addEventListener("DOMContentLoaded", () => {
         const confirmPassword = (document.getElementById("confirm_password") as HTMLInputElement).value;
 
         if (newPassword !== confirmPassword) {
+
+            // JEITO ERRADO (Vulnerável):
+            // safeArea.innerHTML = userInput; 
+
+            // JEITO CERTO (Seguro):
+            // safeArea.textContent = userInput; // O navegador renderiza como texto puro, não como HTML
+
             messageDiv.textContent = "A nova senha e a confirmação não coincidem.";
             return;
         }

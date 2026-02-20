@@ -50,6 +50,10 @@ onload = async () => {
                 body: JSON.stringify(data)
             });
             if (response.ok) {
+                // JEITO ERRADO (Vulnerável):
+                // safeArea.innerHTML = userInput; 
+                // JEITO CERTO (Seguro):
+                // safeArea.textContent = userInput; // O navegador renderiza como texto puro, não como HTML
                 document.getElementById('mensagem').textContent = 'Carro atualizado com sucesso!';
             }
             else {

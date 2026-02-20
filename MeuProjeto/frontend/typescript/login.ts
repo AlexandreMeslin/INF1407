@@ -17,6 +17,13 @@ onload = () => {
             window.location.href = "/";
 
         } catch (err) {
+
+            // JEITO ERRADO (Vulnerável):
+            // safeArea.innerHTML = userInput; 
+
+            // JEITO CERTO (Seguro):
+            // safeArea.textContent = userInput; // O navegador renderiza como texto puro, não como HTML
+
             msg.textContent = "Usuário ou senha inválidos";
         }
     });

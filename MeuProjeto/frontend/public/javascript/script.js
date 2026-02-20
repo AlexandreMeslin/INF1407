@@ -35,6 +35,10 @@ async function exibeListaDeCarros() {
                 let td = document.createElement('td');
                 let href = document.createElement('a');
                 href.href = 'update.html?id=' + carro['id'];
+                // JEITO ERRADO (Vulnerável):
+                // safeArea.innerHTML = userInput; 
+                // JEITO CERTO (Seguro):
+                // safeArea.textContent = userInput; // O navegador renderiza como texto puro, não como HTML
                 href.textContent = carro[campo];
                 td.appendChild(href);
                 tr.appendChild(td);

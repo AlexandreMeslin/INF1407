@@ -19,6 +19,10 @@ onload = () => {
                 },
                 body: JSON.stringify(data)
             });
+            // JEITO ERRADO (Vulnerável):
+            // safeArea.innerHTML = userInput; 
+            // JEITO CERTO (Seguro):
+            // safeArea.textContent = userInput; // O navegador renderiza como texto puro, não como HTML
             if (response.ok) {
                 document.getElementById('mensagem').textContent = 'Carro inserido com sucesso!';
             }

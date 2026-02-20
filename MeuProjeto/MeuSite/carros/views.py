@@ -318,6 +318,13 @@ def exemplo(request, pk):
 
 @extend_schema(
     summary="Exemplo de view protegida",
+    description='''
+      Esta view é protegida por autenticação.
+      Apenas usuários autenticados podem acessá-la. 
+      Retorna uma mensagem de sucesso se o usuário estiver autenticado, 
+      ou redireciona para a página de login se não estiver.
+    ''',
+    tags=["Exemplos"],
     responses={
         200: OpenApiExample(
             'Resposta de sucesso',
@@ -331,5 +338,6 @@ def exemplo(request, pk):
 )
 @api_view(["GET"])
 @login_required
+@renderer_classes([JSONRenderer])
 def exemplo_protegido(request):
     return Response({"message": "Esta é uma view protegida. Você está autenticado!"}, status=status.HTTP_200_OK)

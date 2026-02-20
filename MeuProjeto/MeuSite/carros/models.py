@@ -18,5 +18,8 @@ class MTCars(models.Model):
         managed = True
         db_table = 'MTCars'
         ordering = ['id']
+        verbose_name = 'MTCars'
+        verbose_name_plural = 'MTCars - MotorTrend Cars'
+
     def __str__(self):
         return self.name

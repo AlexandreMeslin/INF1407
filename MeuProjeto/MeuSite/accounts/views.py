@@ -3,16 +3,15 @@ import secrets
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework.authtoken.views import APIView
+from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from accounts.models import PasswordResetCode
 from accounts.serializers import ChangePasswordSerializer
 from accounts.serializers import ResetPasswordRequestSerializer
 from accounts.serializers import ResetPasswordConfirmSerializer
 from rest_framework import status
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import OpenApiExample, extend_schema
 from django.contrib.auth.models import User
-from rest_framework_simplejwt.tokens import AccessToken
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 
@@ -34,20 +33,20 @@ class CustomAuthToken(APIView):
     @extend_schema(
         summary="Alterar senha do usuário autenticado",
         description="Permite que o usuário autenticado altere sua senha fornecendo a senha antiga e a nova senha.",
-        tags=["Contas", "Autenticação"],
+        tags=["accounts"],
         request=ChangePasswordSerializer,
         responses={
             200: "Senha alterada com sucesso", 
             400: "Erro na alteração da senha"
         },
         examples=[
-            {
-                "name": "Exemplo de requisição para alterar senha",
-                "value": {
+            OpenApiExample(
+                "Exemplo de requisição para alterar senha",
+                value={
                     "old_password": "S3736-1001!",
                     "new_password": "S12345678!"
                 }
-            },
+            ),
         ],
     )
     def put(self, request):
@@ -112,19 +111,19 @@ class PasswordResetView(APIView):
             Permite que um usuário solicite um código de redefinição de senha fornecendo seu e-mail. 
             O sistema enviará um e-mail com um código de redefinição se o e-mail estiver associado a uma conta.
             ''',
-        tags=["Contas", "Autenticação"],
+        tags=["accounts"],
         request=ResetPasswordRequestSerializer,
         responses={
             200: "E-mail de redefinição de senha enviado com sucesso", 
             404: "Nenhum usuário encontrado com este e-mail"
         },
         examples=[
-            {
-                "name": "Exemplo de requisição para solicitar redefinição de senha",
-                "value": {
+            OpenApiExample(
+                "Exemplo de requisição para solicitar redefinição de senha",
+                value={
                     "email": "usuario@exemplo.com"
                 }
-            }
+            )
         ],
     )
     def post(self, request):
@@ -179,7 +178,7 @@ class PasswordResetView(APIView):
             Permite que um usuário confirme a redefinição de senha usando um código de redefinição e uma nova senha. 
             O sistema verificará se o código é válido e, se for, redefinirá a senha do usuário.
             ''',
-        tags=["Contas", "Autenticação"],
+        tags=["accounts"],
         request=ResetPasswordConfirmSerializer,
         responses={
             200: "Senha redefinida com sucesso", 
@@ -187,13 +186,13 @@ class PasswordResetView(APIView):
             404: "Código de redefinição não encontrado",
         },
         examples=[
-            {
-                "name": "Exemplo de requisição para confirmar redefinição de senha",
-                "value": {
-                    "code": "código_de_redefinição_recebido_no_email",
-                    "new_password": "S12345678!",
+            OpenApiExample(
+            "Exemplo de requisição para confirmar redefinição de senha",
+            value={
+                "code": "código_de_redefinição_recebido_no_email",
+                "new_password": "S12345678!",
                 }
-            },
+            ),
         ],
     )
     def put(self, request):
