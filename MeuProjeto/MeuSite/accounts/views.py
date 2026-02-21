@@ -1,6 +1,5 @@
 # Create your views here.
 import secrets
-
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
@@ -10,13 +9,14 @@ from accounts.serializers import ChangePasswordSerializer
 from accounts.serializers import ResetPasswordRequestSerializer
 from accounts.serializers import ResetPasswordConfirmSerializer
 from rest_framework import status
-from drf_spectacular.utils import OpenApiExample, extend_schema
+from drf_spectacular.utils import OpenApiExample
+from drf_spectacular.utils import extend_schema
 from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 
 @api_view(['GET'])
-def whoiam(request):
+def whoami(request):
     '''
     Retorna os dados do usuário autenticado.
     '''
@@ -24,7 +24,6 @@ def whoiam(request):
         'id': request.user.id,
         'username': request.user.username,
     }
-    print(f'dados a serem retornados: {dados}')
     return Response(dados)
 
 class CustomAuthToken(APIView):

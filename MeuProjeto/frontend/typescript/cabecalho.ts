@@ -10,14 +10,16 @@ addEventListener('load', async () => {
         localStorage.removeItem('refresh_token');
         window.location.href = '/';
     });
+});
 
+addEventListener('load', async () => {
     // ao carregar a página, verificamos se o token armazenado no localStorage é válido
     const spanElement = document.getElementById('identificacao') as HTMLSpanElement;
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem('access_token')
     }
-    const response = await authFetch(backendAddress + 'accounts/whoiam/', {
+    const response = await authFetch(backendAddress + 'accounts/whoami/', {
         method: 'GET',
         headers: headers
     });

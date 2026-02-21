@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <script src="javascript/constantes.js"></script>
+    <script src="javascript/common.js"></script>
     <script src="javascript/login.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="css/login.css">
@@ -23,8 +24,13 @@
                         <td><input type="text" name="username" id="username"></td>
                     </tr>
                     <tr>
-                        <td>Password:</td>
-                        <td><input type="password" name="password" id="password"></td>
+                        <td><label for="password">Password:</label></td>
+                        <td>
+                            <div class="password-container">
+                                <input type="password" id="password" name="password" required placeholder="Senha">
+                                <img src="img/eye-off.svg" alt="Mostrar senha" class="eye-icon toggle-password" id="eyeIconNovaSenha">
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="2" align="center"><button id="btnLogin">Login</button></td>

@@ -1,9 +1,9 @@
 "use strict";
 onload = () => {
     const form = document.getElementById("loginForm");
-    const msg = document.getElementById("msg");
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
+        const msg = document.getElementById("msg");
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
         try {

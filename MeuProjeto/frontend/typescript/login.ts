@@ -1,9 +1,10 @@
 onload = () => {
     const form = document.getElementById("loginForm") as HTMLFormElement;
-    const msg = document.getElementById("msg") as HTMLDivElement;
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
+        
+        const msg = document.getElementById("msg") as HTMLDivElement;
 
         const username = (document.getElementById("username") as HTMLInputElement).value;
         const password = (document.getElementById("password") as HTMLInputElement).value;

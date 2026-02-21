@@ -89,7 +89,7 @@ class CarsView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)  # 204 No Content
 
 class CarView(APIView):
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get_permissions(self):
         '''
