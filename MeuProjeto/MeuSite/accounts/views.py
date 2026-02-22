@@ -142,6 +142,7 @@ class PasswordResetView(APIView):
                 # Por exemplo: "Se o email existir, enviaremos o código"
                 return Response({'message': 'Nenhum usuário encontrado com este e-mail'}, status=status.HTTP_404_NOT_FOUND)
             
+            # Cria código de redefinição de senha e salva no banco de dados
             code = secrets.token_urlsafe(16)
             PasswordResetCode.objects.create(user=user, code=code)
 
