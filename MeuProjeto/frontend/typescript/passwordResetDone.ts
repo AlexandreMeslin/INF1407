@@ -8,13 +8,6 @@ addEventListener("load", function() {
         const message = document.getElementById("message") as HTMLDivElement;
 
         if (senha !== senha2) {
-
-            // JEITO ERRADO (Vulnerável):
-            // safeArea.innerHTML = userInput; 
-
-            // JEITO CERTO (Seguro):
-            // safeArea.textContent = userInput; // O navegador renderiza como texto puro, não como HTML
-
             message.textContent = "As senhas não coincidem.";
             message.style.color = "red";
             return;
