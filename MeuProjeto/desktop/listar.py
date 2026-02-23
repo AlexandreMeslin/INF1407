@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+
+'''
+Script para listar tabelas e colunas de um banco SQLite
+Uso:
+    python listar.py --db caminho/para/banco.sqlite3
+'''
+
 import sqlite3
 import argparse
 from pathlib import Path

@@ -18,13 +18,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
+from MeuSite import settings
 from MeuSite import views
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.views import PasswordChangeDoneView
-#from django.views.generic.edit import UpdateView
 from django.contrib.auth.models import User
 from MeuSite.views import MeuUpdateView
 from django.contrib.auth.views import PasswordResetView
@@ -37,6 +37,7 @@ from drf_spectacular.views import SpectacularRedocView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.views import TokenRefreshView
 from rest_framework_simplejwt.views import TokenVerifyView
+from django.conf.urls.static import static
 
 app_name = 'MeuSite'
 
@@ -115,4 +116,4 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('accounts/', include('accounts.urls', namespace='accounts')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # deve ficar na URL principal para servir arquivos de mídia durante o desenvolvimento

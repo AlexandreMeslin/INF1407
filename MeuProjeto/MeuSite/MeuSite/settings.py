@@ -170,3 +170,7 @@ SPECTACULAR_SETTINGS = {
         {'url': 'http://localhost:8000'},
     ],
 }
+
+# Para servir arquivos de mídia (como avatares) durante o desenvolvimento
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

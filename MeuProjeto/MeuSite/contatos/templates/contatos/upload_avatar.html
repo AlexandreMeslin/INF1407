@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de Avatar</title>
+</head>
+
+<body>
+    {% include 'contatos/links.html' %}
+
+    <h2>Upload de avatar para {{ pessoa.nome }}</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enviar</button>
+    </form>
+
+    {% if pessoa.pessoacomavatar.avatar %}
+        <h3>Avatar atual:</h3>
+        <img src="{{ pessoa.pessoacomavatar.avatar.url }}" width="150">
+    {% endif %}
+</body>
+
+</html>

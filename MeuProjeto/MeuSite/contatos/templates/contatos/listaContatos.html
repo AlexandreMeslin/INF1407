@@ -17,7 +17,9 @@
                 <td>{{ pessoa.nome }}</td><td>{{pessoa.idade }}</td><td>{{ pessoa.salario }}</td>
                 <td>
                     <a href="{% url 'contatos:atualiza-contato' pk=pessoa.id %}">Atualizar</a> |
-                    <a href="{% url 'contatos:apaga-contato' pk=pessoa.id %}">Excluir</a>
+                    <a href="{% url 'contatos:apaga-contato' pk=pessoa.id %}">Excluir</a> |
+                    <a href="{% url 'contatos:upload_avatar' pessoa_id=pessoa.id %}">Upload do avatar</a> |
+                    <a href='{% url "contatos:detalhe_pessoa" pessoa_id=pessoa.id %}'>Detalhes</a>
                 </td>
            </tr>
         {% empty %}

@@ -2,11 +2,16 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from contatos.models import Pessoa
 from django.views.generic.base import View
-from contatos.forms import ContatoModel2Form
 from django.http.response import HttpResponseRedirect
 from django.urls.base import reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
+
+from contatos.models import Pessoa
+from contatos.models import PessoaComAvatar
+from contatos.forms import AvatarForm
+from contatos.forms import ContatoModel2Form
 
 class ContatoListView(View):
     def get(self, request):
@@ -58,3 +63,30 @@ class ContatoDeleteView(View):
         pessoa.delete()                                 # Deleta a pessoa do banco de dados
         return HttpResponseRedirect(reverse_lazy('contatos:lista-contatos'))
         
+
+def upload_avatar(request, pessoa_id):
+    '''
+    View para upload do avatar de uma pessoa
+    A imagem é salva no modelo PessoaComAvatar, que tem uma relação OneToOne com o modelo Pessoa
+    O arquivo de imagem é salvo na pasta media/avatars/ (configurada no settings.py)
+    '''
+    pessoa = get_object_or_404(Pessoa, id=pessoa_id)
+
+    avatar_obj, _ = PessoaComAvatar.objects.get_or_create(pessoa=pessoa)
+
+    if request.method == 'POST':
+        form = AvatarForm(request.POST, request.FILES, instance=avatar_obj)
+        if form.is_valid():
+            form.save()
+            return redirect('contatos:detalhe_pessoa', pessoa_id=pessoa.id)
+    else:
+        form = AvatarForm(instance=avatar_obj)
+
+    return render(request, 'contatos/upload_avatar.html', {'form': form, 'pessoa': pessoa})
+
+def detalhe_pessoa(request, pessoa_id):
+    '''
+    View para exibir os detalhes de uma pessoa, incluindo o avatar se existir
+    '''
+    pessoa = get_object_or_404(Pessoa, id=pessoa_id)
+    return render(request, 'contatos/detalhe_pessoa.html', {'pessoa': pessoa})

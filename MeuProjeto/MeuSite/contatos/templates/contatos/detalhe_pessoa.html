@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhe de Pessoa</title>
+</head>
+
+<body>
+    {% include 'contatos/links.html' %}
+    <h2>{{ pessoa.nome }}</h2>
+    <p>Email: {{ pessoa.email }}</p>
+
+    {% if pessoa.pessoacomavatar.avatar %}
+        <img src="{{ pessoa.pessoacomavatar.avatar.url }}" width="150">
+    {% else %}
+        <p>Sem avatar</p>
+    {% endif %}
+
+    <a href="{% url 'contatos:upload_avatar' pessoa.id %}">Alterar avatar</a>
+</body>
+
+</html>

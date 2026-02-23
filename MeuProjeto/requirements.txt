@@ -4,3 +4,4 @@ django-cors-headers
 pyyaml
 drf-spectacular
 djangorestframework-simplejwt
+pillow

@@ -13,3 +13,17 @@ class Pessoa(models.Model):
 
     def __str__(self):
         return f'{self.nome} ({self.email})'
+
+
+# Novo modelo com avatar
+class PessoaComAvatar(models.Model):
+    pessoa = models.OneToOneField(Pessoa, on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+
+    class Meta:
+        managed = True
+        verbose_name = 'Pessoa com Avatar'
+        verbose_name_plural = 'Pessoas com Avatar'
+
+    def __str__(self):
+        return f'Avatar de {self.pessoa.nome}'
