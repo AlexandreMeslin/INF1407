@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verificar 2FA</title>
+</head>
+<body>
+<h2>Digite o código do Google Authenticator</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="code" placeholder="123456">
+    <button type="submit">Verificar</button>
+</form>
+
+<p>{{ msg }}</p>
+
+<p><a href="{% url 'meu_app:dashboard' %}">Ir para o Dashboard</a></p>
+
+</body>
+</html>

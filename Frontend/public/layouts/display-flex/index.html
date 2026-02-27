@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de display-flex</title>
+</head>
+<body>
+    <h1>Display Flex (Flexbox)</h1>
+
+    <h2>Controle de eixo</h2>
+
+    <h3>Em linha</h3>
+    <div style="display: flex; background-color: #f0f0f0; ">
+        <div style="background-color: #ff9999; padding: 20px;">Item 1</div>
+        <div style="background-color: #99ff99; padding: 20px;">Item 2</div>
+        <div style="background-color: #9999ff; padding: 20px;">Item 3</div>
+        <div style="background-color: #ffff99; padding: 20px;">Item 4</div>
+        <div style="background-color: #ff99ff; padding: 20px;">Item 5</div>
+    </div>
+
+    <h3>Em coluna</h3>
+    <div style="display: flex; flex-direction: column; background-color: #f0f0f0; ">
+        <div style="background-color: #ff9999; padding: 20px;">Item 1</div>
+        <div style="background-color: #99ff99; padding: 20px;">Item 2</div>
+        <div style="background-color: #9999ff; padding: 20px;">Item 3</div>
+        <div style="background-color: #ffff99; padding: 20px;">Item 4</div>
+        <div style="background-color: #ff99ff; padding: 20px;">Item 5</div>
+    </div>
+
+    <h3>Em linha reverso</h3>
+    <div style="display: flex; flex-direction: row-reverse; background-color: #f0f0f0; ">
+        <div style="background-color: #ff9999; padding: 20px;">Item 1</div>
+        <div style="background-color: #99ff99; padding: 20px;">Item 2</div>
+        <div style="background-color: #9999ff; padding: 20px;">Item 3</div>
+        <div style="background-color: #ffff99; padding: 20px;">Item 4</div>
+        <div style="background-color: #ff99ff; padding: 20px;">Item 5</div>
+    </div>
+
+    <h3>Em coluna reverso</h3>
+    <div style="display: flex; flex-direction: column-reverse; background-color: #f0f0f0; ">
+        <div style="background-color: #ff9999; padding: 20px;">Item 1</div>
+        <div style="background-color: #99ff99; padding: 20px;">Item 2</div>
+        <div style="background-color: #9999ff; padding: 20px;">Item 3</div>
+        <div style="background-color: #ffff99; padding: 20px;">Item 4</div>
+        <div style="background-color: #ff99ff; padding: 20px;">Item 5</div>
+    </div>
+
+    <h2>Alinhamento horizontal</h2>
+
+    <h3>Com alinhamento horizontal centralizado</h3>
+    <div style="display: flex; justify-content: center; background-color: #f0f0f0; padding: 10px;">
+        <div style="background-color: #ff9999; padding: 20px;">Item 1</div>
+        <div style="background-color: #99ff99; padding: 20px;">Item 2</div>
+        <div style="background-color: #9999ff; padding: 20px;">Item 3</div>
+        <div style="background-color: #ffff99; padding: 20px;">Item 4</div>
+        <div style="background-color: #ff99ff; padding: 20px;">Item 5</div>
+    </div>
+
+    <h3>Com alinhamento horizontal espaçado</h3>
+    <div style="display: flex; justify-content: space-between; background-color: #f0f0f0; padding: 10px;">
+        <div style="background-color: #ff9999; padding: 20px;">Item 1</div>
+        <div style="background-color: #99ff99; padding: 20px;">Item 2</div>
+        <div style="background-color: #9999ff; padding: 20px;">Item 3</div>
+        <div style="background-color: #ffff99; padding: 20px;">Item 4</div>
+        <div style="background-color: #ff99ff; padding: 20px;">Item 5</div>
+    </div>
+
+    <h3>Com alinhamento horizontal com espaço ao redor</h3>
+    <div style="display: flex; justify-content: space-around; background-color: #f0f0f0; padding: 10px;">
+        <div style="background-color: #ff9999; padding: 20px;">Item 1</div>
+        <div style="background-color: #99ff99; padding: 20px;">Item 2</div>
+        <div style="background-color: #9999ff; padding: 20px;">Item 3</div>
+        <div style="background-color: #ffff99; padding: 20px;">Item 4</div>
+        <div style="background-color: #ff99ff; padding: 20px;">Item 5</div>
+    </div>
+
+    <h3>Com alinhamento horizontal igualmente espaçado</h3>
+    <div style="display: flex; justify-content: space-evenly; background-color: #f0f0f0; padding: 10px;">
+        <div style="background-color: #ff9999; padding: 20px;">Item 1</div>
+        <div style="background-color: #99ff99; padding: 20px;">Item 2</div>
+        <div style="background-color: #9999ff; padding: 20px;">Item 3</div>
+        <div style="background-color: #ffff99; padding: 20px;">Item 4</div>
+        <div style="background-color: #ff99ff; padding: 20px;">Item 5</div>
+    </div>
+
+    <h2>Alinhamento Vertical</h2>
+
+    <h3>Com alinhamento vertical centralizado</h3>
+    <div style="display: flex; flex-direction: column; align-items: center; background-color: #f0f0f0; height: 400px;">
+        <div style="background-color: #ff9999; padding: 20px;">Item 1</div>
+        <div style="background-color: #99ff99; padding: 20px;">Item 2</div>
+        <div style="background-color: #9999ff; padding: 20px;">Item 3</div>
+        <div style="background-color: #ffff99; padding: 20px;">Item 4</div>
+        <div style="background-color: #ff99ff; padding: 20px;">Item 5</div>
+    </div>
+
+    <h3>Com alinhamento vertical espaçado</h3>
+    <div style="display: flex; flex-direction: column; align-items: stretch; background-color: #f0f0f0; height: 400px;">
+        <div style="background-color: #ff9999; padding: 20px;">Item 1</div>
+        <div style="background-color: #99ff99; padding: 20px;">Item 2</div>
+        <div style="background-color: #9999ff; padding: 20px;">Item 3</div>
+        <div style="background-color: #ffff99; padding: 20px;">Item 4</div>
+        <div style="background-color: #ff99ff; padding: 20px;">Item 5</div>
+    </div>
+
+    <h3>Com alinhamento vertical no inicio</h3>
+    <div style="display: flex; flex-direction: column; align-items: flex-start; background-color: #f0f0f0; height: 400px;">
+        <div style="background-color: #ff9999; padding: 20px;">Item 1</div>
+        <div style="background-color: #99ff99; padding: 20px;">Item 2</div>
+        <div style="background-color: #9999ff; padding: 20px;">Item 3</div>
+        <div style="background-color: #ffff99; padding: 20px;">Item 4</div>
+        <div style="background-color: #ff99ff; padding: 20px;">Item 5</div>
+    </div>
+
+    <h3>Com alinhamento vertical no fundo</h3>
+    <div style="display: flex; flex-direction: column; align-items: flex-end; background-color: #f0f0f0; height: 400px;">
+        <div style="background-color: #ff9999; padding: 20px;">Item 1</div>
+        <div style="background-color: #99ff99; padding: 20px;">Item 2</div>
+        <div style="background-color: #9999ff; padding: 20px;">Item 3</div>
+        <div style="background-color: #ffff99; padding: 20px;">Item 4</div>
+        <div style="background-color: #ff99ff; padding: 20px;">Item 5</div>
+    </div>
+
+    <h2>Distribuição Proporcional</h2>
+
+    <h3></h3>
+
+    <p>Fiquei entediado agora e parei, crie mais alguns exemplos e me manda um PR</p>
+</body>
+</html>

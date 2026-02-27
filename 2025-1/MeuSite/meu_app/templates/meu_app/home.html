@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home-Page</title>
+</head>
+<body>
+    <h1>Bem-vindo à página inicial!</h1>
+    <p>Esta é a página inicial do site. Faça login para acessar o dashboard protegido por 2FA.</p>
+    <ul>
+        <li><a href="{% url 'meu_app:home' %}">Home</a></li>
+        <li><a href="{% url 'meu_app:dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'meu_app:setup_2fa' %}">Configurar 2FA</a></li>
+        <li><a href="{% url 'meu_app:verify_2fa' %}">Verificar 2FA</a></li>
+    </ul>
+</body>
+</html>

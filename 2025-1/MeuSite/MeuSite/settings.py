@@ -38,6 +38,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'contatos',
+    # DRF + JWT
+    "rest_framework",
+
+    # Seu app
+    "meu_app",
+    'MeuSite',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +132,9 @@ CSRF_TRUSTED_ORIGINS = [
     'https://localhost:8000',
     'https://127.0.0.1:8000',
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+}
