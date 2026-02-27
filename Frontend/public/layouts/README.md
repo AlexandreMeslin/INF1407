@@ -5,6 +5,7 @@
 
 Layouts disponiveis:
 - Layout com barra lateral e informação principal: [barra-lateral](./barra-lateral/)
+- Exemplos de layout baseados em [display: flex](display-flex/)
 - Exemplo de formatos de checkbox: [checkbox](./checkbox/)
 - Layout de formulário com 2 abas: [form1](./form1/)
 - Exemplo de modal sem JavaScript: [modal](./modal/)
