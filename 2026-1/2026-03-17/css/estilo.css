@@ -1,0 +1,40 @@
+/* Nome da tag: apenas a tag */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* id: começar por # */
+#idFotoSpiff {
+    width: 200px;
+    height: auto;
+    border-radius: 50%;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* classe: começar por . */
+.topico {
+    background-color: #B0B0B0;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* para colocar o nav do lado do main */
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+nav li {
+    list-style-type: none;
+    margin: 10px 0;
+}
