@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'MeuApp',   # minha primeira aplicação
+    'portal',
+    'contatos',
 ]
 
 MIDDLEWARE = [
