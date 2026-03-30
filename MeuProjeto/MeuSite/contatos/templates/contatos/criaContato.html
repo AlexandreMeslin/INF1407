@@ -7,22 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cria Contato</title>
     <link rel="stylesheet" href="{% static 'contatos/css/estilo.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
 </head>
 
 <body>
     {% include 'contatos/links.html' %}
     <h1>Cria um contato</h1>
-    <form action="" method="POST">
+    <form method="POST" enctype="multipart/form-data">
         <fieldset style="width: max-content;">
             <legend>Formulário de Cadastro</legend>
             {% csrf_token %}
             <table class='formulario'>
                 {{ formulario.as_table }}
+                <tr>
+                    <td></td>
+                    <td><button type="submit">Cria contato</button></td>
+                </tr>
             </table>
-            <button type="submit">Cria contato</button>
         </fieldset>
     </form>
-
 </body>
 
 </html>

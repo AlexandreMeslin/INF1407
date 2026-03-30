@@ -1,30 +1,98 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista Contatos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'contatos/css/estilo.css' %}">
+    <link rel="stylesheet" href="{% static 'contatos/css/lista-contato.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
 </head>
+
 <body>
     {% include 'contatos/links.html' %}
-    <h1>Lista de Contatos</h1>
-    <table>
-        <tr><th>Nome</th><th>Idade</th><th>Salário</th><th>Ações disponíveis</th></tr>
-        {% for pessoa in pessoas %}
-            <tr>
-                <td>{{ pessoa.nome }}</td><td>{{pessoa.idade }}</td><td>{{ pessoa.salario }}</td>
-                <td>
-                    <a href="{% url 'contatos:atualiza-contato' pk=pessoa.id %}">Atualizar</a> |
-                    <a href="{% url 'contatos:apaga-contato' pk=pessoa.id %}">Excluir</a> |
-                    <a href="{% url 'contatos:upload_avatar' pessoa_id=pessoa.id %}">Upload do avatar</a> |
-                    <a href='{% url "contatos:detalhe_pessoa" pessoa_id=pessoa.id %}'>Detalhes</a>
-                </td>
-           </tr>
-        {% empty %}
-            <tr><th colspan="5">Ainda não tem contatos cadastrados</th></tr>
-        {% endfor %}
-    </table>    
+
+    <div class="container-row">
+        <div class="lista-contatos">
+            <div class="justify-content-between">
+                <h2>Contatos</h2>
+                <a href="{% url 'contatos:cria-contato' %}" class="btn btn-success">
+                    +&nbsp;Novo
+                </a>
+            </div>
+
+            <div class="relative">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="search-icon">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.3-4.3"></path>
+                </svg>
+                <input
+                    placeholder="Buscar contato..." value="">
+            </div>
+
+            {% for pessoa in pessoas %}
+            <div class="container-row">
+                <div>
+                {% if pessoa.avatar %}
+                    <img src="{{ pessoa.avatar.url }}" alt="Avatar" class="avatar">
+                {% else %}
+                    <p>Sem avatar</p>
+                {% endif %}
+                </div>
+                <div>
+                    <p class="nome">{{ pessoa.nome }}</p>
+                    <p class="telefone">{{ pessoa.telefone }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p>Nenhum contato encontrado.</p>
+            {% endfor %}
+        </div>
+        
+        <div class="um-contato">
+
+            <table>
+                <tr>
+                    <th>Avatar</th>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                    <th>Salário</th>
+                    <th>Ações disponíveis</th>
+                </tr>
+                {% for pessoa in pessoas %}
+                <tr>
+                    <td>
+                        {% if pessoa.avatar %}
+                        <img src="{{ pessoa.avatar.url }}" alt="Avatar" width="50">
+                        {% else %}
+                        <p>Sem avatar</p>
+                        {% endif %}
+                    </td>
+                    <td>{{ pessoa.nome }}</td>
+                    <td>{{pessoa.idade }}</td>
+                    <td>{{ pessoa.salario }}</td>
+                    <td>
+                        <a href="{% url 'contatos:atualiza-contato' pk=pessoa.id %}">Atualizar</a> |
+                        <a href="{% url 'contatos:apaga-contato' pk=pessoa.id %}">Excluir</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <th colspan="5">Ainda não tem contatos cadastrados</th>
+                </tr>
+                {% endfor %}
+            </table>
+
+
+        </div>
+    </div>
+
+
 </body>
+
 </html>

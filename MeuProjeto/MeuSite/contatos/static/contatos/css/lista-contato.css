@@ -1,0 +1,94 @@
+/* Divide em duas colunas */
+.container-row {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+    max-width: 100%;
+}
+
+.container-column {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+/* Estiliza o título para ficar alinhado */
+.container-row h2 {
+    display: inline;
+    border-left: 0;
+    padding-left: 0;
+    padding-right: 10px;
+    margin-right: 10px;
+}
+
+.lista-contatos {
+    background-color: #444444;
+    color: #FFFFFF;
+    width: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.um-contato {
+    background-color: #000000;
+    color: #FFFFFF;
+    width: 100%;
+    max-width: 100%;
+}
+
+.justify-content-between {
+    display: flex; 
+    justify-content: space-between; 
+    padding: 10px;
+}
+
+.relative {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.relative .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888888;
+}
+
+.relative input {
+    width: 100%;
+    padding: 8px 8px 8px 40px; /* espaço para o ícone */
+    border: 1px solid #888888;
+    border-radius: 4px;
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.lista-contatos .container-row {
+    padding: 10px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    object-fit: cover;  /* Garante que a imagem preencha o círculo sem distorção */
+}
+
+.nome {
+    font-weight: 900;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.telefone {
+    font-size: 14px;
+    color: #888888;
+    margin-left: 10px;
+    margin-top: 0;
+}

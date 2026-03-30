@@ -7,20 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atualiza Contato</title>
     <link rel="stylesheet" href="{% static 'contatos/css/estilo.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
 </head>
 
 <body>
     {% include 'contatos/links.html' %}
     <h1>Atualização de contatos</h1>
-    <form method="POST" class='formulario'>
-        {% csrf_token %}
-        <table>
-            {{ pessoa.as_table }}
-            <tr>
-                <td></td>
-                <td><input type="submit" value="Atualiza"></td>
-            </tr>
-        </table>
+    <form method="POST" class='formulario' enctype="multipart/form-data">
+        <fieldset>
+            <legend>Informações do Contato</legend>
+            {% csrf_token %}
+            <table>
+                {{ pessoa.as_table }}
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Atualiza"></td>
+                </tr>
+            </table>
+        </fieldset>
     </form>
 </body>
 

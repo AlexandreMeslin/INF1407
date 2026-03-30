@@ -23,3 +23,8 @@ Não se esqueça de incluir a tag {% load static %}
     text-align: right;
     vertical-align: text-top;
 }
+
+/* Desativa todos os campos */
+.form-desativado * {
+    pointer-events: none !important; /* desativa clique e foco */
+}

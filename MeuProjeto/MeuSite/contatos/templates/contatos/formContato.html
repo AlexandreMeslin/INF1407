@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--
+    Ao usar esse template para criar ou atualizar um contato, os seguintes contextos devem ser passados pela view:
+    - title_head: O título a ser exibido na aba do navegador
+    - title_page: O título a ser exibido na página
+    - title_legend: O título a ser exibido na legenda do fieldset do formulário
+    - text_submit: O texto a ser exibido no botão de submit do formulário
+    - status_form: A classe CSS a ser aplicada ao tbody do formulário, que pode ser usada para estilizar o formulário de acordo com o contexto
+    - pessoa: O formulário de criação ou atualização do contato, que deve ser passado como um objeto do tipo ModelForm
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title_head }}</title>
+    <link rel="stylesheet" href="{% static 'contatos/css/estilo.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+</head>
+
+<body>
+    {% include 'contatos/links.html' %}
+    <h1>{{ title_page }}</h1>
+    <form method="POST" class='formulario' enctype="multipart/form-data">
+        <fieldset>
+            <legend>{{ title_legend }}</legend>
+            {% csrf_token %}
+            <table>
+                <tbody class="{{ status_form }}">
+                    {{ pessoa.as_table }}
+                </tbody>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="{{ text_submit }}"></td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</body>
+
+</html>

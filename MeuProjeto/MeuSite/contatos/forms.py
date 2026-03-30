@@ -1,6 +1,5 @@
 from django import forms
 from contatos.models import Pessoa
-from contatos.models import PessoaComAvatar
 
 class ContatoModel2Form(forms.ModelForm):
     class Meta:
@@ -13,8 +12,3 @@ class ContatoModel2Form(forms.ModelForm):
         help_text='Formato: DD/MM/AAAA',
         widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'})
     )
-
-class AvatarForm(forms.ModelForm):
-    class Meta:
-        model = PessoaComAvatar
-        fields = ['avatar']
