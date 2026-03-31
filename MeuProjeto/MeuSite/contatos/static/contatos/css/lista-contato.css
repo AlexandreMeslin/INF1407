@@ -20,6 +20,7 @@ body {
     background-color: var(--bg);
     color: var(--fg);
     transition: background-color 0.3s, color 0.3s;
+    height: 100%;
 }
 
 /* Divide em duas colunas */
@@ -32,6 +33,7 @@ body {
     padding-right: 0;
     width: 100%;
     max-width: 100%;
+    height: 100%;
 }
 
 .container-column {
@@ -53,6 +55,7 @@ body {
     background-color: var(--bg4);
     color: var(--fg);
     width: auto;
+    height: 100%;
     padding-left: 15px;
     padding-right: 15px;
 }
