@@ -18,7 +18,8 @@ class ContatoListView(View):
     '''
     def get(self, request: HttpRequest) -> HttpResponse:
         '''
-        Recupera todas as pessoas do banco de dados e renderiza a página de lista de contatos
+        Recupera todas as pessoas do banco de dados 
+        e renderiza a página de lista de contatos
         '''
         pessoas = Pessoa.objects.all()  # Recupera todas as pessoas do banco de dados
         contexto = {
@@ -153,6 +154,19 @@ class ContatoUpdateView(View):
 
 
 def toggle_theme(request):
+    '''
+    Alterna entre os temas claro e escuro, 
+    armazenando a preferência do usuário na sessão.
+
+    :param request: A solicitação HTTP enviada pelo usuário para alternar o tema
+    :return: Redireciona para a página anterior após alternar o tema
+    '''
+    # Recupera o tema atual da sessão, 
+    # se não existir, define como "light" por padrão
     current = request.session.get("theme", "light")
+    # Alterna o tema para "dark" se o tema atual for "light", 
+    # ou para "light" se o tema atual for "dark"
     request.session["theme"] = "dark" if current == "light" else "light"
+    # Redireciona para a página anterior usando o cabeçalho HTTP_REFERER,
+    # ou para a página inicial ("/") se o cabeçalho não estiver presente
     return redirect(request.META.get("HTTP_REFERER", "/"))

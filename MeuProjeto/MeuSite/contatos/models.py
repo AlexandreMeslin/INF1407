@@ -20,3 +20,17 @@ class Pessoa(models.Model):
 
     def __str__(self):
         return f'{self.nome} ({self.email})'
+
+    @property
+    def iniciais(self):
+        if self.nome:
+            nomes = self.nome.split()
+            primeira_letra = nomes[0][0].upper() if len(nomes[0]) > 0 else '?'
+            if len(nomes) > 1:
+                segunda_letra = nomes[-1][0].upper() if len(nomes[-1]) > 0 else '?'
+            else:
+                segunda_letra = nomes[0][1].upper() if len(nomes[0]) > 1 else primeira_letra
+            return f'{primeira_letra}{segunda_letra}'
+        else:
+            return "??"
+        

@@ -1,0 +1,11 @@
+.alinhamento-horizontal-centro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0; /* Remove margens para centralizar melhor */
+}
+
+.fundo-verde {
+    background-color: #28a745; /* Verde */
+    color: white; /* Cor do texto branca para contraste */
+}
