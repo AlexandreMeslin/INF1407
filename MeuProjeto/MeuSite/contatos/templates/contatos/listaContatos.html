@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="{{ request.session.theme|default:'light' }}">
 
 <head>
     <meta charset="UTF-8">
@@ -92,6 +92,16 @@
         </div>
     </div>
 
+    <footer>
+        <a href="{% url 'contatos:toggle-theme' %}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250">
+                <circle cx="125" cy="125" r="113.2" fill="#fff"/>
+                <path d="m125,11.8 a56.6,56.6 0 0 1 0,113.2 56.6,56.6 0 0 0 0,113.2 113.2,113.2 0 0 0 0,-226.4"/>
+                <circle cx="125" cy="68.4" r="17.6"/>
+                <circle cx="125" cy="181.6" r="17.6" fill="#fff"/>
+            </svg>
+        </a>
+    </footer>
 
 </body>
 

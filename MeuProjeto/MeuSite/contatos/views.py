@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 # Create your views here.
 
@@ -149,3 +149,10 @@ class ContatoUpdateView(View):
                 'pessoa': formulario,
             }                   # Prepara o contexto com o formulário preenchido com os dados inválidos
             return render(request, 'contatos/formContato.html', contexto)
+
+
+
+def toggle_theme(request):
+    current = request.session.get("theme", "light")
+    request.session["theme"] = "dark" if current == "light" else "light"
+    return redirect(request.META.get("HTTP_REFERER", "/"))

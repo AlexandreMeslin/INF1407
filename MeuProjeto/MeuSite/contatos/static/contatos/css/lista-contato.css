@@ -1,7 +1,32 @@
+/* Tema claro */
+:root {
+    --bg: #FFFFFF;
+    --bg4: #CCCCCC;
+    --fg: #000000;
+    --fg8: #888888;
+    --border: #888888;
+}
+
+/* Tema escuro */
+.dark {
+    --bg: #000000;
+    --bg4: #444444;
+    --fg: #FFFFFF;
+    --fg8: #888888;
+    --border: #888888;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--fg);
+    transition: background-color 0.3s, color 0.3s;
+}
+
 /* Divide em duas colunas */
 .container-row {
     display: flex;
     flex-direction: row;
+    flex: 1;
     margin: 0;
     padding-left: 0;
     padding-right: 0;
@@ -25,16 +50,16 @@
 }
 
 .lista-contatos {
-    background-color: #444444;
-    color: #FFFFFF;
+    background-color: var(--bg4);
+    color: var(--fg);
     width: auto;
     padding-left: 15px;
     padding-right: 15px;
 }
 
 .um-contato {
-    background-color: #000000;
-    color: #FFFFFF;
+    background-color: var(--bg);
+    color: var(--fg);
     width: 100%;
     max-width: 100%;
 }
@@ -56,16 +81,16 @@
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    color: #888888;
+    color: var(--fg);
 }
 
 .relative input {
     width: 100%;
     padding: 8px 8px 8px 40px; /* espaço para o ícone */
-    border: 1px solid #888888;
+    border: 1px solid var(--border);
     border-radius: 4px;
-    background-color: #000000;
-    color: #FFFFFF;
+    background-color: var(--bg);
+    color: var(--fg);
 }
 
 .lista-contatos .container-row {
@@ -88,7 +113,30 @@
 
 .telefone {
     font-size: 14px;
-    color: #888888;
+    color: var(--fg8);
     margin-left: 10px;
     margin-top: 0;
+}
+
+/* Footer com altura fixa de 45px */
+footer {
+    height: 45px;
+    background-color: var(--bg);
+
+    /* alinha o conteúdo do footer ao centro */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Fixa o footer na parte inferior da página */
+    position: fixed; 
+    bottom: 10px; 
+    left: 0px; 
+    padding: 20px;
+}
+
+/* Ajuste do SVG para caber no footer */
+footer svg {
+    height: 35px; /* Altura um pouco menor que o footer */
+    width: auto;
 }
