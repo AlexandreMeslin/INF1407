@@ -25,7 +25,7 @@ class ContatoListView(View):
         contexto = {
             'pessoas': pessoas,
         }
-        return render(request, 'contatos/listaContatos.html', contexto)
+        return render(request, 'contatos/contatos.html', contexto)
 
 class ContatoCreateView(View):
     '''
@@ -41,9 +41,11 @@ class ContatoCreateView(View):
             'title_page': 'Criação de Contato',
             'title_legend': 'Formulário de Cadastro',
             'text_submit': 'Cria contato',
+            'exibir_modal': True, # Adiciona uma variável de contexto para indicar que o modal deve ser exibido
+            'pessoas': Pessoa.objects.all(), # Adiciona a lista de pessoas ao contexto para exibir na página de criação de contato
             'pessoa': ContatoModel2Form()
         }
-        return render(request, 'contatos/formContato.html', contexto)
+        return render(request, 'contatos/contatos.html', contexto)
 
     def post(self, request: HttpRequest) -> HttpResponse:
         '''
@@ -61,9 +63,11 @@ class ContatoCreateView(View):
                 'title_page': 'Criação de Contato',
                 'title_legend': 'Formulário de Cadastro',
                 'text_submit': 'Cria contato',
+                'exibir_modal': True, # Adiciona uma variável de contexto para indicar que o modal deve ser exibido, mesmo que os dados sejam inválidos, para que o usuário possa corrigir os erros
+                'pessoas': Pessoa.objects.all(), # Adiciona a lista de pessoas ao contexto para exibir na página de criação de contato
                 'pessoa': formulario,
             }
-            return render(request, 'contatos/formContato.html', contexto)
+            return render(request, 'contatos/contatos.html', contexto)
 
 class ContatoDeleteView(View):
     '''
@@ -123,9 +127,11 @@ class ContatoUpdateView(View):
             'title_page': 'Atualização de Contato',
             'title_legend': 'Dados do Contato',
             'text_submit': 'Atualizar contato',
+            'exibir_modal': True, # Adiciona uma variável de contexto para indicar que o modal deve ser exibido, mesmo que os dados sejam inválidos, para que o usuário possa corrigir os erros
+            'pessoas': Pessoa.objects.all(), # Adiciona a lista de pessoas ao contexto para exibir na página de criação de contato
             'pessoa': formulario,
         }                   # Prepara o contexto com o formulário
-        return render(request, 'contatos/formContato.html', contexto)
+        return render(request, 'contatos/contatos.html', contexto)
 
     def post(self, request: HttpRequest, pk: int) -> HttpResponse:
         '''
@@ -147,9 +153,11 @@ class ContatoUpdateView(View):
                 'title_page': 'Atualização de Contato',
                 'title_legend': 'Dados do Contato',
                 'text_submit': 'Atualizar contato',
+                'exibir_modal': True, # Adiciona uma variável de contexto para indicar que o modal deve ser exibido, mesmo que os dados sejam inválidos, para que o usuário possa corrigir os erros
+                'pessoas': Pessoa.objects.all(), # Adiciona a lista de pessoas ao contexto para exibir na página de criação de contato
                 'pessoa': formulario,
             }                   # Prepara o contexto com o formulário preenchido com os dados inválidos
-            return render(request, 'contatos/formContato.html', contexto)
+            return render(request, 'contatos/contatos.html', contexto)
 
 
 

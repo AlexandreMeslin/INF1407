@@ -63,6 +63,11 @@ body {
     padding-right: 15px;
 }
 
+.lista-contatos > a {
+    color: var(--fg);
+    text-decoration: none;
+}
+
 .um-contato {
     background-color: var(--bg);
     color: var(--fg);
@@ -148,7 +153,32 @@ footer {
 }
 
 /* Ajuste do SVG para caber no footer */
-footer svg {
+footer svg, modal-footer svg {
     height: 35px; /* Altura um pouco menor que o footer */
     width: auto;
+}
+
+/* Estilos para o modal */
+.cor-modal {
+    background-color: var(--bg4);
+    color: var(--fg8);
+}
+
+.cor-modal input[type="text"],
+.cor-modal input[type="email"],
+.cor-modal input[type="tel"],
+.cor-modal input[type="number"] {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background-color: var(--bg);
+    color: var(--fg8);
+}
+
+/* Blur aplicado quando o modal estiver visível */
+body.modal-open .container-row,
+body.modal-open footer {
+    filter: blur(8px);           /* Intensidade do blur */
+    transition: filter 0.3s ease;
+    pointer-events: none;        /* Impede interação com o fundo */
 }
