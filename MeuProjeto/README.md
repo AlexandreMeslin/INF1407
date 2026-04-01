@@ -175,3 +175,10 @@ MeuProjeto
 │       └── update.ts
 └── requirements.txt
 ```
+
+# Recursos
+
+1. Ícones
+   - [FreeP!k](https://br.freepik.com/)
+1. Textos
+   - [Lorem Ipsum](https://www.lipsum.com/)

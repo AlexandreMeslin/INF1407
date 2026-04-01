@@ -1,3 +1,8 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 /* Tema claro */
 :root {
     --bg: #FFFFFF;
@@ -29,6 +34,12 @@ body {
     flex-direction: row;    /* Define a direção dos itens como linha */
 }
 
+.items-center {
+    align-items: center;    /* Alinha os itens verticalmente ao centro */
+    align-content: center;  /* Alinha o conteúdo ao centro */
+    text-align: center;     /* Alinha o texto ao centro */
+}
+
 .container-layout {
     flex: 1;                /* Permite que a linha ocupe todo o espaço disponível */
     margin: 0;
@@ -57,22 +68,30 @@ body {
 .lista-contatos {
     background-color: var(--bg4);
     color: var(--fg);
-    width: auto;
-    height: fit-content;
+    width: auto;            /* Permite que a largura se ajuste ao conteúdo */
+    height: fit-content;    /* Permite que a altura se ajuste ao conteúdo */
+    min-height: 100%;       /* Garante que a altura seja pelo menos 100% do container pai */
     padding-left: 15px;
     padding-right: 15px;
 }
 
-.lista-contatos > a {
+.lista-contatos > a,
+.titulo-contatos > a,
+.btn > a {
     color: var(--fg);
     text-decoration: none;
 }
 
 .um-contato {
+    display: flex;
+    flex-direction: column;
+
     background-color: var(--bg);
     color: var(--fg);
     width: 100%;
     max-width: 100%;
+
+    padding-top: 50px;
 }
 
 .justify-content-between {
@@ -116,8 +135,25 @@ body {
     object-fit: cover;  /* Garante que a imagem preencha o círculo sem distorção */
 }
 
+.avatar-grande {
+    width: 100px;
+    height: 100px;
+    margin: 25px;
+    object-fit: cover;
+    border-radius: 50%;
+    object-fit: cover;  /* Garante que a imagem preencha o círculo sem distorção */
+}
+
+.avatar-grande p {
+    margin: 0;
+    padding: 0;
+    font-size: 40px;
+    font-weight: bolder;
+}
+
 .avatar p {
     margin: 0;
+    padding: 0;
     font-size: 18px;
     color: white;
     font-weight: bold;
@@ -134,6 +170,15 @@ body {
     color: var(--fg8);
     margin-left: 10px;
     margin-top: 0;
+}
+
+.gap-between {
+    display: flex;
+    gap: 20px; /* Define o espaçamento entre os botões */
+}
+
+.margin-25 {
+    margin: 25px;
 }
 
 /* Footer com altura fixa de 45px */
@@ -181,4 +226,69 @@ body.modal-open footer {
     filter: blur(8px);           /* Intensidade do blur */
     transition: filter 0.3s ease;
     pointer-events: none;        /* Impede interação com o fundo */
+}
+
+#modal-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo-contatos {
+    display: flex !important;
+    align-items: center;
+    flex-direction: row !important;
+    justify-content: center;    
+    gap: 12px;                    /* espaçamento entre ícone e texto */
+    margin: 0;
+}
+
+.icone-home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0; /* Impede que o ícone encolha */
+}
+
+.icone-home svg {
+    height: 100%;
+    width: 100%;
+    fill: currentColor; /* Usa a cor atual do texto para o ícone */
+}
+
+.contem-pessoa {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* Alinha o conteúdo à esquerda */
+    gap: 5px; /* Define o espaçamento entre o nome e o telefone */
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px;
+    background-color: var(--bg4);
+}
+
+.label {
+    font-size: 14px;
+    color: var(--fg8);
+    margin-bottom: 0;
+    padding-left: 10px;
+    text-align: left;
+}
+
+.value {
+    font-size: 18px;
+    color: var(--fg);
+    font-weight: bold;
+    margin-bottom: 0;
+    padding-left: 10px;
+}
+
+.divisoria {
+    border-top: 1px solid var(--border);
+    margin-left: 12px;
+    margin-right: 12px;
+    width: 90%;
 }

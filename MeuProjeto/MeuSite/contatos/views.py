@@ -11,7 +11,34 @@ from django.http import HttpResponse
 from contatos.models import Pessoa
 from contatos.forms import ContatoModel2Form
 
-class ContatoListView(View):
+class ContatoDetailView(View):
+    '''
+    View para listar um contato específico, 
+    renderizando o modal da página de contatos 
+    com os dados do contato selecionado para exibição
+    '''
+    def get(self, request: HttpRequest, pk: int) -> HttpResponse:
+        '''
+        Recupera a pessoa do banco de dados com a chave primária fornecida e renderiza o modal da página de contatos com os dados do contato selecionado para exibição
+
+        :param request: A solicitação HTTP GET enviada pelo usuário para acessar a página de detalhes do contato
+        :param pk: A chave primária do contato a ser exibido, passada como parte da URL
+        :return: Renderiza o modal da página de contatos com os dados do contato selecionado para exibição
+        '''
+        pessoa = Pessoa.objects.get(pk=pk)              # Recupera a pessoa do banco de dados com a chave primária fornecida
+        form = ContatoModel2Form(instance=pessoa) # Cria um formulário preenchido com os dados da pessoa para exibir no modal
+        contexto = {    # Prepara o contexto com a pessoa a ser exibida
+            'title_head': 'Detalhes do Contato',
+            'title_page': 'Detalhes do Contato',
+            'title_legend': 'Dados do Contato',
+            'text_submit': 'Fechar',
+            'status_form': 'form-desativado', # Adiciona uma classe CSS para estilizar o formulário como desativado, indicando que os dados não podem ser editados
+            'pessoas': Pessoa.objects.all(), # Adiciona a lista de pessoas ao contexto para exibir na página de criação de contato
+            'pessoa': form,
+        }               
+        return render(request, 'contatos/contatos.html', contexto)
+
+class ContatosListView(View):
     '''
     View para listar todos os contatos cadastrados no banco de dados e renderiza a página de lista de contatos
     Herda da classe View do Django, que é uma classe base para criar views baseadas em classes (CBVs)
@@ -90,9 +117,11 @@ class ContatoDeleteView(View):
             'title_legend': 'Contato a ser excluído',
             'text_submit': 'Excluir contato',
             'status_form': 'form-desativado', # Adiciona uma classe CSS para estilizar o formulário como desativado, indicando que os dados não podem ser editados
+            'exibir_modal': True, # Adiciona uma variável de contexto para indicar que o modal deve ser exibido, mesmo que os dados sejam inválidos, para que o usuário possa corrigir os erros
+            'pessoas': Pessoa.objects.all(), # Adiciona a lista de pessoas ao contexto para exibir na página de criação de contato
             'pessoa': form,
         }               
-        return render(request, 'contatos/formContato.html', contexto)
+        return render(request, 'contatos/contatos.html', contexto)
 
     def post(self, request: HttpRequest, pk: int) -> HttpResponse:
         '''
@@ -131,6 +160,7 @@ class ContatoUpdateView(View):
             'pessoas': Pessoa.objects.all(), # Adiciona a lista de pessoas ao contexto para exibir na página de criação de contato
             'pessoa': formulario,
         }                   # Prepara o contexto com o formulário
+        print(f'Link para o avatar: {contexto["pessoa"].instance.avatar.url if contexto["pessoa"].instance.avatar else "Sem avatar"}') # Imprime o link do avatar para depuração
         return render(request, 'contatos/contatos.html', contexto)
 
     def post(self, request: HttpRequest, pk: int) -> HttpResponse:

@@ -14,8 +14,6 @@
 </head>
 
 <body class="{% if exibir_modal %}modal-open{% endif %}">
-    {% include 'contatos/links.html' %}
-
     {% if exibir_modal %}
         <div class="modal" tabindex="-1" style="display: block;">
             <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -26,6 +24,17 @@
                     </div>
                     <form method="POST" class='formulario' enctype="multipart/form-data">
                         <div class="modal-body">
+
+                            <div id="modal-avatar">
+                                {% if pessoa.instance.avatar %}
+                                    <img src="{{ pessoa.instance.avatar.url }}" alt="Avatar" class="avatar">
+                                {% else %}
+                                    <div class="fundo-verde avatar alinhamento-horizontal-centro">
+                                        <p>{{ pessoa.instance.iniciais }}</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+
                             <fieldset>
                                 <legend>{{ title_legend }}</legend>
                                 {% csrf_token %}
@@ -49,7 +58,28 @@
     <div class="container-row container-layout">
         <div class="lista-contatos">
             <div class="justify-content-between">
-                <h2>Contatos</h2>
+                <h2 class="titulo-contatos">
+                    <a href="/">
+                        <span class="icone-home">
+                        <svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 495.398 495.398">
+                            <g>
+                                <g>
+                                    <g>
+                                        <path d="M487.083,225.514l-75.08-75.08V63.704c0-15.682-12.708-28.391-28.413-28.391c-15.669,0-28.377,12.709-28.377,28.391
+                                            v29.941L299.31,37.74c-27.639-27.624-75.694-27.575-103.27,0.05L8.312,225.514c-11.082,11.104-11.082,29.071,0,40.158
+                                            c11.087,11.101,29.089,11.101,40.172,0l187.71-187.729c6.115-6.083,16.893-6.083,22.976-0.018l187.742,187.747
+                                            c5.567,5.551,12.825,8.312,20.081,8.312c7.271,0,14.541-2.764,20.091-8.312C498.17,254.586,498.17,236.619,487.083,225.514z"/>
+                                        <path d="M257.561,131.836c-5.454-5.451-14.285-5.451-19.723,0L72.712,296.913c-2.607,2.606-4.085,6.164-4.085,9.877v120.401
+                                            c0,28.253,22.908,51.16,51.16,51.16h81.754v-126.61h92.299v126.61h81.755c28.251,0,51.159-22.907,51.159-51.159V306.79
+                                            c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"/>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                        </span>
+                    </a>
+                    Contatos
+                </h2>
                 <a href="{% url 'contatos:cria-contato' %}" class="btn btn-success">
                     +&nbsp;Novo
                 </a>
@@ -66,16 +96,16 @@
             </div>
 
             {% for pessoa in pessoas %}
-            <a href="{% url 'contatos:atualiza-contato' pk=pessoa.pk %}">
+            <a href="{% url 'contatos:detalhes-contato' pk=pessoa.pk %}">
                 <div class="container-row">
                     <div>
-                    {% if pessoa.avatar %}
-                        <img src="{{ pessoa.avatar.url }}" alt="Avatar" class="avatar">
-                    {% else %}
-                        <div class="fundo-verde avatar alinhamento-horizontal-centro">
-                            <p>{{ pessoa.iniciais }}</p>
-                        </div>
-                    {% endif %}
+                        {% if pessoa.avatar %}
+                            <img src="{{ pessoa.avatar.url }}" alt="Avatar" class="avatar">
+                        {% else %}
+                            <div class="fundo-verde avatar alinhamento-horizontal-centro">
+                                <p>{{ pessoa.iniciais }}</p>
+                            </div>
+                        {% endif %}
                     </div>
                     <div>
                         <p class="nome">{{ pessoa.nome }}</p>
@@ -84,11 +114,83 @@
                 </div>
             </a>
             {% empty %}
-            <p>Nenhum contato encontrado.</p>
+                <p>Nenhum contato encontrado.</p>
             {% endfor %}
         </div>
         
         <div class="um-contato">
+            {% if pessoa %}
+                <div class="container-column items-center">
+                    <div>
+                        {% if pessoa.instance.avatar %}
+                            <img src="{{ pessoa.instance.avatar.url }}" alt="Avatar" class="avatar-grande">
+                        {% else %}
+                            <div class="fundo-verde avatar-grande items-center">
+                                <p>{{ pessoa.instance.iniciais }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <p class="nome">{{ pessoa.nome.value }}</p>
+                    <div class="gap-between margin-25">
+                        <span class="btn btn-outline-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil h-4 w-4 mr-1.5"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path><path d="m15 5 4 4"></path></svg>
+                            <a href="{% url 'contatos:atualiza-contato' pk=pessoa.pk|default:pessoa.instance.pk %}">Editar</a>
+                        </span>
+                        <span class="btn btn-outline-danger">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2 h-4 w-4 mr-1.5"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line x1="10" x2="10" y1="11" y2="17"></line><line x1="14" x2="14" y1="11" y2="17"></line></svg>
+                            <a href="{% url 'contatos:apaga-contato' pk=pessoa.pk|default:pessoa.instance.pk %}">Excluir</a>
+                        </span>
+                    </div>
+                    <div class="contem-pessoa">
+                        <div class="container-row items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone h-4 w-4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            <div class="container-column">
+                                <p class="label">Telefone</p>
+                                <p class="value">{{ pessoa.telefone.value }}</p>
+                            </div>
+                        </div>
+                        <div class="divisoria"></div>
+                        <div class="container-row items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail h-4 w-4"><path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"></path><polyline points="22,6 12,13.5 2,6"></polyline></svg>
+                            <div class="container-column">
+                                <p class="label">Email</p>
+                                <p class="value">{{ pessoa.email.value }}</p>
+                            </div>
+                        </div>
+                        <div class="divisoria"></div>
+                        <div class="container-row items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin h-4 w-4"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            <div class="container-column">
+                                <p class="label">Endereço</p>
+                                <p class="value">{{ pessoa.endereco.value }}</p>
+                            </div>
+                        </div>
+                        <div class="divisoria"></div>
+                        <div class="container-row items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar h-4 w-4"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+                            <div class="container-column">
+                                <p class="label">Data de Nascimento</p>
+                                <p class="value">{{ pessoa.dtNasc.value }}</p>
+                            </div>
+                        </div>
+                        <div class="divisoria"></div>
+                        <div class="container-row items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-4 w-4"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            <div class="container-column">
+                                <p class="label">Observações</p>
+                                <p class="value">{{ pessoa.observacoes.value }}</p>
+                            </div>
+                        </div>
+                        <div class="divisoria"></div>
+                        <div class="container-row items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building2 h-4 w-4"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path><path d="M10 6h4"></path><path d="M10 10h4"></path><path d="M10 14h4"></path><path d="M10 18h4"></path></svg>
+                            <div class="container-column">
+                                <p class="label">Empresa</p>
+                                <p class="value">{{ pessoa.empresa.value }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 
