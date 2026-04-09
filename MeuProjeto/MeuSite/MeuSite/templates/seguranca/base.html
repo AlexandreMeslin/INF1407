@@ -7,6 +7,7 @@
     <title>{% block titulo %}{% endblock %}</title>
     <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'MeuSite/css/estilo.css' %}">
+    {% block scripts %}{% endblock %}
 </head>
 <body>
     <h1>Site Seguro</h1>

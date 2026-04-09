@@ -1,6 +1,11 @@
 {% extends 'seguranca/base.html' %}
+{% load static %}
 
 {% block titulo %}Login{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'seguranca/javascript.js' %}"></script>
+{% endblock %}
 
 {% block conteudo %}
     <h2>Página de Login</h2>
@@ -15,4 +20,6 @@
         </table>
     </form>
     <a href="{% url 'sec-password_reset' %}">Esqueceu a senha?</a>
+    <div id="mensagem">
+    </div>
 {% endblock %}
