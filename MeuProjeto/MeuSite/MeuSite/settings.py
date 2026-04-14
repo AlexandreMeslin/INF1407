@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -174,3 +175,14 @@ SPECTACULAR_SETTINGS = {
 # Para servir arquivos de mídia (como avatares) durante o desenvolvimento
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Configurações para rodar no Codespace
+# Lembrar de importar os: import os
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https',)
+USE_X_FORWARDED_HOST = True
+CODESPACE_HOST = os.getenv("CODESPACE_NAME")
+PORT = os.getenv("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")
+if CODESPACE_HOST and PORT:
+    CS_DOMAIN = f"{CODESPACE_HOST}-8000.{PORT}"
+else:
+    CS_DOMAIN = None
