@@ -140,7 +140,7 @@ class ExemploForm(AutoBooleanForm):
             'class': 'classeTelefone',
             'placeholder': '(XXX) XXXX-XXXX ou (XXX) XXXXX-XXXX',
             'type': 'tel',
-            'pattern': "\([0-9]{3}\) [0-9]{4,5}-[0-9]{4}",
+            'pattern': "^\([0-9]{3}\) [0-9]{4,5}-[0-9]{4}$",
         }),
     )
 
@@ -208,10 +208,10 @@ class ExemploForm(AutoBooleanForm):
             'invalid': "Campo rádio inválido",
         },
         choices=[
-            ('opcao1','opcao 1'),
-            ('opcao2','opcao 2'),
-            ('opcao3','opcao 3'),
-            ('opcao4','opcao 4'),
+            ('opcao1','opção 1'),
+            ('opcao2','opção 2'),
+            ('opcao3','opção 3'),
+            ('opcao4','opção 4'),
         ],
         widget=forms.RadioSelect(attrs={
             'class': 'classeRadio',
@@ -229,10 +229,10 @@ class ExemploForm(AutoBooleanForm):
             'invalid': "Campo select inválido",
         },
         choices=[
-            ('opcao1','opcao 1'),
-            ('opcao2','opcao 2'),
-            ('opcao3','opcao 3'),
-            ('opcao4','opcao 4'),
+            ('opcao1','opção 1'),
+            ('opcao2','opção 2'),
+            ('opcao3','opção 3'),
+            ('opcao4','opção 4'),
         ],
         widget=forms.Select(attrs={
             'class': 'classeSelect'
@@ -250,10 +250,11 @@ class ExemploForm(AutoBooleanForm):
             'invalid': "Campo inválido",
         },
         choices=[
-            ('opcao1','opcao 1'),
-            ('opcao2','opcao 2'),
-            ('opcao3','opcao 3'),
-            ('opcao4','opcao 4'),
+            ('opcao1','opção 1'),
+            ('opcao2','opção 2'),
+            ('opcao3','opção 3'),
+            ('opcao4','opção 4'),
+            ('opcao5','opção 5'),
         ],
         widget=forms.Select(attrs={
             'class': 'classeSelect',
@@ -409,7 +410,7 @@ class ExemploForm(AutoBooleanForm):
         required=True, 
         label="Campo file path", 
         label_suffix=": ", 
-        initial="/var/log/syslog", 
+        initial="/var/log/", 
         help_text="Selecione um arquivo do sistema", 
         error_messages = {
             'required': 'Campo necessário',
