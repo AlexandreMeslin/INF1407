@@ -116,4 +116,6 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('accounts/', include('accounts.urls', namespace='accounts')),
+    # Formulários
+    path('forms/', views.forms, name='exemplo-formulario'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # deve ficar na URL principal para servir arquivos de mídia durante o desenvolvimento

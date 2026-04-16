@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'rest_framework',               # REST
     'corsheaders',                  # CORS
     'drf_yasg',                     # swagger
-    'coreapi',
+    #'coreapi',
+
     'accounts',                     # nosso app de AAA
     'rest_framework.authtoken',     # token de autenticação
     'django_rest_passwordreset',    # para recuperar a senha
@@ -154,7 +155,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 
-        'rest_framework.schemas.coreapi.AutoSchema', 
+        'rest_framework.schemas.openapi.AutoSchema', 
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ]

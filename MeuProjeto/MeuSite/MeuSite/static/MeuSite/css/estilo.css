@@ -1,0 +1,72 @@
+/* Ajuda de formulário */
+.helptext {
+    font-size: 10px;
+}
+
+/* Lista de erros no formulário */
+.errorlist {
+    color: #FF0000;
+    list-style-type: none;
+}
+
+/* somente th dentro de uma tag da classe formulário */
+.formulario th {
+    text-align: right;
+    vertical-align: text-top;
+}
+
+/* =========================
+ *  EXEMPLO – TOGGLE SWITCH
+ * ========================= 
+ */
+
+ .toggle {
+    display: none;
+}
+
+.switch {
+    position: relative;
+    width: 50px;
+    height: 26px;
+    background: #555;
+    border-radius: 26px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    transition: background 0.3s;
+}
+
+/* Botão interno */
+.switch::after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: #fff;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+}
+
+/* Toggle marcado */
+.toggle:checked + .switch {
+    background: #0000FF;
+}
+
+/* Move o botão */
+.toggle:checked + .switch::after {
+    transform: translateX(24px);
+}
+
+.switch-container {
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toggle:checked + .switch + .switch-label {
+    color: #4ade80;
+    font-weight: bold;
+}

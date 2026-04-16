@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from django.views.generic.edit import UpdateView
+from MeuSite.forms import ExemploForm
 
 def home(request):
     return render(request, 'MeuSite/index.html')
@@ -49,3 +50,10 @@ class MeuUpdateView(UpdateView):
             return super().get(request, pk, *args, **kwargs)
         else:
             return redirect('sec-home')
+
+def forms(request):
+    return render(
+        request, 
+        'MeuSite/forms.html', 
+        { 'form': ExemploForm(), }
+    )
