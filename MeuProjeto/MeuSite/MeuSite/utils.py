@@ -174,3 +174,4 @@ if __name__ == "__main__":
     print(f"Ambiente detectado: {detectar_ambiente()}")
     print(f"Domínio detectado: {detectar_dominio()}")
     print(f"Protocolo detectado: {detectar_protocolo()}")
+    print(f'Porta detectada: {detectar_porta()}')
