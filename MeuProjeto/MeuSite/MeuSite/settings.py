@@ -11,9 +11,11 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 import inspect
-from pathlib import Path
 import os
+from pathlib import Path
 import sys
+
+from MeuSite import utils
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -166,18 +168,16 @@ REST_FRAMEWORK = {
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+
+
 # Verificar a porta passada como argumento ou usar a porta padrão
 # Usada para configurar o domínio no Codespace, mas também pode ser útil para rodar localmente em uma porta diferente da 8000
 # Lembrar de importar sys: import sys
-PORTA_DJANGO = "8000"
-for arg in sys.argv:
-    if ":" in arg:
-        PORTA_DJANGO = arg.split(":")[-1]
-    elif arg.isdigit():
-        PORTA_DJANGO = arg
+PORTA_DJANGO = utils.detectar_porta()
+AMBIENTE = utils.detectar_ambiente()
+PROTOCOLO = utils.detectar_protocolo()
 
-print(f'[DEBUG {inspect.currentframe().f_lineno}] Domínio: {})
-if os.getenv('CODESPACES') == 'true':
+if AMBIENTE == "CODESPACE":
     # Configurações para rodar no Codespace
     # Lembrar de importar os: import os
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https',)
@@ -188,8 +188,9 @@ if os.getenv('CODESPACES') == 'true':
         CS_DOMAIN = f"{CODESPACE_HOST}-{PORTA_DJANGO}.{PORT}"
     else:
         CS_DOMAIN = None
-    print(f'[DEBUG {inspect.currentframe().f_lineno}] CS_DOMAIN: {CS_DOMAIN}')
-
+elif AMBIENTE == "LOCAL":
+    # Configurações para rodar localmente
+    CS_DOMAIN = f"localhost:{PORTA_DJANGO}"
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'MeuSite API',
@@ -198,7 +199,6 @@ SPECTACULAR_SETTINGS = {
     
     # Muito útil no Codespace
     'SERVERS': [
-        {'url': f'https://{CS_DOMAIN}' if CS_DOMAIN else f'http://localhost:{PORTA_DJANGO}'},
-        {'url': f'http://localhost:{PORTA_DJANGO}'},
-    ],
+        {'url': f'{PROTOCOLO}://{CS_DOMAIN}'},
+    ]
 }
