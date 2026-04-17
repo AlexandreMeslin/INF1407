@@ -172,18 +172,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 PORTA_DJANGO = utils.detectar_porta()
 AMBIENTE = utils.detectar_ambiente()
 PROTOCOLO = utils.detectar_protocolo()
+DOMINIO = utils.detectar_dominio()
 
 if AMBIENTE == "CODESPACE":
-    # Configurações para rodar no Codespace
-    # Lembrar de importar os: import os
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https',)
     USE_X_FORWARDED_HOST = True
-    CODESPACE_HOST = os.getenv("CODESPACE_NAME")
-    PORT = os.getenv("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")
-    if CODESPACE_HOST and PORT:
-        CS_DOMAIN = f"{CODESPACE_HOST}-{PORTA_DJANGO}.{PORT}"
-    else:
-        CS_DOMAIN = None
+    CS_DOMAIN = DOMINIO
 elif AMBIENTE == "LOCAL":
     # Configurações para rodar localmente
     CS_DOMAIN = f"localhost:{PORTA_DJANGO}"
