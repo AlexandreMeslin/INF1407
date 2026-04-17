@@ -176,6 +176,7 @@ for arg in sys.argv:
     elif arg.isdigit():
         PORTA_DJANGO = arg
 
+print(f'[DEBUG {inspect.currentframe().f_lineno}] Domínio: {})
 if os.getenv('CODESPACES') == 'true':
     # Configurações para rodar no Codespace
     # Lembrar de importar os: import os
@@ -187,7 +188,7 @@ if os.getenv('CODESPACES') == 'true':
         CS_DOMAIN = f"{CODESPACE_HOST}-{PORTA_DJANGO}.{PORT}"
     else:
         CS_DOMAIN = None
-    print(f'[DEBUG {inspect.currentframe().f_lineno}] CDS_DOMAIN: {CS_DOMAIN}')
+    print(f'[DEBUG {inspect.currentframe().f_lineno}] CS_DOMAIN: {CS_DOMAIN}')
 
 
 SPECTACULAR_SETTINGS = {
@@ -197,7 +198,7 @@ SPECTACULAR_SETTINGS = {
     
     # Muito útil no Codespace
     'SERVERS': [
-        {'url': 'https://supreme-space-guacamole-5vpvp7vw5q627p6-8000.app.github.dev'},
-        {'url': 'http://localhost:8000'},
+        {'url': f'https://{CS_DOMAIN}' if CS_DOMAIN else f'http://localhost:{PORTA_DJANGO}'},
+        {'url': f'http://localhost:{PORTA_DJANGO}'},
     ],
 }
