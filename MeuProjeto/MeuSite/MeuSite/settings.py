@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import inspect
 from pathlib import Path
 import os
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -160,6 +162,34 @@ REST_FRAMEWORK = {
     ),
 }
 
+# Para servir arquivos de mídia (como avatares) durante o desenvolvimento
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Verificar a porta passada como argumento ou usar a porta padrão
+# Usada para configurar o domínio no Codespace, mas também pode ser útil para rodar localmente em uma porta diferente da 8000
+# Lembrar de importar sys: import sys
+PORTA_DJANGO = "8000"
+for arg in sys.argv:
+    if ":" in arg:
+        PORTA_DJANGO = arg.split(":")[-1]
+    elif arg.isdigit():
+        PORTA_DJANGO = arg
+
+if os.getenv('CODESPACES') == 'true':
+    # Configurações para rodar no Codespace
+    # Lembrar de importar os: import os
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https',)
+    USE_X_FORWARDED_HOST = True
+    CODESPACE_HOST = os.getenv("CODESPACE_NAME")
+    PORT = os.getenv("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")
+    if CODESPACE_HOST and PORT:
+        CS_DOMAIN = f"{CODESPACE_HOST}-{PORTA_DJANGO}.{PORT}"
+    else:
+        CS_DOMAIN = None
+    print(f'[DEBUG {inspect.currentframe().f_lineno}] CDS_DOMAIN: {CS_DOMAIN}')
+
+
 SPECTACULAR_SETTINGS = {
     'TITLE': 'MeuSite API',
     'DESCRIPTION': 'API do sistema MeuSite',
@@ -171,18 +201,3 @@ SPECTACULAR_SETTINGS = {
         {'url': 'http://localhost:8000'},
     ],
 }
-
-# Para servir arquivos de mídia (como avatares) durante o desenvolvimento
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
-# Configurações para rodar no Codespace
-# Lembrar de importar os: import os
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https',)
-USE_X_FORWARDED_HOST = True
-CODESPACE_HOST = os.getenv("CODESPACE_NAME")
-PORT = os.getenv("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")
-if CODESPACE_HOST and PORT:
-    CS_DOMAIN = f"{CODESPACE_HOST}-8000.{PORT}"
-else:
-    CS_DOMAIN = None
