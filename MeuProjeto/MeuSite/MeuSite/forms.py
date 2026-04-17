@@ -56,7 +56,7 @@ class ToggleSwitchWidget(forms.CheckboxInput):
 # Exemplo de formulário com vários tipos de campos.
 # O formulário herda de AutoBooleanForm para que os campos booleanos sejam renderizados como toggle switches.
 #
-class ExemploForm(AutoBooleanForm):
+class ExemploForm(forms.Form):
     campoBooleano = forms.BooleanField( 
         required=True, 
         label="Campo booleano", 
@@ -121,7 +121,7 @@ class ExemploForm(AutoBooleanForm):
         widget=forms.TextInput(attrs={
             'class': 'classeBusca',
             'placeholder': 'Digite algo aqui',
-            'type': 'search',
+            'type': 'search',       # informa que o campo é de busca
         }),
     )
 
@@ -140,7 +140,7 @@ class ExemploForm(AutoBooleanForm):
             'class': 'classeTelefone',
             'placeholder': '(XXX) XXXX-XXXX ou (XXX) XXXXX-XXXX',
             'type': 'tel',
-            'pattern': "^\([0-9]{3}\) [0-9]{4,5}-[0-9]{4}$",
+            'pattern': r"^\([0-9]{3}\) [0-9]{4,5}-[0-9]{4}$",
         }),
     )
 
@@ -155,9 +155,9 @@ class ExemploForm(AutoBooleanForm):
             'invalid': "Campo senha inválido",
         },
         max_length=100,
-        widget=forms.PasswordInput(attrs={
+        widget=forms.PasswordInput(attrs={  # indica que é um campo senha
             'class': 'classeSenha',
-            'placehorder': 'Senha'
+            'placeholder': 'Senha'
         })
     )
 
@@ -193,7 +193,7 @@ class ExemploForm(AutoBooleanForm):
         },
         widget=forms.TextInput(attrs={
             'class': 'classeCor', 
-            'type': 'color',
+            'type': 'color',    # indica que é um campo de cor, o navegador irá renderizar um seletor de cores
         }),
   	)
 
@@ -213,7 +213,7 @@ class ExemploForm(AutoBooleanForm):
             ('opcao3','opção 3'),
             ('opcao4','opção 4'),
         ],
-        widget=forms.RadioSelect(attrs={
+        widget=forms.RadioSelect(attrs={    # indica que é um campo de opções de rádio, o navegador irá renderizar botões de opção
             'class': 'classeRadio',
         }),
     )
@@ -234,11 +234,12 @@ class ExemploForm(AutoBooleanForm):
             ('opcao3','opção 3'),
             ('opcao4','opção 4'),
         ],
-        widget=forms.Select(attrs={
+        widget=forms.Select(attrs={   # indica que é um campo de seleção, o navegador irá renderizar um menu suspenso
             'class': 'classeSelect'
         }),
     )
 
+    # melhor usar forms.MultipleChoiceField (veja mais abaixo)
     campoSelectMultiplo = forms.ChoiceField( 
         required=True, 
         label="Campo select multiplo", 
@@ -256,9 +257,9 @@ class ExemploForm(AutoBooleanForm):
             ('opcao4','opção 4'),
             ('opcao5','opção 5'),
         ],
-        widget=forms.Select(attrs={
+        widget=forms.Select(attrs={     # indica que é um campo de seleção, o navegador irá renderizar um menu suspenso
             'class': 'classeSelect',
-            'multiple': 'multiple',
+            'multiple': 'multiple',     # indica que é possível selecionar várias opções, o navegador irá renderizar um menu suspenso que permite múltipla seleção
         }),
     )
 
@@ -276,7 +277,7 @@ class ExemploForm(AutoBooleanForm):
             ('opcao1','opcao 1'),('opcao2','opcao 2'),
             ('opcao3','opcao 3'),('opcao4','opcao 4'),
         ],
-        widget=forms.CheckboxSelectMultiple(attrs={
+        widget=forms.CheckboxSelectMultiple(attrs={     # indica que é um campo de seleção, o navegador irá renderizar uma lista de checkboxes
             'class': 'classeSelectMultiplo',
         }),
     )
@@ -292,7 +293,7 @@ class ExemploForm(AutoBooleanForm):
             'invalid': "Campo data inválido",
         },
         disabled=False,
-        widget=SelectDateWidget(
+        widget=SelectDateWidget(        # indica que é um campo de data, o navegador irá renderizar três menus suspensos para dia, mês e ano
             years=range(1980, 2031), 
             attrs={
                 'class': 'classeData',
@@ -311,9 +312,10 @@ class ExemploForm(AutoBooleanForm):
             'invalid': "Campo inválido",
         },
         disabled=False,
-        widget=DateInput(attrs={
+        widget=DateInput(attrs={    # indica que é um campo de data, o navegador irá renderizar um seletor de data (date picker)
             'class': 'classeDataPicker',
             'type': 'date',
+            #'lang': 'pt-BR',    # não funciona
         },), 
     )
 
@@ -331,6 +333,7 @@ class ExemploForm(AutoBooleanForm):
         widget=forms.DateTimeInput(attrs={
             'class': 'classeDataHora',
             'type': 'datetime-local',
+            #'lang': 'pt-BR',    # não funciona
         },),
     )
 
@@ -507,7 +510,7 @@ class ExemploForm(AutoBooleanForm):
         disabled=False,
         widget=forms.NumberInput(attrs={
             'class': 'classeFaixa',
-            'type': 'range',
+            'type': 'range',        # indica que é um campo de faixa, o navegador irá renderizar um slider
             'min': '-15', 'max': '100', 'step': '10',
         }),
     )
