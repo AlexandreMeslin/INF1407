@@ -10,11 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
-import inspect
 import os
 from pathlib import Path
-import sys
-
 from MeuSite import utils
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -172,7 +169,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Verificar a porta passada como argumento ou usar a porta padrão
 # Usada para configurar o domínio no Codespace, mas também pode ser útil para rodar localmente em uma porta diferente da 8000
-# Lembrar de importar sys: import sys
 PORTA_DJANGO = utils.detectar_porta()
 AMBIENTE = utils.detectar_ambiente()
 PROTOCOLO = utils.detectar_protocolo()
