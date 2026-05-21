@@ -24,4 +24,5 @@ urlpatterns = [
     path("meuapp/", include("MeuApp.urls")),
     path("", include("portal.urls")),
     path("contatos/", include("contatos.urls")),
+    path("carros/", include("carros.urls")),
 ]
