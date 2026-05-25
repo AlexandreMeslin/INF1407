@@ -25,8 +25,12 @@ SECRET_KEY = "django-insecure-snn!%2byek035(lijcz6_@skxo1sy^f(vt6noi=z*=&_(=t$fo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
+CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = [
+    'https://localhost:8000', 
+    'http://localhost:8000',
+]
 
 # Application definition
 
@@ -40,6 +44,9 @@ INSTALLED_APPS = [
     'MeuApp',   # minha primeira aplicação
     'portal',
     'contatos',
+    'rest_framework',
+    'carros',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = "MeuSite.urls"
@@ -79,9 +87,14 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-    }
+    },
+    'DBMTCars': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'mtcars.sqlite3',
+    },
 }
 
+DATABASE_ROUTERS = ['MeuSite.db_router.DBRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
