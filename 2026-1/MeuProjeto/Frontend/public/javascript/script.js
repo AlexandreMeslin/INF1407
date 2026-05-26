@@ -14,19 +14,13 @@ onload = function () {
 function exibeListaDeCarros() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const response = yield fetch(backendAddress + 'carros/varioscarros/', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
-                }
-            });
+            const response = yield fetch(backendAddress + 'carros/varioscarros/');
             if (!response.ok) {
                 throw new Error('Erro ao buscar lista de carros');
             }
             const carros = yield response.json();
             let campos = ['name', 'mpg', 'cyl', 'disp', 'hp', 'wt', 'qsec', 'vs', 'am', 'gear'];
-            let objTBody = document.getElementById('idtbody');
+            let objTBody = document.getElementById('tbody');
             objTBody.innerHTML = '';
             carros.forEach((carro) => {
                 let objTr = document.createElement('tr');

@@ -21,7 +21,7 @@ onload = () => {
             }
         }
         try {
-            const response = yield fetch(backendAddress + 'carros/varioscarros/', {
+            const response = yield fetch(backendAddress + 'carros/criar/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

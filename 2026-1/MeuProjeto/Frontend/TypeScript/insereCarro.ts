@@ -12,7 +12,7 @@ onload = () => {
             }
         }
         try {
-            const response = await fetch(backendAddress + 'carros/varioscarros/', {
+            const response = await fetch(backendAddress + 'carros/criar/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
