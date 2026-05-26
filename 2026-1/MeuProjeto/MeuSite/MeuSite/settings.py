@@ -30,6 +30,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 CSRF_TRUSTED_ORIGINS = [
     'https://localhost:8000', 
     'http://localhost:8000',
+    'https://supreme-space-guacamole-5vpvp7vw5q627p6-8080.app.github.dev/',
+    'http://supreme-space-guacamole-5vpvp7vw5q627p6-8080.app.github.dev/',
 ]
 
 # Application definition
