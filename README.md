@@ -40,6 +40,8 @@
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-F05033?style=flat-square&logo=git&logoColor=white)
 
+---
+
 ## Comandos importantes
 
 ```bash
@@ -53,6 +55,31 @@ $ python manage.py runserver
 $ python manage.py makemigrations
 $ python manage.py migrate
 ```
+
+---
+
+## Comandos para o GIT
+
+Referência: [Git - Reference](https://git-scm.com/docs).
+
+Veja **Problemas conhecidos e suas "soluções"** [aqui](https://github.com/AlexandreMeslin/ENG4021/tree/main/GIT#problemas-conhecidos-e-suas-solu%C3%A7%C3%B5es).
+
+- Ver quais arquivos que foram modificados no último *commit*:
+    ```bash
+    git show --name-only HEAD
+    ```
+
+- Ver as mudanças de um arquivo no último *commit*:
+    ```bash
+    git show HEAD -- caminho/do/arquivo
+    ```
+
+- Ver todas as mudanças no último *commit*:
+    ```bash
+    git show HEAD
+    ```
+
+---
 
 ## Outros comandos
 ```bash
@@ -78,6 +105,8 @@ $ python manage.py diffsettings
 $ python manage.py sqlmigrate
 ```
 
+---
+
 ## Templates básicos
 
 ### urls.py
@@ -96,6 +125,8 @@ urlpatterns = [
 ] 
 ```
 
+---
+
 ### views.py
 Obs.: Substitua `<NomeDaClasse>`, `<contexto>`, `<dados>`, `<app>` e `<arquivo>` pelos valores desejados.
 ```python
@@ -111,6 +142,8 @@ def <nomeDaFunção>(request):
     contexto = { '<contexto>': <dados>, }
     return render(request, '<app>/<arquivo>.html', contexto)
 ```
+
+---
 
 ### template
 Obs.: Substitua `<app>`, `<nome>` e `<arquivo>` pelos valores desejados.
@@ -131,6 +164,8 @@ Obs.: Substitua `<app>`, `<nome>` e `<arquivo>` pelos valores desejados.
 </body>
 </html>
 ``` 
+
+---
 
 ## Configurações interessantes
 
