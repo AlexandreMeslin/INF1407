@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from carros.models import MTCars
 from carros.serializers import MTCarsSerializer
 from rest_framework import status
+
+# Swagger
 from drf_spectacular.utils import extend_schema
 from drf_spectacular.utils import OpenApiExample
 from drf_spectacular.utils import OpenApiParameter
@@ -14,6 +16,7 @@ from drf_spectacular.utils import OpenApiTypes
 from rest_framework.decorators import api_view
 from rest_framework.decorators import renderer_classes
 from rest_framework.renderers import JSONRenderer
+
 from django.contrib.auth.decorators import login_required
 from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated

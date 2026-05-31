@@ -1,5 +1,7 @@
 # INF1407
 
+![Build Status](https://github.com/OAI/OpenAPI-Specification/workflows/validate-markdown/badge.svg)
+
 ## Disciplina de Programação para a Web na PUC-Rio.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)

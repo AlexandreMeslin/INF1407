@@ -421,7 +421,7 @@ class ExemploForm(forms.Form):
         },
         disabled=False,
         path="/var/log",
-        match=".*\.log$",
+        match=r".*\.log$",
         recursive=True,
         widget=forms.Select(attrs={
             'class': 'classeFilePath',
