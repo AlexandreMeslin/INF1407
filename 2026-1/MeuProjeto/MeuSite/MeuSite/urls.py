@@ -19,10 +19,19 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 
+# Para o Swagger
+from drf_spectacular.views import SpectacularAPIView
+from drf_spectacular.views import SpectacularRedocView
+from drf_spectacular.views import SpectacularSwaggerView
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("meuapp/", include("MeuApp.urls")),
     path("", include("portal.urls")),
     path("contatos/", include("contatos.urls")),
     path("carros/", include("carros.urls")),
+    # Rotas para o Swagger
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc-ui')
 ]
