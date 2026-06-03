@@ -38,6 +38,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.views import TokenRefreshView
 from rest_framework_simplejwt.views import TokenVerifyView
 from django.conf.urls.static import static
+from rest_framework.permissions import AllowAny
 
 app_name = 'MeuSite'
 
@@ -106,11 +107,11 @@ urlpatterns = [
     path("carros/", include("carros.urls")),
 
     # Schema OpenAPI JSON
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/schema/', SpectacularAPIView.as_view(authentication_classes=[], permission_classes=[AllowAny],), name='schema'),
     # Swagger UI
-    path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='schema-swagger-ui'),
+    path('swagger/', SpectacularSwaggerView.as_view(url_name='schema', authentication_classes=[], permission_classes=[AllowAny],), name='schema-swagger-ui'),
     # ReDoc UI
-    path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='schema-redoc'),
+    path('redoc/', SpectacularRedocView.as_view(url_name='schema', authentication_classes=[], permission_classes=[AllowAny],), name='schema-redoc'),
     
     # JWT Authentication
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

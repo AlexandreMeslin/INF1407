@@ -17,9 +17,9 @@ from rest_framework.decorators import api_view
 from rest_framework.decorators import renderer_classes
 from rest_framework.renderers import JSONRenderer
 
-from django.contrib.auth.decorators import login_required
 from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
 
 class CarsView(APIView):
     @extend_schema(
@@ -101,7 +101,7 @@ class CarView(APIView):
             - Para outros métodos (PUT, DELETE, etc.), permite acesso sem autenticação (AllowAny).
         '''
         if self.request.method == 'GET':
-            return [IsAuthenticated]  # Requer autenticação apenas para métodos GET
+            return [IsAuthenticated()]  # Requer autenticação apenas para métodos GET
         return [AllowAny()]  # Permite acesso sem autenticação para outros métodos (PUT, DELETE, etc.)
 
     @extend_schema(
@@ -340,7 +340,8 @@ def exemplo(request, pk):
     },
 )
 @api_view(["GET"])
-@login_required
+#@login_required
+@permission_classes([IsAuthenticated])
 @renderer_classes([JSONRenderer])
 def exemplo_protegido(request):
     return Response({"message": "Esta é uma view protegida. Você está autenticado!"}, status=status.HTTP_200_OK)
