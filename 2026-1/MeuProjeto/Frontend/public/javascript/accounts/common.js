@@ -1,0 +1,112 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+document.addEventListener("DOMContentLoaded", () => {
+    // Para cada campo password, adiciona um ícone de olho para mostrar/ocultar a senha
+    // cria um vetor de containers, cada um contendo um campo de senha e seu respectivo ícone de olho
+    const containers = document.querySelectorAll(".password-container");
+    // para cada container, adiciona um event listener ao ícone de olho para alternar entre mostrar e ocultar a senha
+    containers.forEach(container => {
+        const objInput = container.querySelector('input[type="password"]');
+        const objImgEye = container.querySelector(".toggle-password");
+        // verifica se o container está bem formado, ou seja, se contém um campo de senha e um ícone de olho
+        if (!objInput || !objImgEye)
+            return; // container mal formado
+        // adiciona o event listener ao ícone de olho para alternar entre mostrar e ocultar a senha
+        objImgEye.addEventListener("click", () => {
+            if (objInput.type === "password") {
+                objInput.type = "text";
+                objImgEye.src = "img/eye.svg";
+            }
+            else {
+                objInput.type = "password";
+                objImgEye.src = "img/eye-off.svg";
+            }
+        });
+    });
+});
+/**
+ * Função para decodificar um token JWT e extrair seu payload.
+ *
+ * @param token token a ser decodificado
+ * @returns retorna o token decodificado
+ */
+const decodeJWT = (token) => {
+    const payload = token.split('.')[1];
+    const decodedPayload = atob(payload);
+    return JSON.parse(decodedPayload);
+};
+/**
+ * Verifica se um token de acesso JWT expirou,
+ * comparando a data de expiração do token com a data atual.
+ * @param token token cuja validade deve ser verificada
+ * @returns verdadeiro se o token expirou, falso, caso contrário
+ */
+const isAccessTokenExpired = (token) => {
+    const decoded = decodeJWT(token);
+    const now = Math.floor(Date.now() / 1000);
+    return decoded.exp < now;
+};
+/**
+ * Função para atualizar o token de acesso usando o token de refresh.
+ * Se o token de refresh for inválido ou expirado, ambos os tokens são removidos do localStorage.
+ *
+ * @returns nada
+ */
+const refreshAccessToken = () => __awaiter(void 0, void 0, void 0, function* () {
+    const refreshToken = localStorage.getItem('refresh_token');
+    if (!refreshToken) {
+        console.error('No refresh token available');
+        return;
+    }
+    try {
+        const response = yield fetch(backendAddress + 'api/token/refresh/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ refresh: refreshToken })
+        });
+        if (response.ok) {
+            const token = yield response.json();
+            localStorage.setItem('access_token', token.access);
+        }
+        else {
+            console.error('Failed to refresh access token');
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+        }
+    }
+    catch (error) {
+        console.error('Error refreshing access token:', error);
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+    }
+});
+/**
+ * Função para fazer requisições HTTP autenticadas usando o token de acesso.
+ * Antes de fazer a requisição, verifica se o token de acesso expirou.
+ * Se o token de acesso expirou, tenta atualizar o token usando o token de refresh.
+ * Se a atualização do token for bem-sucedida, a requisição é feita com o novo token de acesso.
+ * Se a atualização do token falhar, a requisição é feita sem o token de acesso.
+ *
+ * @param url endereço do endpoint
+ * @param options cabeçalhos da requisição http
+ * @returns o resultado da requisição http feita usando fetch
+ */
+const authFetch = (url, options = {}) => __awaiter(void 0, void 0, void 0, function* () {
+    let accessToken = localStorage.getItem('access_token');
+    if (accessToken && isAccessTokenExpired(accessToken)) {
+        yield refreshAccessToken();
+        accessToken = localStorage.getItem('access_token');
+    }
+    if (accessToken) {
+        options.headers = Object.assign(Object.assign({}, (options.headers || {})), { 'Authorization': 'Bearer ' + accessToken });
+    }
+    return fetch(url, options);
+});

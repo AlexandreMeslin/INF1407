@@ -51,7 +51,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'carros',
     'corsheaders',
-    'drf_spectacular',  # faltou um slide sobre isso!!!
+    # para o Swagger
+    'drf_spectacular',
+    # para o JWT
+    'rest_framework_simplejwt', 
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -142,22 +146,12 @@ STATIC_URL = "static/"
 # --------------------------
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-}
-
-SPECTACULAR_SETTINGS = {
-    'TITLE': 'MeuSite API',
-    'DESCRIPTION': 'API para o projeto MeuSite',
-    'VERSION': '1.0.0',
-    'SERVERS': [
-        {
-            'url': 'https://supreme-space-guacamole-5vpvp7vw5q627p6-8080.app.github.dev/', 
-            'description': 'Servidor de desenvolvimento'
-        },
-        {
-            'url': 'http://localhost:8000', 
-            'description': 'Servidor local'
-        },
-    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),   
 }
 
 PORTA_DJANGO = utils.detectar_porta()
@@ -177,5 +171,26 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'API do sistema MeuSite',
     'VERSION': '1.0.0',
     # Muito útil no Codespace
-    'SERVERS': [{'url': f'{PROTOCOLO}://{CS_DOMAIN}'},]
+    'SERVERS': [
+        {
+            'url': f'{PROTOCOLO}://{CS_DOMAIN}/',
+            'description': 'Servidor de desenvolvimento'
+        },
+        {
+            'url': 'http://localhost:8000/', 
+            'description': 'Servidor local'
+        },
+    ],
 }
+
+# Configurações de email para redefinição de senha
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST = 'smtp.seuprovedor.com'
+#EMAIL_PORT = 587
+#EMAIL_USE_TLS = True
+#EMAIL_HOST_USER = 'your-email@example.com'
+#EMAIL_HOST_PASSWORD = 'your-email-password'
+DEFAULT_FROM_EMAIL = 'webmaster@localhost'
+#EMAIL_SUBJECT_PREFIX = '[Exemplo] '
+#SERVER_EMAIL = 'server@example.com'

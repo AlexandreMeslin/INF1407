@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <script src="../javascript/constantes.js"></script>
+  <script src="../javascript/accounts/login.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body>
+  <iframe src="../cabecalho.html" frameborder="0" width="100%" height="80" id="cabecalho"></iframe>
+  <main>
+    <h1>Login</h1>
+    <form id="loginForm">
+      <table>
+        <tbody>
+          <tr>
+            <td>Username:</td><td><input type="text" name="username" id="username"></td>
+          </tr>
+          <tr>
+            <td>Password:</td><td><input type="password" name="password" id="password"></td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center"><button id="btnLogin">Login</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+    <div id="msg"></div>
+    <p><a href="passwordReset.html">Esqueci minha senha.</a></p>
+  </main>
+</body>
+</html>

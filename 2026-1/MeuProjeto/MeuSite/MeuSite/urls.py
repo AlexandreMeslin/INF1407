@@ -24,6 +24,12 @@ from drf_spectacular.views import SpectacularAPIView
 from drf_spectacular.views import SpectacularRedocView
 from drf_spectacular.views import SpectacularSwaggerView
 
+# Para o JWT
+from rest_framework.permissions import AllowAny
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.views import TokenRefreshView
+from rest_framework_simplejwt.views import TokenVerifyView
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("meuapp/", include("MeuApp.urls")),
@@ -31,7 +37,12 @@ urlpatterns = [
     path("contatos/", include("contatos.urls")),
     path("carros/", include("carros.urls")),
     # Rotas para o Swagger
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc-ui')
+    path('api/schema/', SpectacularAPIView.as_view(authentication_classes=[], permission_classes=[AllowAny],), name='schema'),
+    path('swagger/', SpectacularSwaggerView.as_view(url_name='schema', authentication_classes=[], permission_classes=[AllowAny],), name='swagger-ui'),
+    path('redoc/', SpectacularRedocView.as_view(url_name='schema', authentication_classes=[], permission_classes=[AllowAny],), name='redoc-ui'),
+    # Rotas para o JWT
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('accounts/', include('accounts.urls')),
 ]

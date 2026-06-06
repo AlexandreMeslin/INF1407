@@ -5,8 +5,17 @@ from rest_framework import status
 from carros.models import MTCars
 from carros.serializers import MTCarsSerializer
 
+# Para o JWT
+from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
+from rest_framework.decorators import api_view
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
 # Swagger
-from drf_spectacular.utils import OpenApiExample, extend_schema, OpenApiResponse
+from drf_spectacular.utils import OpenApiExample
+from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import OpenApiResponse
 
 # Create your views here.
 
@@ -14,6 +23,10 @@ from drf_spectacular.utils import OpenApiExample, extend_schema, OpenApiResponse
 # Detalhes de um carro específico
 # ------------------------------------
 class CarView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    auth = [{'bearerAuth': []}] # para o Swagger mostrar que é necessário o token JWT
+
     @extend_schema(
         summary="Atualiza os detalhes de um carro específico",
         description='''
@@ -142,6 +155,21 @@ class CarCreateView(APIView):
 # Lista todos os carros
 # -----------------------------------
 class CarsView(APIView):
+    authentication_classes = []
+    permission_classes = [AllowAny]
+    
+    @extend_schema(
+        summary="Exclui carros específicos",
+        description='''
+        Exclui carros específicos com base nos IDs fornecidos no corpo da requisição.
+        Retorna status:
+        - 204 No Content se a exclusão for bem-sucedida
+        - 404 Not Found se algum dos carros com os IDs fornecidos não for encontrado
+        Várias linhas com vários blá-blá-blá 
+        para mostrar que a descrição pode ser bem detalhada e ocupar várias linhas.
+        ''',
+        tags=["Carros"],
+    )
     def delete(self, request):
         '''
         Exclui todos os carros do banco de dados.
@@ -184,6 +212,32 @@ class CarsView(APIView):
         pois ela retorna todos os carros disponíveis 
         no banco de dados.
         '''
+
+        # DEBUG: Imprime o header de autenticação para verificar se o token JWT está sendo enviado corretamente
+        print("=" * 50)
+        print("AUTH HEADER:")
+        print(request.META.get("HTTP_AUTHORIZATION"))
+        print("=" * 50)
+
         cars = MTCars.objects.all().order_by('name')
         serializer = MTCarsSerializer(cars, many=True)
         return Response(serializer.data)
+
+@extend_schema(
+  summary="Exemplo de view protegida",
+  responses={
+    200: OpenApiExample(
+      'Resposta de sucesso',
+      value={"message": "Esta é uma view protegida. Você está autenticado!"},
+    ),
+    401: OpenApiExample(
+      'Não autorizado',
+      value={"detail": "Authentication credentials were not provided."},
+    ),
+  },
+)
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def exemplo_protegido(request):
+  return Response({"message": "Esta é uma view protegida. Você está autenticado!"},
+                  status=status.HTTP_200_OK)
