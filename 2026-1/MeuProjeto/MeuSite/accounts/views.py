@@ -29,12 +29,8 @@ from accounts.serializers import ResetPasswordConfirmSerializer
     tags=["accounts"],
     methods=["GET"],
     responses={
-      200: OpenApiResponse(
-          description="Dados do usuário retornados com sucesso"
-      ),
-      401: OpenApiResponse(
-          description="Não autorizado - token JWT ausente ou inválido"
-      ),
+      200: OpenApiResponse(description="Dados do usuário retornados com sucesso"),
+      401: OpenApiResponse(description="Não autorizado - token JWT ausente ou inválido"),
     },
 )
 @api_view(['GET'])
@@ -47,6 +43,7 @@ def whoami(request):
         'id': request.user.id,
         'username': request.user.username,
     }
+
     return Response(dados)
 
 class ChangePasswordView(APIView):
@@ -58,14 +55,8 @@ class ChangePasswordView(APIView):
         tags=["accounts"],
         request=ChangePasswordSerializer,
         responses={
-            200: OpenApiExample(
-                "Exemplo de resposta para alteração de senha bem-sucedida",
-                value={"status": "Senha alterada com sucesso"}
-            ),
-            400: OpenApiExample(
-                "Exemplo de resposta para erro na alteração de senha",
-                value={"error": "Senha antiga incorreta"}
-            )
+            200: OpenApiResponse(description="Senha alterada com sucesso"),
+            400: OpenApiResponse(description="Erro na alteração de senha")
         },
         examples=[
             OpenApiExample(
@@ -105,8 +96,8 @@ class PasswordResetView(APIView):
         tags=["accounts"],
         request=ResetPasswordRequestSerializer,
         responses={
-            200: "E-mail de redefinição de senha enviado com sucesso", 
-            404: "Nenhum usuário encontrado com este e-mail"
+            200: OpenApiResponse(description="E-mail de redefinição de senha enviado com sucesso"),
+            404: OpenApiResponse(description="Nenhum usuário encontrado com este e-mail")
         },
         examples=[
             OpenApiExample(
@@ -166,8 +157,8 @@ class PasswordResetView(APIView):
         tags=["accounts"],
         request=ResetPasswordConfirmSerializer,
         responses={
-            200: "Senha redefinida com sucesso", 
-            400: "Código de redefinição inválido ou expirado"
+            200: OpenApiResponse(description="Senha redefinida com sucesso"),
+            400: OpenApiResponse(description="Código de redefinição inválido ou expirado")
         },
         examples=[
             OpenApiExample(
