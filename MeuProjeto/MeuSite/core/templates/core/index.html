@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home-Page</title>
+</head>
+<body>
+    <h1>Bem-vindo à Home-Page</h1>
+    <p>Esta é a página inicial do nosso projeto.</p>
+
+    <ul>
+        <li><a href="{% url 'core:home' %}">Home</a></li>
+        <li><a href="{% url 'MeuApp:homeApp' %}">MeuApp</a></li>
+        <li><a href="{% url 'contatos:home-contatos' %}">Contatos</a></li>
+        <li><a href="{% url 'contatos-v2:home-contatos' %}">Contatos V2</a></li>
+    </ul>
+</body>
+</html>

@@ -1,7 +1,1 @@
-django                          # framework web
-djangorestframework             # para criar APIs RESTful
-django-cors-headers             # para lidar com CORS
-pyyaml                          # para leitura de arquivos YAML
-drf-spectacular                 # para documentação da API
-djangorestframework-simplejwt   # autenticação JWT
-pillow                          # para manipulação de imagens
+django  # necessário para o projeto Django

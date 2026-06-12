@@ -1,6 +1,7 @@
-onload = function () {
+document.addEventListener('DOMContentLoaded', function () {
     gira();
-}
+});
+
 function gira() {
     var imagem = document.getElementById('idPython');
     if (imagem.getAttribute('src').includes('python')) {

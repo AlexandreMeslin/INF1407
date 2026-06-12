@@ -1,0 +1,19 @@
+<!-- 
+Para incluir esse fragmento de página HTML
+em uma página HTML use:
+{ % include 'contatos/links.html' % }
+-->
+V2:
+<a href="/">
+  Home-Page
+</a> |
+<a href="{% url 'contatos-v2:home-contatos' %}">
+  Página inicial
+</a> |
+<a href="{% url 'contatos-v2:listar-contatos' %}">
+  Listar contatos
+</a> |
+<a href="{% url 'contatos-v2:criar-contato' %}">
+  Cadastrar contato
+</a>
+<hr>

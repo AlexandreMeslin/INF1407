@@ -1,210 +1,123 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 
 # Create your views here.
 
+from django.shortcuts import get_object_or_404
 from django.views.generic.base import View
 from django.http.response import HttpResponseRedirect
 from django.urls.base import reverse_lazy
-from django.http import HttpRequest
-from django.http import HttpResponse
 
 from contatos.models import Pessoa
 from contatos.forms import ContatoModel2Form
 
-class ContatoDetailView(View):
-    '''
-    View para listar um contato específico, 
-    renderizando o modal da página de contatos 
-    com os dados do contato selecionado para exibição
-    '''
-    def get(self, request: HttpRequest, pk: int) -> HttpResponse:
+# ----------------------------------------------------
+# Classe para listar todos os contatos
+# ----------------------------------------------------
+class ContatoListView(View):
+    def get(self, request, *args, **kwargs):
         '''
-        Recupera a pessoa do banco de dados com a chave primária fornecida e renderiza o modal da página de contatos com os dados do contato selecionado para exibição
+        Renderiza a lista de contatos.
+        :param request: Objeto HttpRequest representando a requisição do cliente.
+        :return: HttpResponse contendo a página renderizada com a lista de contatos.'''
+        pessoas = Pessoa.objects.all()
+        contexto = { 'pessoas': pessoas, }
+        return render(request, 'contatos/lista-contatos.html', contexto)
 
-        :param request: A solicitação HTTP GET enviada pelo usuário para acessar a página de detalhes do contato
-        :param pk: A chave primária do contato a ser exibido, passada como parte da URL
-        :return: Renderiza o modal da página de contatos com os dados do contato selecionado para exibição
-        '''
-        pessoa = Pessoa.objects.get(pk=pk)              # Recupera a pessoa do banco de dados com a chave primária fornecida
-        form = ContatoModel2Form(instance=pessoa) # Cria um formulário preenchido com os dados da pessoa para exibir no modal
-        contexto = {    # Prepara o contexto com a pessoa a ser exibida
-            'title_head': 'Detalhes do Contato',
-            'title_page': 'Detalhes do Contato',
-            'title_legend': 'Dados do Contato',
-            'text_submit': 'Fechar',
-            'status_form': 'form-desativado', # Adiciona uma classe CSS para estilizar o formulário como desativado, indicando que os dados não podem ser editados
-            'pessoas': Pessoa.objects.all(), # Adiciona a lista de pessoas ao contexto para exibir na página de criação de contato
-            'pessoa': form,
-        }               
-        return render(request, 'contatos/contatos.html', contexto)
-
-class ContatosListView(View):
-    '''
-    View para listar todos os contatos cadastrados no banco de dados e renderiza a página de lista de contatos
-    Herda da classe View do Django, que é uma classe base para criar views baseadas em classes (CBVs)
-    '''
-    def get(self, request: HttpRequest) -> HttpResponse:
-        '''
-        Recupera todas as pessoas do banco de dados 
-        e renderiza a página de lista de contatos
-        '''
-        pessoas = Pessoa.objects.all()  # Recupera todas as pessoas do banco de dados
-        contexto = {
-            'pessoas': pessoas,
-        }
-        return render(request, 'contatos/contatos.html', contexto)
-
+# ----------------------------------------------------
+# Classe para criar um novo contato
+# ----------------------------------------------------
 class ContatoCreateView(View):
-    '''
-    View para criar um novo contato
-    Herda da classe View do Django, que é uma classe base para criar views baseadas em classes (CBVs)
-    '''
-    def get(self, request: HttpRequest) -> HttpResponse:
+    def get(self, request):
         '''
-        Renderiza a página de criação de contato com um formulário vazio
-        '''
-        contexto = {
-            'title_head': 'Cria Contato',
-            'title_page': 'Criação de Contato',
-            'title_legend': 'Formulário de Cadastro',
-            'text_submit': 'Cria contato',
-            'exibir_modal': True, # Adiciona uma variável de contexto para indicar que o modal deve ser exibido
-            'pessoas': Pessoa.objects.all(), # Adiciona a lista de pessoas ao contexto para exibir na página de criação de contato
-            'pessoa': ContatoModel2Form()
-        }
-        return render(request, 'contatos/contatos.html', contexto)
+        Renderiza o formulário para criar um novo contato.
+        Este método apresenta o formulário em branco para o usuário preencher os dados do novo contato.
 
-    def post(self, request: HttpRequest) -> HttpResponse:
+        :param request: Objeto HttpRequest representando a requisição do cliente.
+        :return: HttpResponse contendo a página renderizada com o formulário de criação de contato.
         '''
-        Processa os dados enviados pelo formulário de criação de contato, valida e salva o novo contato no banco de dados
+        contexto = {'formulario': ContatoModel2Form()}
+        return render(request, 'contatos/cria-contato.html', contexto)
+
+    def post(self, request):
         '''
-        # Cria um formulário preenchido com os dados enviados pelo usuário
-        # Os dados são enviados em duas partes: request.POST para os dados do formulário e request.FILES para os arquivos (como o avatar)
-        formulario = ContatoModel2Form(request.POST, request.FILES)    # Cria um formulário preenchido com os dados enviados pelo usuário
-        if formulario.is_valid():                       # Verifica se os dados do formulário são válidos
-            formulario.save()                           # Salva o novo contato no banco de dados
-            return HttpResponseRedirect(reverse_lazy('contatos:lista-contatos'))
+        Processa os dados enviados pelo formulário para criar um novo contato.
+        Este método recebe os dados do formulário, valida-os e, se forem válidos, salva o novo contato no banco de dados.
+        Caso os dados sejam inválidos, o formulário é re-renderizado com os erros para que o usuário possa corrigir.
+
+        :param request: Objeto HttpRequest representando a requisição do cliente.
+        :return: HttpResponseRedirect para a lista de contatos se o formulário for válido, ou HttpResponse contendo a página renderizada com o formulário e os erros se o formulário for inválido.
+        '''
+        formulario = ContatoModel2Form(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return HttpResponseRedirect(reverse_lazy('contatos:listar-contatos'))
         else:
-            contexto = {
-                'title_head': 'Cria Contato',
-                'title_page': 'Criação de Contato',
-                'title_legend': 'Formulário de Cadastro',
-                'text_submit': 'Cria contato',
-                'exibir_modal': True, # Adiciona uma variável de contexto para indicar que o modal deve ser exibido, mesmo que os dados sejam inválidos, para que o usuário possa corrigir os erros
-                'pessoas': Pessoa.objects.all(), # Adiciona a lista de pessoas ao contexto para exibir na página de criação de contato
-                'pessoa': formulario,
-            }
-            return render(request, 'contatos/contatos.html', contexto)
+            contexto = {'formulario': formulario}
+            return render(request, 'contatos/cria-contato.html', contexto)
 
-class ContatoDeleteView(View):
-    '''
-    View para excluir um contato
-    Herda da classe View do Django, que é uma classe base para criar views baseadas em classes (CBVs)
-    '''
-    def get(self, request: HttpRequest, pk: int) -> HttpResponse:
-        '''
-        Exibe a pessoa a ser deletada e renderiza a página de confirmação de exclusão
-
-        :param request: A solicitação HTTP GET enviada pelo usuário para confirmar a exclusão do contato
-        :param pk: A chave primária do contato a ser excluído, passada como parte da URL
-        :return: Renderiza a página de confirmação de exclusão com os detalhes do contato a ser excluído
-        '''
-        pessoa = Pessoa.objects.get(pk=pk)              # Recupera a pessoa do banco de dados com a chave primária fornecida
-        form = ContatoModel2Form(instance=pessoa) # Cria um formulário preenchido com os dados da pessoa para exibir na página de confirmação de exclusão
-        contexto = {    # Prepara o contexto com a pessoa a ser deletada
-            'title_head': 'Apaga Contato',
-            'title_page': 'Confirmação de Exclusão',
-            'title_legend': 'Contato a ser excluído',
-            'text_submit': 'Excluir contato',
-            'status_form': 'form-desativado', # Adiciona uma classe CSS para estilizar o formulário como desativado, indicando que os dados não podem ser editados
-            'exibir_modal': True, # Adiciona uma variável de contexto para indicar que o modal deve ser exibido, mesmo que os dados sejam inválidos, para que o usuário possa corrigir os erros
-            'pessoas': Pessoa.objects.all(), # Adiciona a lista de pessoas ao contexto para exibir na página de criação de contato
-            'pessoa': form,
-        }               
-        return render(request, 'contatos/contatos.html', contexto)
-
-    def post(self, request: HttpRequest, pk: int) -> HttpResponse:
-        '''
-        Processa a solicitação de exclusão de um contato, 
-        deleta a pessoa do banco de dados e redireciona para a lista de contatos
-
-        :param request: A solicitação HTTP POST enviada pelo usuário para confirmar a exclusão do contato
-        :param pk: A chave primária do contato a ser excluído, passada como parte da URL
-        :return: Redireciona para a lista de contatos após a exclusão
-        '''
-        pessoa = Pessoa.objects.get(pk=pk)              # Recupera a pessoa do banco de dados com a chave primária fornecida
-        pessoa.delete()                                 # Deleta a pessoa do banco de dados
-        return HttpResponseRedirect(reverse_lazy('contatos:lista-contatos'))
-
+# ----------------------------------------------------
+# Classe para atualizar um contato existente
+# ----------------------------------------------------
 class ContatoUpdateView(View):
-    '''
-    View para atualizar um contato
-    Herda da classe View do Django, que é uma classe base para criar views baseadas em classes (CBVs)
-    '''
-    def get(self, request: HttpRequest, pk: int) -> HttpResponse:
+    def get(self, request, pk, *args, **kwargs):
         '''
-        Exibe o formulário para atualizar um contato
+        Renderiza o formulário para atualizar um contato existente.
+        Este método busca o contato pelo seu ID (pk) e apresenta um formulário pré-preenchido com os dados atuais do contato para que o usuário possa editá-los.
 
-        :param request: A solicitação HTTP GET enviada pelo usuário para acessar a página de atualização do contato
-        :param pk: A chave primária do contato a ser atualizado, passada como parte da URL
-        :return: Renderiza a página de atualização do contato com um formulário preenchido com os dados atuais do contato
+        :param request: Objeto HttpRequest representando a requisição do cliente.
+        :param pk: ID do contato a ser atualizado.
+        :return: HttpResponse contendo a página renderizada com o formulário de atualização de contato.
         '''
-        pessoa = Pessoa.objects.get(pk=pk)              # Recupera a pessoa do banco de dados com a chave primária fornecida
-        formulario = ContatoModel2Form(instance=pessoa) # Cria um formulário preenchido com os dados da pessoa
-        contexto = {
-            'title_head': 'Atualiza Contato',
-            'title_page': 'Atualização de Contato',
-            'title_legend': 'Dados do Contato',
-            'text_submit': 'Atualizar contato',
-            'exibir_modal': True, # Adiciona uma variável de contexto para indicar que o modal deve ser exibido, mesmo que os dados sejam inválidos, para que o usuário possa corrigir os erros
-            'pessoas': Pessoa.objects.all(), # Adiciona a lista de pessoas ao contexto para exibir na página de criação de contato
-            'pessoa': formulario,
-        }                   # Prepara o contexto com o formulário
-        print(f'Link para o avatar: {contexto["pessoa"].instance.avatar.url if contexto["pessoa"].instance.avatar else "Sem avatar"}') # Imprime o link do avatar para depuração
-        return render(request, 'contatos/contatos.html', contexto)
+        pessoa = Pessoa.objects.get(pk=pk)
+        formulario = ContatoModel2Form(instance=pessoa)
+        contexto = {'pessoa': formulario, }
+        return render(request, 'contatos/atualiza-contato.html', contexto)
+    
+    def post(self, request, pk, *args, **kwargs):
+        '''
+        Processa os dados enviados pelo formulário para atualizar um contato existente.
+        Este método recebe os dados do formulário, valida-os e, se forem válidos, atualiza o contato no banco de dados.
+        Caso os dados sejam inválidos, o formulário é re-renderizado com os erros para que o usuário possa corrigir.
 
-    def post(self, request: HttpRequest, pk: int) -> HttpResponse:
+        :param request: Objeto HttpRequest representando a requisição do cliente.
+        :param pk: ID do contato a ser atualizado.
+        :return: HttpResponseRedirect para a lista de contatos se o formulário for válido, ou HttpResponse contendo a página renderizada com o formulário e os erros se o formulário for inválido.
         '''
-        Processa a solicitação de atualização de um contato, 
-        atualiza os dados da pessoa no banco de dados e redireciona para a lista de contatos
-
-        :param request: A solicitação HTTP POST enviada pelo usuário para confirmar a atualização do contato
-        :param pk: A chave primária do contato a ser atualizado, passada como parte da URL
-        :return: Em caso de sucesso, redireciona para a lista de contatos após a atualização, em caso de falha, renderiza a página de atualização do contato com o formulário preenchido com os dados inválidos
-        '''
-        pessoa = Pessoa.objects.get(pk=pk)                              # Recupera a pessoa do banco de dados com a chave primária fornecida
-        formulario = ContatoModel2Form(request.POST, request.FILES, instance=pessoa)   # Cria um formulário preenchido com os dados enviados pelo usuário e a instância da pessoa
-        if formulario.is_valid():                                       # Verifica se os dados do formulário são válidos
-            formulario.save()                                           # Salva as alterações no banco de dados
-            return HttpResponseRedirect(reverse_lazy('contatos:lista-contatos'))
+        pessoa = get_object_or_404(Pessoa, pk=pk)
+        formulario = ContatoModel2Form(request.POST, instance=pessoa)
+        if formulario.is_valid():
+            formulario.save() # cria uma pessoa com os dados do formulário
+            return HttpResponseRedirect(reverse_lazy("contatos:lista-contatos"))
         else:
-            contexto = {
-                'title_head': 'Atualiza Contato',
-                'title_page': 'Atualização de Contato',
-                'title_legend': 'Dados do Contato',
-                'text_submit': 'Atualizar contato',
-                'exibir_modal': True, # Adiciona uma variável de contexto para indicar que o modal deve ser exibido, mesmo que os dados sejam inválidos, para que o usuário possa corrigir os erros
-                'pessoas': Pessoa.objects.all(), # Adiciona a lista de pessoas ao contexto para exibir na página de criação de contato
-                'pessoa': formulario,
-            }                   # Prepara o contexto com o formulário preenchido com os dados inválidos
-            return render(request, 'contatos/contatos.html', contexto)
+            contexto = {'pessoa': formulario, }
+            return render(request, 'contatos/atualiza-contato.html', contexto)
 
+# ----------------------------------------------------
+# Classe para apagar um contato existente
+# ----------------------------------------------------
+class ContatoDeleteView(View):
+    def get(self, request, pk, *args, **kwargs):
+        '''
+        Renderiza a página de confirmação para apagar um contato existente.
+        Este método busca o contato pelo seu ID (pk) e apresenta uma página de confirmação para que o usuário possa confirmar a exclusão do contato.
 
+        :param request: Objeto HttpRequest representando a requisição do cliente.
+        :param pk: ID do contato a ser apagado.
+        :return: HttpResponse contendo a página renderizada com a confirmação de exclusão do contato
+        '''
+        pessoa = Pessoa.objects.get(pk=pk)
+        contexto = { 'pessoa': pessoa, }
+        return render(request, 'contatos/apaga-contato.html', contexto)
 
-def toggle_theme(request):
-    '''
-    Alterna entre os temas claro e escuro, 
-    armazenando a preferência do usuário na sessão.
+    def post(self, request, pk, *args, **kwargs):
+        '''
+        Processa a solicitação de exclusão de um contato existente.
+        Este método busca o contato pelo seu ID (pk) e o exclui do banco de dados.
 
-    :param request: A solicitação HTTP enviada pelo usuário para alternar o tema
-    :return: Redireciona para a página anterior após alternar o tema
-    '''
-    # Recupera o tema atual da sessão, 
-    # se não existir, define como "light" por padrão
-    current = request.session.get("theme", "light")
-    # Alterna o tema para "dark" se o tema atual for "light", 
-    # ou para "light" se o tema atual for "dark"
-    request.session["theme"] = "dark" if current == "light" else "light"
-    # Redireciona para a página anterior usando o cabeçalho HTTP_REFERER,
-    # ou para a página inicial ("/") se o cabeçalho não estiver presente
-    return redirect(request.META.get("HTTP_REFERER", "/"))
+        :param request: Objeto HttpRequest representando a requisição do cliente.
+        :param pk: ID do contato a ser apagado.
+        :return: HttpResponseRedirect para a lista de contatos após a exclusão.
+        '''
+        pessoa = Pessoa.objects.get(pk=pk)
+        pessoa.delete()
+        return HttpResponseRedirect(reverse_lazy("contatos:listar-contatos"))

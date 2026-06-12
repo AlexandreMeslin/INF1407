@@ -1,12 +1,21 @@
 from django.shortcuts import render
-#from django.http import HttpResponse
 
 # Create your views here.
 
 def home(request):
-    #return HttpResponse("Olá, mundo! Este é o meu primeiro site em Django.")
+    '''
+    Renderiza a página inicial do MeuApp.
+
+    :param request: Objeto HttpRequest representando a requisição do cliente.
+    :return: HttpResponse contendo a página renderizada.
+    '''
     return render(request, 'MeuApp/home.html')
-    
+
 def segundaPagina(request):
-    return render(request, 'MeuApp/segundaPagina.html')
-    
+    '''
+    Renderiza a segunda página do MeuApp.
+
+    :param request: Objeto HttpRequest representando a requisição do cliente.
+    :return: HttpResponse contendo a página renderizada.
+    '''
+    return render(request, 'MeuApp/segunda.html')

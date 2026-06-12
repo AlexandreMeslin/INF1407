@@ -4,4 +4,8 @@ from django.contrib import admin
 
 from contatos.models import Pessoa
 
-admin.site.register(Pessoa)
+@admin.register(Pessoa)
+class PessoaAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nome', 'idade', 'salario', 'email', 'telefone', 'dtNasc')
+    search_fields = ('nome', 'email')
+    list_filter = ('idade',)

@@ -3,18 +3,16 @@ Para incluir esse fragmento de página HTML
 em uma página HTML use:
 { % include 'contatos/links.html' % }
 -->
-<div class="btn-group" role="toolbar" aria-label="Toolbar with button groups">
-    <a href="/" class="btn btn-secondary">
-        Home-Page
-    </a>
-    <a href="{% url 'contatos:home-contatos' %}" class="btn btn-secondary">
-        Página inicial
-    </a>
-    <a href="{% url 'contatos:lista-contatos' %}" class="btn btn-secondary">
-        Listar contatos
-    </a>
-    <a href="{% url 'contatos:cria-contato' %}" class="btn btn-secondary">
-        Cadastrar contato
-    </a>
-</div>
+<a href="/">
+  Home-Page
+</a> |
+<a href="{% url 'contatos:home-contatos' %}">
+  Página inicial
+</a> |
+<a href="{% url 'contatos:listar-contatos' %}">
+  Listar contatos
+</a> |
+<a href="{% url 'contatos:criar-contato' %}">
+  Cadastrar contato
+</a>
 <hr>
