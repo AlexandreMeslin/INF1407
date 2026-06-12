@@ -1,4 +1,3 @@
-#from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -16,6 +15,8 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from drf_spectacular.utils import OpenApiExample
 from drf_spectacular.utils import extend_schema
 from drf_spectacular.utils import OpenApiResponse
+from drf_spectacular.utils import inline_serializer
+from rest_framework import serializers
 
 # Create your views here.
 
@@ -44,23 +45,44 @@ class CarView(APIView):
         Copie o resultado, REMOVA a última vírgula e o id (coloque o ID como parâmetro)
         ''',
         tags=["Carros"],
-        request={
-            "application/json": {
-                "type": "object",
-                "properties": {
-                    "name": {"type": "string", "default": "Honda HRV 2021", "description": "Modelo do carro"},
-                    "mpg": {"type": "number", "default": 24.85, "description": "Milhas por galão"},
-                    "cyl": {"type": "integer", "default": 4, "description": "Quantidade de cilindros"},
-                    "disp": {"type": "number", "default": 1.8, "description": "Volume do motor"},
-                    "hp": {"type": "integer", "default": 140, "description": "Potência em HP"},
-                    "wt": {"type": "number", "default": 2.87686, "description": "Peso em 1000 libras"},
-                    "qsec": {"type": "number", "default": 11.88, "description": "Tempo 1/4 milha"},
-                    "vs": {"type": "integer", "default": 0, "description": "Motor V ou linha"},
-                    "am": {"type": "integer", "default": 0, "description": "Transmissão"},
-                    "gear": {"type": "integer", "default": 7, "description": "Número de marchas"},
-                },
+        request=inline_serializer(
+            name='CarUpdateInput', # Nome que aparecerá na seção 'Schemas' do Swagger
+            fields={
+                "name": serializers.CharField(default="Honda HRV 2021", help_text="Modelo do carro"),
+                "mpg": serializers.FloatField(default=24.85, help_text="Milhas por galão"),
+                "cyl": serializers.IntegerField(default=4, help_text="Quantidade de cilindros"),
+                "disp": serializers.FloatField(default=1.8, help_text="Volume do motor"),
+                "hp": serializers.IntegerField(default=140, help_text="Potência em HP"),
+                "wt": serializers.FloatField(default=2.87686, help_text="Peso em 1000 libras"),
+                "qsec": serializers.FloatField(default=11.88, help_text="Tempo 1/4 milha"),
+                "vs": serializers.IntegerField(default=0, help_text="Motor V ou linha"),
+                "am": serializers.IntegerField(default=0, help_text="Transmissão"),
+                "gear": serializers.IntegerField(default=7, help_text="Número de marchas"),
             }
+        ),
+        responses={
+            200: MTCarsSerializer,
+            400: OpenApiResponse(description="Dados inválidos fornecidos"),
+            404: OpenApiResponse(description="Carro não encontrado"),
         },
+        examples=[
+            OpenApiExample(
+                "Exemplo de requisição para atualizar um carro",
+                value={
+                    "name": "Honda HRV 2021", "mpg": 24.85, "cyl": 4, "disp": 1.8, "hp": 140,
+                    "wt": 2.87686, "qsec": 11.88, "vs": 0, "am": 0, "gear": 7,
+                },
+                request_only=True, # Este exemplo é apenas para a requisição
+            ),
+            OpenApiExample(
+                "Exemplo de resposta à requisição para atualizar um carro",
+                value={
+                    "id": 8752, "name": "Honda HRV 2021", "mpg": 24.85, "cyl": 4, "disp": 1.8,
+                    "hp": 140, "wt": 2.87686, "qsec": 11.88, "vs": 0, "am": 0, "gear": 7,
+                },
+                response_only=True, # Este exemplo é apenas para a resposta
+            ),
+        ],
     )
     def put(self, request, pk):
         '''
@@ -98,6 +120,16 @@ class CarView(APIView):
             200: MTCarsSerializer,
             404: OpenApiResponse(description="Carro não encontrado"),
         },
+        examples=[
+            OpenApiExample(
+                "Exemplo de criação de carro",
+                value={
+                    "name": "Honda HRV 2021", "mpg": 24.85, "cyl": 4, "disp": 1.8, 
+                    "hp": 140, "wt": 2.87686, "qsec": 11.88, "vs": 0, "am": 0, "gear": 7,
+                },
+                response_only=True, # Este exemplo é apenas para a resposta
+            ),
+        ],
     )
     def get(self, request, pk):
         '''
@@ -134,12 +166,20 @@ class CarCreateView(APIView):
             OpenApiExample(
                 "Exemplo de criação de carro",
                 value={
-                    "name": "Honda HRV 2021", "mpg": 24.85, "cyl": 4, "disp": 1.8, "hp": 140,
-                    "wt": 2.87686, "qsec": 11.88, "vs": 0, "am": 0, "gear": 7,
+                    "name": "Honda HRV 2021", "mpg": 24.85, "cyl": 4, "disp": 1.8,
+                    "hp": 140, "wt": 2.87686, "qsec": 11.88, "vs": 0, "am": 0, "gear": 7,
                 },
                 request_only=True, # Este exemplo é apenas para a requisição
             ),
-        ]
+            OpenApiExample(
+                "Exemplo de criação de carro",
+                value={
+                    "id": 8752, "name": "Honda HRV 2021", "mpg": 24.85, "cyl": 4, "disp": 1.8,
+                    "hp": 140, "wt": 2.87686, "qsec": 11.88, "vs": 0, "am": 0, "gear": 7,
+                },
+                response_only=True, # Este exemplo é apenas para a resposta
+            ),
+        ],
     )
     def post(self, request):
         '''
@@ -157,6 +197,58 @@ class CarCreateView(APIView):
 class CarsView(APIView):
     authentication_classes = []
     permission_classes = [AllowAny]
+
+    @extend_schema(
+        summary="Lista todos os carros",
+        description="Retorna uma lista de todos os carros disponíveis no banco de dados.",
+        tags=["Carros"],
+        responses={
+            200: MTCarsSerializer(many=True),
+            500: OpenApiResponse(description="Erro interno do servidor")
+        },
+        examples=[
+            OpenApiExample(
+                name="Exemplo de resposta bem-sucedida",
+                value=[
+                    {
+                        "id": 1, "name": "Mazda RX4", "mpg": 21.0, "cyl": 6, "disp": 160.0,
+                        "hp": 110, "wt": 2.620, "qsec": 16.46,"vs": 0, "am": 1, "gear": 4
+                    },
+                    {
+                        "id": 2, "name": "Honda Civic", "mpg": 30.5, "cyl": 4, "disp": 1.8,
+                        "hp": 140, "wt": 2.5, "qsec": 15.2, "vs": 1, "am": 1, "gear": 5
+                    },
+                    {
+                        "id": 3, "name": "Ford Mustang", "mpg": 19.8, "cyl": 8, "disp": 5.0,
+                        "hp": 450, "wt": 3.8, "qsec": 12.9, "vs": 0, "am": 1, "gear": 6
+                    }
+                ],
+                response_only=True,      # ← Importante: só aparece na resposta
+                status_codes=["200"],
+                description="Exemplo de lista de carros retornada pela API"
+            )
+        ]
+    )   
+    def get(self, request):
+        '''
+        Retorna a lista de carros em formato JSON.
+        Esse método é chamado quando o cliente faz uma requisição
+        GET para a URL associada a essa view.
+
+        Nenhum parâmetro é necessário para essa requisição, 
+        pois ela retorna todos os carros disponíveis 
+        no banco de dados.
+        '''
+
+        # DEBUG: Imprime o header de autenticação para verificar se o token JWT está sendo enviado corretamente
+        print("=" * 50)
+        print("AUTH HEADER:")
+        print(request.META.get("HTTP_AUTHORIZATION"))
+        print("=" * 50)
+
+        cars = MTCars.objects.all().order_by('name')
+        serializer = MTCarsSerializer(cars, many=True)
+        return Response(serializer.data)
     
     @extend_schema(
         summary="Exclui carros específicos",
@@ -192,49 +284,34 @@ class CarsView(APIView):
             return Response({'error': f'Carros com IDs {id_erro} não encontrados'}, status=status.HTTP_404_NOT_FOUND)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-    @extend_schema(
-        summary="Lista todos os carros",
-        description="Retorna uma lista de todos os carros disponíveis no banco de dados.",
-        tags=["Carros"],
-        responses={
-            200: MTCarsSerializer(many=True),
-            500: OpenApiResponse(description="Erro interno do servidor")
-        }
-    )   
-    def get(self, request):
-        '''
-        Retorna a lista de carros em formato JSON.
-        Esse método é chamado quando o cliente faz uma requisição
-        GET para a URL associada a essa view.
-
-        Nenhum parâmetro é necessário para essa requisição, 
-        pois ela retorna todos os carros disponíveis 
-        no banco de dados.
-        '''
-
-        # DEBUG: Imprime o header de autenticação para verificar se o token JWT está sendo enviado corretamente
-        print("=" * 50)
-        print("AUTH HEADER:")
-        print(request.META.get("HTTP_AUTHORIZATION"))
-        print("=" * 50)
-
-        cars = MTCars.objects.all().order_by('name')
-        serializer = MTCarsSerializer(cars, many=True)
-        return Response(serializer.data)
-
 @extend_schema(
-  summary="Exemplo de view protegida",
-  responses={
-    200: OpenApiExample(
-      'Resposta de sucesso',
-      value={"message": "Esta é uma view protegida. Você está autenticado!"},
-    ),
-    401: OpenApiExample(
-      'Não autorizado',
-      value={"detail": "Authentication credentials were not provided."},
-    ),
-  },
+    summary="Exemplo de view protegida",
+    description="Endpoint de teste para verificar autenticação JWT.",
+    tags=["Testes"],
+
+    responses={
+        200: OpenApiResponse(
+            description="Requisição bem-sucedida",
+            response={"type": "object", "properties": {"message": {"type": "string"}}}
+        ),
+        401: OpenApiResponse(
+            description="Não autorizado - Token ausente ou inválido"
+        ),
+    },
+    examples=[
+        OpenApiExample(
+            name="Resposta de Sucesso",
+            value={"message": "Esta é uma view protegida. Você está autenticado!"},
+            response_only=True,
+            status_codes=["200"],
+        ),
+        OpenApiExample(
+            name="Erro de Autenticação",
+            value={"detail": "Authentication credentials were not provided."},
+            response_only=True,
+            status_codes=["401"],
+        ),
+    ],
 )
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
